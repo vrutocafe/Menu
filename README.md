@@ -103,9 +103,189 @@ function render(){
           data-price="${x.id}" value="${x.price}">
       </label>
     `).join('');
+    renderCart();
 }
 document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('.filter').forEach(c=>c.classList.toggle('active',c===b));render()}));
-document.getElementById('apply').addEventListener('click',()=>{document.querySelectorAll('[data-price]').forEach(i=>{const p=menuData.find(x=>x.id===i.dataset.price);if(p&&i.value!=='')p.price=Number(i.value)});let phone=document.getElementById('phone').value.replace(/\D/g,'');if(phone.length>7){const url='https://wa.me/'+phone+'?text='+encodeURIComponent('¡Hola, VRUTO Café! Quiero hacer un pedido.');document.getElementById('waButton').href=url;document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>a.href=url)}render();alert('Cambios aplicados a esta vista. Para que sean permanentes, actualiza los datos en el archivo del sitio antes de publicarlo.')});render();
+document.getElementById('apply').addEventListener('click',()=>{document.querySelectorAll('[data-price]').forEach(i=>{const p=menuData.find(x=>x.id===i.dataset.price);if(p&&i.value!=='')p.price=Number(i.value)});let phone=document.getElementById('phone').value.replace(/\D/g,'');if(phone.length>7){const url='https://wa.me/'+phone+'?text='+encodeURIComponent('¡Hola, VRUTO Café! Quiero hacer un pedido.');document.getElementById('waButton').href=url;document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>a.href=url)}render();alert('Cambios aplicados a esta vista. Para que sean permanentes, actualiza los datos en el archivo del sitio antes de publicarlo.')});
+/* Carrito VRUTO */
+const WHATSAPP_VRUTO = '526693683462';
+const cart = [];
+let nextCartId = 1;
+
+function cartPrice(item) {
+  return Number(item.price) + (item.milk === 'Vegetal' ? 15 : 0);
+}
+
+function renderCart() {
+  const container = document.getElementById('cartItems');
+
+  if (!cart.length) {
+    container.innerHTML =
+      '<p class="cartempty">Todavía no agregas bebidas. Elige tus favoritas del menú.</p>';
+  } else {
+    container.innerHTML = cart.map(item => `
+      <article class="cartrow">
+        <div>
+          <h3>${item.name}</h3>
+          <p>${money(cartPrice(item))} por bebida</p>
+
+          <label style="font-size:12px">Tipo de leche
+            <select data-milk="${item.cartId}">
+              <option value="Entera" ${item.milk === 'Entera' ? 'selected' : ''}>Entera</option>
+              <option value="Deslactosada" ${item.milk === 'Deslactosada' ? 'selected' : ''}>Deslactosada</option>
+              <option value="Vegetal" ${item.milk === 'Vegetal' ? 'selected' : ''}>Vegetal (+$15)</option>
+              <option value="Sin leche" ${item.milk === 'Sin leche' ? 'selected' : ''}>Sin leche</option>
+            </select>
+          </label>
+
+          <label style="display:block;font-size:12px;margin-top:10px">Notas de esta bebida
+            <input data-note="${item.cartId}" value="${item.note}"
+              maxlength="180" placeholder="Ej. sin azúcar, poco hielo">
+          </label>
+
+          <div class="cartqty">
+            <button type="button" data-minus="${item.cartId}" aria-label="Quitar uno">−</button>
+            <strong>${item.qty}</strong>
+            <button type="button" data-plus="${item.cartId}" aria-label="Agregar uno">+</button>
+            <button type="button" class="removeitem" data-remove="${item.cartId}">Eliminar</button>
+          </div>
+        </div>
+        <strong>${money(cartPrice(item) * item.qty)}</strong>
+      </article>
+    `).join('');
+  }
+
+  const subtotal = cart.reduce(
+    (sum, item) => sum + cartPrice(item) * item.qty, 0
+  );
+
+  document.getElementById('cartSubtotal').textContent = money(subtotal);
+}
+
+/* Agregar bebidas */
+document.getElementById('items').addEventListener('click', event => {
+  const button = event.target.closest('[data-add]');
+  if (!button) return;
+
+  const product = menuData.find(item => item.id === button.dataset.add);
+  if (!product) return;
+
+  cart.push({
+    cartId: nextCartId++,
+    id: product.id,
+    name: product.name,
+    price: Number(product.price),
+    milk: 'Entera',
+    note: '',
+    qty: 1
+  });
+
+  renderCart();
+});
+
+/* Cambiar cantidades, leche y notas */
+document.getElementById('cartItems').addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+
+  if (button.dataset.plus) {
+    const item = cart.find(x => x.cartId === Number(button.dataset.plus));
+    if (item) item.qty++;
+  }
+
+  if (button.dataset.minus) {
+    const id = Number(button.dataset.minus);
+    const item = cart.find(x => x.cartId === id);
+    if (item) {
+      if (item.qty > 1) item.qty--;
+      else cart.splice(cart.indexOf(item), 1);
+    }
+  }
+
+  if (button.dataset.remove) {
+    const id = Number(button.dataset.remove);
+    const index = cart.findIndex(x => x.cartId === id);
+    if (index !== -1) cart.splice(index, 1);
+  }
+
+  renderCart();
+});
+
+document.getElementById('cartItems').addEventListener('change', event => {
+  const select = event.target.closest('[data-milk]');
+  if (select) {
+    const item = cart.find(x => x.cartId === Number(select.dataset.milk));
+    if (item) item.milk = select.value;
+    renderCart();
+  }
+});
+
+document.getElementById('cartItems').addEventListener('input', event => {
+  const input = event.target.closest('[data-note]');
+  if (input) {
+    const item = cart.find(x => x.cartId === Number(input.dataset.note));
+    if (item) item.note = input.value;
+  }
+});
+
+/* Generar el pedido completo para WhatsApp */
+document.getElementById('sendOrder').addEventListener('click', () => {
+  if (!cart.length) {
+    alert('Agrega al menos una bebida a tu carrito.');
+    return;
+  }
+
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const address = document.getElementById('customerAddress').value.trim();
+  const reference = document.getElementById('customerReference').value.trim();
+  const generalNotes = document.getElementById('orderNotes').value.trim();
+
+  if (!name || !address) {
+    alert('Escribe tu nombre y la dirección de entrega.');
+    return;
+  }
+
+  const subtotal = cart.reduce(
+    (sum, item) => sum + cartPrice(item) * item.qty, 0
+  );
+
+  const lines = cart.map(item =>
+    `• ${item.qty} x ${item.name} — ${money(cartPrice(item) * item.qty)}\n` +
+    `  Leche: ${item.milk}\n` +
+    (item.milk === 'Vegetal' ? '  Incluye suplemento de leche vegetal: $15 por bebida\n' : '') +
+    (item.note.trim() ? `  Nota: ${item.note.trim()}\n` : '')
+  );
+
+  const message = [
+    '☕ *NUEVO PEDIDO — VRUTO CAFÉ*',
+    '',
+    '*PRODUCTOS*',
+    ...lines,
+    `*Subtotal de bebidas: ${money(subtotal)}*`,
+    '',
+    '*DATOS DEL CLIENTE*',
+    `Nombre: ${name}`,
+    `Teléfono: ${phone || 'No proporcionado'}`,
+    `Dirección: ${address}`,
+    `Referencias: ${reference || 'Sin referencias'}`,
+    `Notas generales: ${generalNotes || 'Ninguna'}`,
+    '',
+    '*FORMA DE PAGO*',
+    'Únicamente transferencia bancaria.',
+    'Pedido pendiente de confirmación.',
+    '',
+    'El costo de entrega se confirma por WhatsApp.'
+  ].join('\n');
+
+  const url = 'https://wa.me/' + WHATSAPP_VRUTO +
+    '?text=' + encodeURIComponent(message);
+
+  window.open(url, '_blank');
+});
+
+renderCart();
+render();
 </script>
 </body></html>
 <style>
