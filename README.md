@@ -18,6 +18,52 @@
 <main id="inicio"><section class="hero"><div><div class="eyebrow">Café para bajar el ritmo</div><h1>Tu pausa.<br><em>Tu ritual.</em></h1><p>Café hecho para acompañar tus mañanas. Algo rico, algo simple y un momento para ti.</p><a class="pill" href="#menu">Descubre el menú&nbsp; ↘</a></div><div class="heroart" aria-label="Ilustración de una taza de VRUTO Café"><div class="sun"></div><div class="herofoot">good days start slow</div><div class="cup"><div class="cupmark">VRUTO<small>CAFÉ · N CHILL</small></div></div><div class="sticker">BUEN CAFÉ<br>BUENA<br>ENERGÍA</div></div></section>
 <div class="ticker"><span>VRUTO CAFÉ SIN FILTRO</span></div>
 <section class="menu" id="menu"><div class="sectionhead"><div><div class="eyebrow">Algo para tu mood</div><h2>El menú<span style="color:var(--olive)">.</span></h2></div><p>Elige tu favorito y mándanos tu pedido por WhatsApp. Fácil, rico y sin complicaciones.</p></div><div class="filters" id="filters"><button class="filter active" data-filter="Todos">Todo</button><button class="filter" data-filter="Calientes">Calientes</button><button class="filter" data-filter="Especiales">Especiales</button><button class="filter" data-filter="Fríos">Fríos</button></div><div class="items" id="items"></div></section>
+
+<!-- CARRITO VRUTO -->
+<section class="cartsection" id="carrito">
+  <div class="cartcontainer">
+    <div class="eyebrow">Tu pedido, a tu manera</div>
+    <h2>Tu carrito<span style="color:var(--olive)">.</span></h2>
+    <div id="cartItems">
+      <p class="cartempty">Todavía no agregas bebidas. Elige tus favoritas del menú.</p>
+    </div>
+
+    <div class="carttotal">
+      <span>Subtotal de bebidas</span>
+      <strong id="cartSubtotal">$0 MXN</strong>
+    </div>
+
+    <div class="checkout">
+      <h3>Datos de entrega</h3>
+      <label>Tu nombre
+        <input id="customerName" type="text" placeholder="Nombre completo">
+      </label>
+      <label>Teléfono de contacto
+        <input id="customerPhone" type="tel" placeholder="669 123 4567">
+      </label>
+      <label>Dirección completa
+        <input id="customerAddress" type="text" placeholder="Calle, número y colonia">
+      </label>
+      <label>Referencias para llegar
+        <textarea id="customerReference" rows="2" placeholder="Entre calles, color de casa, etc."></textarea>
+      </label>
+      <label>Notas del pedido
+        <textarea id="orderNotes" rows="2" placeholder="Indicaciones generales para el pedido"></textarea>
+      </label>
+
+      <div class="paymentnotice">
+        <strong>Pago únicamente por transferencia bancaria</strong>
+        <p>Al enviar tu pedido por WhatsApp te compartiremos los datos para realizar el pago. Tu pedido queda pendiente de confirmación.</p>
+      </div>
+
+      <button class="pill checkoutbutton" id="sendOrder" type="button">
+        Enviar pedido por WhatsApp ↗
+      </button>
+      <p class="cartnote">Revisa tus bebidas y la dirección antes de enviar.</p>
+    </div>
+  </div>
+</section>
+
 <section class="orderband" id="pedir"><div class="orderinner"><div><div class="eyebrow" style="color:#625a37">¿Se te antojó?</div><h2>Tu café está a un mensaje.</h2><p>Escríbenos por WhatsApp para pedir o resolver cualquier duda.</p></div><a class="pill" id="waButton" href="https://wa.me/5210000000000" target="_blank" rel="noopener">Pedir por WhatsApp ↗</a></div></section>
 <section class="about" id="nosotros"><div><div class="eyebrow">Una pausa en tu día</div><h2>Menos prisa.<br><em style="font-family:Georgia,serif;color:var(--olive);font-weight:400">Más café.</em></h2><p>En VRUTO creemos que un buen café no necesita complicarse. Solo buenos ingredientes, algo de calma y ganas de disfrutar el momento.</p></div><div class="quote">“Un pequeño ritual puede cambiar el mood de todo tu día.”<small>— VRUTO Café</small></div></section>
 <section class="admin"><details><summary>Editar menú y datos de pedidos</summary><p>Edita los precios y el número de WhatsApp para personalizar esta versión. Los cambios se aplican en esta vista mientras la página permanezca abierta.</p><div class="editor" id="editor"></div><label class="field">WhatsApp (código de país + número, solo dígitos)<input id="phone" value="5210000000000" inputmode="numeric"></label><button class="pill" id="apply">Aplicar cambios</button><p class="note">Los precios marcados como “por confirmar” son provisionales: revisa tu menú original antes de publicar.</p></details></section>
