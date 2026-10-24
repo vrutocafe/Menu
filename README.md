@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<div class="topline">Café N Chill · Mazatlán, Sinaloa</div>
+<div class="topline">Café sin filtro · Mazatlán, Sinaloa</div>
 <header class="nav"><a class="logo" href="#inicio">VRUTO<span>.</span></a><nav class="navlinks"><a href="#menu">Menú</a><a href="#nosotros">Nosotros</a><a href="#pedir">Pedidos</a></nav><a class="pill" href="#menu">Ver menú ↘</a></header>
 <main id="inicio"><section class="hero"><div><div class="eyebrow">Café para bajar el ritmo</div><h1>Tu pausa.<br><em>Tu ritual.</em></h1><p>Café hecho para acompañar tus mañanas. Algo rico, algo simple y un momento para ti.</p><a class="pill" href="#menu">Descubre el menú&nbsp; ↘</a></div><div class="heroart" aria-label="Ilustración de una taza de VRUTO Café"><div class="sun"></div><div class="herofoot">good days start slow</div><div class="cup"><div class="cupmark">VRUTO<small>CAFÉ · N CHILL</small></div></div><div class="sticker">BUEN CAFÉ<br>BUENA<br>ENERGÍA</div></div></section>
 <div class="ticker"><span>VRUTO CAFÉ SIN FILTRO</span></div>
