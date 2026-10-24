@@ -77,7 +77,6 @@ const menuData=[
 ];let activeFilter='Todos';
 function money(n){return '$'+Number(n).toLocaleString('es-MX')+' MXN'}
 function render()
-function render(){
   document.getElementById('items').innerHTML =
     menuData
       .filter(x => activeFilter === 'Todos' || x.category === activeFilter)
