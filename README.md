@@ -177,11 +177,13 @@ function getPrice(product,size){
 
 function renderMenu(){
  const grid=document.getElementById("menuGrid");
- const filtered=currentFilter==="Todos"
-   ?menuData
-   :menuData.filter(item=>currentFilter==="Especiales"
-     ?item.category==="Especiales"
-     :item.category===currentFilter);
+ const filtered = currentFilter === "Todos"
+  ? menuData
+  : currentFilter === "Calientes"
+    ? menuData.filter(item => item.hot === true)
+    : currentFilter === "Fríos"
+      ? menuData.filter(item => item.hot === false)
+      : menuData.filter(item => item.category === "Especiales");
 
  grid.innerHTML=filtered.map(item=>{
    const label=item.displayName||item.name;
