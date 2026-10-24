@@ -136,8 +136,6 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
 const WHATSAPP_NUMBER = "526693683462";
 
 const menuData = [
-{id:19,name:"Pumpkin Spice Caliente",displayName:"Pumpkin Spice Latte",category:"Especiales",description:"Espresso, leche y especias de calabaza.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80}},
-{id:20,name:"Pumpkin Spice Frío",displayName:"Pumpkin Spice Latte Frío",category:"Especiales",description:"Pumpkin Spice Latte helado con notas de calabaza y especias.",hot:false,milk:true,coldPrice:85}
   {id:1,name:"Americano",category:"Calientes",description:"Espresso con agua caliente.",hot:true,milk:false,prices:{"12 oz":50,"16 oz":60},sugar:true},
   {id:2,name:"Latte Regular",category:"Calientes",description:"Espresso con leche cremosa.",hot:true,milk:true,prices:{"12 oz":65,"16 oz":75},sugar:true},
   {id:3,name:"Latte Caramel",category:"",description:"Espresso, leche y caramelo.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
