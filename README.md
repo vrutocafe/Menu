@@ -607,34 +607,85 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
     return;
   }
 
-  let message = "☕ *NUEVO PEDIDO — VRUTO CAFÉ*\\n\\n";
-  message += "*Nombre:* " + name + "\\n";
-  message += "*Teléfono:* " + phone + "\\n";
-  message += "*Dirección:* " + address + "\\n";
+  const total = cart.reduce((sum, item) => sum + itemPrice(item), 0);
 
-  if (references) message += "*Referencias:* " + references + "\\n";
+  // Encabezado del pedido
+  let message = "☕ *VRUTO CAFÉ* ☕\n";
+  message += "_café sin filtro._\n";
+  message += "━━━━━━━━━━━━━━━━━━\n";
+  message += "🧾 *NUEVO PEDIDO*\n";
+  message += "━━━━━━━━━━━━━━━━━━\n\n";
 
-  message += "\\n*MI PEDIDO:*\\n";
+  // Datos del cliente
+  message += "👤 *DATOS DEL CLIENTE*\n";
+  message += "• Nombre: " + name + "\n";
+  message += "• Teléfono: " + phone + "\n\n";
 
+  // Datos de entrega
+  message += "📍 *DATOS DE ENTREGA*\n";
+  message += "• Dirección: " + address + "\n";
+
+  if (references) {
+    message += "• Referencias: " + references + "\n";
+  }
+
+  message += "\n━━━━━━━━━━━━━━━━━━\n";
+  message += "🛍️ *DETALLE DEL PEDIDO*\n";
+  message += "━━━━━━━━━━━━━━━━━━\n";
+
+  // Productos
   cart.forEach((item, index) => {
-    message += "\\n" + (index + 1) + ". *" + item.name + "*\\n";
-    message += "   Leche: " + item.milk + "\\n";
-    message += "   Precio: " + money(itemPrice(item)) + "\\n";
-    if (item.note.trim()) message += "   Nota: " + item.note.trim() + "\\n";
+    message += "\n*Bebida " + (index + 1) + ": " + item.name + "*\n";
+    message += "• Cantidad: 1\n";
+
+    const product = menuData.find(p => p.id === item.id);
+
+    if (product && product.milk) {
+      message += "• Leche: " + item.milk + "\n";
+    }
+
+    if (item.note && item.note.trim()) {
+      message += "• Indicaciones: " + item.note.trim() + "\n";
+    }
+
+    message += "• Precio: " + money(itemPrice(item)) + "\n";
   });
 
-  const total = cart.reduce((sum, item) => sum + itemPrice(item), 0);
-  message += "\\n*Subtotal: " + money(total) + "*\\n";
-  message += "Envío: por confirmar\\n";
-  message += "*Método de pago: Transferencia bancaria*\\n";
+  // Resumen de pago
+  message += "\n━━━━━━━━━━━━━━━━━━\n";
+  message += "💰 *RESUMEN DE COMPRA*\n";
+  message += "━━━━━━━━━━━━━━━━━━\n";
+  message += "• Productos: " + cart.length + "\n";
+  message += "• Subtotal: " + money(total) + "\n";
+  message += "• Envío: Por confirmar\n";
+  message += "• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n";
 
-  if (generalNotes) message += "\\n*Notas adicionales:* " + generalNotes + "\\n";
+  // Método de pago
+  message += "💳 *MÉTODO DE PAGO*\n";
+  message += "Transferencia bancaria\n";
+  message += "_Los datos bancarios se compartirán por este medio._\n";
 
-  message += "\\nHola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia?";
+  if (generalNotes) {
+    message += "\n📝 *NOTAS ADICIONALES*\n";
+    message += generalNotes + "\n";
+  }
 
-  const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+  // Cierre
+  message += "\n━━━━━━━━━━━━━━━━━━\n";
+  message += "¡Gracias por elegir *VRUTO Café*! ☕\n";
+  message += "Hola, quiero confirmar este pedido. ";
+  message += "¿Me comparten los datos para realizar la transferencia ";
+  message += "y confirmar el costo del envío?";
+
+  const url =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message);
+
   window.open(url, "_blank");
 });
+
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
