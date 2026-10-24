@@ -1,3 +1,4 @@
+<span class="logo">VRUTO<span>®</span></span>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
