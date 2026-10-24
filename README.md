@@ -291,7 +291,7 @@ footer {
 
   <section id="menu">
     <div class="section-heading">
-      <h2>El menú</h2>
+      <h2>Menú</h2>
       <p>Elige tus favoritos y arma tu pedido.</p>
     </div>
 
