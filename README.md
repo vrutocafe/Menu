@@ -38,3 +38,45 @@ document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{
 document.getElementById('apply').addEventListener('click',()=>{document.querySelectorAll('[data-price]').forEach(i=>{const p=menuData.find(x=>x.id===i.dataset.price);if(p&&i.value!=='')p.price=Number(i.value)});let phone=document.getElementById('phone').value.replace(/\D/g,'');if(phone.length>7){const url='https://wa.me/'+phone+'?text='+encodeURIComponent('¡Hola, VRUTO Café! Quiero hacer un pedido.');document.getElementById('waButton').href=url;document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>a.href=url)}render();alert('Cambios aplicados a esta vista. Para que sean permanentes, actualiza los datos en el archivo del sitio antes de publicarlo.')});render();
 </script>
 </body></html>
+<style>
+/* Tipografía VRUTO Café */
+.navlinks,
+.pill,
+.eyebrow,
+.topline,
+.ticker,
+.filter,
+.item p,
+.price,
+.orderinner p,
+.footer p,
+.admin,
+.quote small {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.item h3,
+.sectionhead h2,
+.orderinner h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 em,
+.about h2 em {
+  font-family: 'Quicksand', sans-serif !important;
+  font-weight: 300 !important;
+  font-style: normal;
+}
+
+.quote {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+}
+</style>
