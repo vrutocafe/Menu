@@ -123,3 +123,138 @@ document.getElementById('apply').addEventListener('click',()=>{document.querySel
   font-weight: 500;
 }
 </style>
+<style>
+/* Carrito y formulario de pedidos VRUTO */
+.cartsection {
+  background: var(--cream);
+  padding: 65px 5vw;
+}
+.cartcontainer {
+  max-width: 850px;
+  margin: auto;
+}
+.cartcontainer h2 {
+  font-size: clamp(36px, 5vw, 58px);
+  letter-spacing: -.06em;
+  margin: 12px 0 28px;
+}
+.cartempty {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 20px 0;
+}
+.cartrow {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 12px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cartrow h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+.cartrow p {
+  margin: 5px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.cartrow select,
+.cartrow input,
+.checkout input,
+.checkout textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--black);
+  font: inherit;
+  font-size: 13px;
+}
+.cartrow .cartqty {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 10px;
+}
+.cartqty button,
+.removeitem {
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: var(--white);
+  cursor: pointer;
+}
+.cartqty .removeitem {
+  border-radius: 8px;
+  width: auto;
+  padding: 0 10px;
+}
+.addcart {
+  margin-top: 12px;
+  border: 1px solid var(--olive);
+  border-radius: 99px;
+  padding: 9px 13px;
+  background: transparent;
+  color: var(--olive);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.addcart:hover {
+  background: var(--olive);
+  color: white;
+}
+.carttotal {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.checkout {
+  padding-top: 25px;
+  display: grid;
+  gap: 15px;
+}
+.checkout h3 {
+  margin: 0;
+  font-size: 21px;
+}
+.checkout label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+.paymentnotice {
+  padding: 18px;
+  border-radius: 10px;
+  background: #ece8d9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.paymentnotice p {
+  margin-bottom: 0;
+}
+.checkoutbutton {
+  border: 0;
+  cursor: pointer;
+  width: fit-content;
+}
+.cartnote {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 0;
+}
+@media(max-width:600px) {
+  .cartsection { padding: 50px 6vw; }
+  .cartrow { grid-template-columns: minmax(0,1fr); }
+  .checkoutbutton { width: 100%; }
+}
+</style>
