@@ -104,7 +104,6 @@ function render(){
       </label>
     `).join('');
 }
-{document.getElementById('items').innerHTML=menuData.filter(x=>activeFilter==='Todos'||x.category===activeFilter).map(x=>`<article class="item"><div><h3>${x.name}</h3><p>${x.desc}<br><span style="font-size:10px;letter-spacing:.04em">${x.extra}</span></p></div><div class="price">${money(x.price)}</div></article>`).join('');document.getElementById('editor').innerHTML=menuData.map(x=>`<label class="field">${x.name}<input type="number" min="0" step="1" data-price="${x.id}" value="${x.price}"></label>`).join('')}
 document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('.filter').forEach(c=>c.classList.toggle('active',c===b));render()}));
 document.getElementById('apply').addEventListener('click',()=>{document.querySelectorAll('[data-price]').forEach(i=>{const p=menuData.find(x=>x.id===i.dataset.price);if(p&&i.value!=='')p.price=Number(i.value)});let phone=document.getElementById('phone').value.replace(/\D/g,'');if(phone.length>7){const url='https://wa.me/'+phone+'?text='+encodeURIComponent('¡Hola, VRUTO Café! Quiero hacer un pedido.');document.getElementById('waButton').href=url;document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>a.href=url)}render();alert('Cambios aplicados a esta vista. Para que sean permanentes, actualiza los datos en el archivo del sitio antes de publicarlo.')});render();
 </script>
