@@ -104,6 +104,19 @@
   .cart-item { border-bottom: 1px solid var(--border); padding: 15px 0; }
   .cart-item:last-child { border-bottom: 0; }
   .cart-item-head { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; }
+  <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',-1)"
+    aria-label="Restar una bebida">−</button>
+
+  <strong>${item.quantity || 1}</strong>
+
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',1)"
+    aria-label="Agregar una bebida">+</button>
+
+  <span style="font-size:12px;color:#777765">bebida(s)</span>
+</div>
   .cart-item small { color: var(--muted); }
   .cart-options { margin-top: 10px; display: grid; gap: 9px; }
   .cart-options label, .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; }
@@ -552,7 +565,7 @@ function renderCart() {
   return `<div class="cart-item">
     <div class="cart-item-head">
       <span>${escapeHTML(item.name)} · ${item.size}</span>
-      <span>${money(itemPrice(item))}</span>
+      <span>${money(itemPrice(item) * (item.quantity || 1))}</span>
     </div>
     <div class="cart-options">
       <div>
