@@ -135,6 +135,22 @@
     footer { padding-bottom: 85px; }
   }
   @media(max-width: 370px) { .menu-grid { grid-template-columns: 1fr; } }
+  .hero {
+  background-image:
+    linear-gradient(rgba(30, 32, 24, 0.35), rgba(30, 32, 24, 0.35)),
+    url("portada.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fffdf7;
+  border-radius: 18px;
+}
+
+.hero h1,
+.hero p,
+.hero .eyebrow {
+  color: #fffdf7;
+}
 </style>
 </head>
 <body>
