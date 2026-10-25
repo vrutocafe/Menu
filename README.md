@@ -299,6 +299,36 @@ h3 a {
     animation: none;
   }
 }
+
+/* ANIMACIONES AL DESPLAZARSE */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Aparición escalonada de las tarjetas */
+.product.reveal {
+  transition-delay: var(--delay, 0ms);
+}
+
+/* Respetar la preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 </style>
 </head>
 <body>
