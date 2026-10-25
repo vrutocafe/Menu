@@ -844,18 +844,48 @@ h3 a {
   font-size: 12px;
 }
 
-.main-footer small {
-  font-size: 10px;
-  opacity: 0.8;
+/* FOOTER COMPACTO */
+.main-footer {
+  padding: 12px 15px !important;
+  gap: 4px !important;
+  line-height: 1.2 !important;
+  text-align: center;
 }
+
+/* Logo más pequeño */
 .footer-logo {
   display: block;
-  width: 100px;
+  width: 65px;
   height: auto;
-  margin: 0 auto 8px;
-  object-fit: contain;
-  background-color: transparent !important;
-  mix-blend-mode: normal;
+  margin: 0 auto 3px;
+  padding: 0;
+  background: transparent;
+}
+
+/* Texto del footer */
+.main-footer span {
+  line-height: 1.2;
+}
+
+.main-footer .social-links {
+  margin: 4px 0;
+  gap: 12px;
+  line-height: 1.2;
+}
+
+.main-footer .social-links a {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* Copyright */
+.main-footer small {
+  display: block;
+  margin: 3px 0 0;
+  padding: 0;
+  line-height: 1.2;
+  font-size: 11px;
 }
 </style>
 </head>
