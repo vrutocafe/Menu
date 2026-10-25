@@ -60,10 +60,6 @@
     gap: 10px;
   }
 
-  .nav-menu {
-    font-size: 10px;
-  }
-
   .header-cart {
     padding: 10px 12px;
     font-size: 12px;
