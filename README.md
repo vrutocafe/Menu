@@ -51,6 +51,14 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
 @media(max-width:700px){header{padding:12px 5%;gap:10px}.logo{font-size:23px}.logo img{width:95px}.hero{padding:55px 6%}section{padding:38px 5%}.order-layout{grid-template-columns:1fr}.menu-grid{grid-template-columns:1fr 1fr;gap:10px}.product{padding:14px;min-height:215px}.product h3{font-size:16px}.product-top{flex-direction:column;gap:5px}.price{font-size:15px}.mobile-cart{display:block}footer{padding-bottom:85px}.order-steps{grid-template-columns:1fr}.values{grid-template-columns:1fr}.instagram-grid{gap:7px}.desktop-nav{gap:11px}.desktop-nav a{font-size:11px}.header-cart{padding:10px 12px;font-size:12px}}
 
 @media(max-width:370px){.menu-grid{grid-template-columns:1fr}}
+/* OCULTAR ICONOS DE ENLACE AUTOMÁTICOS */
+a.anchor,
+.anchor,
+.header-anchor,
+h1 a,
+h2 a,
+h3 a {
+  display: none !important;
 </style>
 </head>
 <body>
