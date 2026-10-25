@@ -246,7 +246,7 @@
 <header class="site-header">
  <a class="brand-logo" href="#inicio">
   <img
-    src="./logo-fondo-transparente.png"
+    src="logo-fondo-transparente.png"
     alt="VRUTO Café"
   >
 </a>
