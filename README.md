@@ -151,6 +151,93 @@
 .hero .eyebrow {
   color: #fffdf7;
 }
+/* SECCIÓN DE TEMPORADA */
+.seasonal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+  padding: 65px 8%;
+  background: #e9e4d5;
+}
+
+.seasonal-image {
+  height: 370px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.seasonal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s;
+}
+
+.seasonal-image:hover img {
+  transform: scale(1.04);
+}
+
+.seasonal-content {
+  max-width: 470px;
+}
+
+.seasonal-label {
+  color: #69734b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.seasonal-content h2 {
+  font-size: clamp(35px, 5vw, 58px);
+  line-height: 1;
+  margin: 18px 0;
+}
+
+.seasonal-content p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #666653;
+}
+
+.seasonal-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.seasonal-prices span {
+  padding: 10px 13px;
+  background: #f7f3e8;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.seasonal-button {
+  display: inline-block;
+  background: #69734b;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 650px) {
+  .seasonal {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 40px 6%;
+  }
+
+  .seasonal-image {
+    height: 290px;
+  }
+}
 </style>
 </head>
 <body>
