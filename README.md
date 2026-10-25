@@ -243,7 +243,7 @@
 <body>
 <header class="site-header">
   <a class="brand-logo" href="#inicio">
-    <img src="https://www.image2url.com/r2/default/images/1792897328958-346a2171-22f4-4a34-b4eb-10c684581b39.png" alt="VRUTO CAFÉ">
+    <img src="<a href='https://postimg.cc/vxQjbVDf' target='_blank'><img src='https://i.postimg.cc/sxSRPPr6/Copia-de-Copia-de-Logo-Chiringuito-de-Playa-Sol-y-Luna-Tipografico-Moderno-20260821-162505-0000.png' border='0' alt='Copia-de-Copia-de-Logo-Chiringuito-de-Playa-Sol-y-Luna-Tipografico-Moderno-20260821-162505-0000'></a>" alt="VRUTO CAFÉ">
   </a>
   <button class="header-cart" onclick="goToCart()">
     🛒 Carrito (<span id="cartCount">0</span>)
