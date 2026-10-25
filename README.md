@@ -169,6 +169,32 @@
     <p>Tu próximo café favorito, hasta tu puerta.</p>
     <a class="primary-btn" href="#menu">Explorar menú ↓</a>
   </section>
+  <section class="seasonal">
+  <div class="seasonal-image">
+    <img
+      src="imagenes/pumpkin.jpg"
+      alt="Pumpkin Spice Latte de VRUTO Café"
+      loading="lazy"
+    >
+  </div>  <div class="seasonal-content">
+    <span class="seasonal-label">EDICIÓN DE TEMPORADA</span><h2>Pumpkin Spice.</h2>
+
+<p>
+  Espresso, leche y especias de calabaza.
+  Tu bebida favorita de otoño, a tu manera.
+</p>
+
+<div class="seasonal-prices">
+  <span>Caliente desde $70</span>
+  <span>Frío $85</span>
+</div>
+
+<a href="#menu" class="seasonal-button">
+  DESCUBRIR EN EL MENÚ →
+</a>
+
+  </div>
+</section>
   <section id="menu">
     <div class="section-heading"><h2></h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
