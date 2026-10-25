@@ -38,17 +38,19 @@
     z-index: 100;
   }
 
-  .brand-logo {
-    display: flex;
-    align-items: center;
-  }
+.brand-logo {
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
 
-  .brand-logo img {
-    display: block;
-    width: 150px;
-    max-height: 65px;
-    object-fit: contain;
-  }
+.brand-logo img {
+  display: block;
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
 
   .nav-menu {
     font-size: 12px;
@@ -242,9 +244,12 @@
 </head>
 <body>
 <header class="site-header">
-  <a class="brand-logo" href="#inicio">
-    <img src="vruto-logo-transparente.png" alt="VRUTO CAFÉ">
-  </a>
+ <a class="brand-logo" href="#inicio">
+  <img
+    src="./logo-fondo-transparente.png"
+    alt="VRUTO Café"
+  >
+</a>
   <button class="header-cart" onclick="goToCart()">
     🛒 Carrito (<span id="cartCount">0</span>)
   </button>
