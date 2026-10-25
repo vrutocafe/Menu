@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#69734b">
-<title>VRUTO Café | Café sin filtro</title>
+<title>VRUTO | Café sin filtro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -256,7 +256,7 @@
  <a class="brand-logo" href="#inicio">
   <img
     src="./vruto-logo-transparente.png"
-    alt="VRUTO Café"
+    alt="VRUTO CAFÉ"
   >
 </a>
   <button class="header-cart" onclick="goToCart()">
@@ -596,7 +596,7 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 
  if(generalNotes) message += "\n📝 *NOTAS ADICIONALES*\n" + generalNotes + "\n";
 
- message += "\n━━━━━━━━━━━━━━━━━━\n¡Gracias por elegir *VRUTO Café*! ☕\nHola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia y confirmar el costo del envío?";
+ message += "\n━━━━━━━━━━━━━━━━━━\n¡Gracias por elegir *VRUTO CAFÉ*! ☕\nHola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia y confirmar el costo del envío?";
 
  const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
  window.open(url, "_blank");
