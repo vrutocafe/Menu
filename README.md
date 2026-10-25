@@ -1205,6 +1205,161 @@ h3 a {
     gap: 18px;
   }
 }
+/* INSTAGRAM — VRUTO CAFÉ */
+.vruto-instagram {
+  background: var(--cream);
+  padding: 68px 6% 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.instagram-heading {
+  margin: 0 auto 36px;
+  animation: vrutoStepAppear .6s ease both;
+}
+
+.instagram-eyebrow {
+  display: inline-block;
+  color: var(--olive);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 7px;
+}
+
+.instagram-heading h2 {
+  color: var(--dark);
+  font-size: clamp(27px, 4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin: 8px 0 12px;
+}
+
+.instagram-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 auto;
+}
+
+/* CONTENEDOR DE REELS */
+.instagram-reels {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 34px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+/* TARJETAS DE INSTAGRAM */
+.instagram-reels .instagram-media {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  border: 1px solid rgba(105, 115, 75, 0.16) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #fffdf7 !important;
+  box-shadow: 0 5px 18px rgba(45, 47, 34, 0.06) !important;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* BOTÓN PARA VISITAR INSTAGRAM */
+.instagram-follow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 23px;
+  border: 1px solid var(--olive);
+  border-radius: 30px;
+  color: var(--olive);
+  background: transparent;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  transition: background .25s ease, color .25s ease;
+}
+
+.instagram-follow:hover {
+  background: var(--olive);
+  color: #fffdf7;
+}
+
+.instagram-handle {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  margin: 14px 0 0;
+}
+
+/* TABLET */
+@media (max-width: 800px) {
+  .vruto-instagram {
+    padding: 52px 5% 45px;
+  }
+
+  .instagram-reels {
+    gap: 14px;
+  }
+
+  .instagram-reels .instagram-media {
+    border-radius: 12px !important;
+  }
+}
+
+/* CELULAR */
+@media (max-width: 600px) {
+  .vruto-instagram {
+    padding: 44px 6% 40px;
+  }
+
+  .instagram-heading {
+    margin-bottom: 25px;
+  }
+
+  .instagram-heading h2 {
+    font-size: 29px;
+  }
+
+  .instagram-heading p {
+    max-width: 280px;
+    font-size: 13px;
+  }
+
+  .instagram-reels {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+
+  .instagram-reels .instagram-media {
+    border-radius: 15px !important;
+  }
+
+  .instagram-follow {
+    padding: 12px 20px;
+  }
+}
+
+/* RESPETAR MOVIMIENTO REDUCIDO */
+@media (prefers-reduced-motion: reduce) {
+  .instagram-heading {
+    animation: none;
+  }
+
+  .instagram-reels .instagram-media,
+  .instagram-follow {
+    transition: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -1401,16 +1556,7 @@ h3 a {
     </blockquote>
 
   </div>
-
-  <a class="instagram-follow"
-     href="https://www.instagram.com/vrutocafe/"
-     target="_blank"
-     rel="noopener noreferrer">
-    Síguenos en Instagram ↗
-  </a>
-
-  <p class="instagram-handle">@vrutocafe</p>
-
+  
 <script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
