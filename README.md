@@ -104,19 +104,6 @@
   .cart-item { border-bottom: 1px solid var(--border); padding: 15px 0; }
   .cart-item:last-child { border-bottom: 0; }
   .cart-item-head { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; }
-  <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
-  <button type="button"
-    onclick="changeQuantity('${item.cartId}',-1)"
-    aria-label="Restar una bebida">−</button>
-
-  <strong>${item.quantity || 1}</strong>
-
-  <button type="button"
-    onclick="changeQuantity('${item.cartId}',1)"
-    aria-label="Agregar una bebida">+</button>
-
-  <span style="font-size:12px;color:#777765">bebida(s)</span>
-</div>
   .cart-item small { color: var(--muted); }
   .cart-options { margin-top: 10px; display: grid; gap: 9px; }
   .cart-options label, .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; }
@@ -530,19 +517,22 @@ function addToCart(id) {
  renderCart();
  document.getElementById("pedido").scrollIntoView({behavior: "smooth"});
 }
-
 function itemPrice(item) {
-  
+  const milk = milkOptions.find(o => o.value === item.milk);
+  return item.price
+    + (milk?.extra || 0)
+    + item.extras.reduce(
+        (sum, key) => sum + (extraOptions.find(o => o.value === key)?.price || 0),
+        0
+      );
+}
+
 function changeQuantity(id, change) {
   const item = cart.find(i => i.cartId === id);
   if (!item) return;
 
   item.quantity = Math.max(1, (item.quantity || 1) + change);
   renderCart();
-}
-
- const milk = milkOptions.find(o => o.value === item.milk);
- return item.price + (milk?.extra || 0) + item.extras.reduce((sum, key) => sum + (extraOptions.find(o => o.value === key)?.price || 0), 0);
 }
 
 function renderCart() {
@@ -564,10 +554,25 @@ function renderCart() {
 
   return `<div class="cart-item">
     <div class="cart-item-head">
-      <span>${escapeHTML(item.name)} · ${item.size}</span>
-      <span>${money(itemPrice(item) * (item.quantity || 1))}</span>
-    </div>
-    <div class="cart-options">
+  <span>${escapeHTML(item.name)} · ${item.size}</span>
+  <span>${money(itemPrice(item) * (item.quantity || 1))}</span>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',-1)"
+    aria-label="Restar una bebida">−</button>
+
+  <strong>${item.quantity || 1}</strong>
+
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',1)"
+    aria-label="Agregar una bebida">+</button>
+
+  <span style="font-size:12px;color:#777765">bebida(s)</span>
+</div>
+
+<div class="cart-options">
       <div>
         <label for="size-${item.cartId}">Tamaño</label>
         <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
@@ -672,8 +677,11 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
    return;
  }
 
- const total = cart.reduce((sum, item) => sum + itemPrice(item), 0);
- let message = "☕ *VRUTO CAFÉ* ☕\n_café sin filtro._\n━━━━━━━━━━━━━━━━━━\n🧾 *NUEVO PEDIDO*\n━━━━━━━━━━━━━━━━━━\n\n";
+const total = cart.reduce(
+  (sum, item) => sum + itemPrice(item) * (item.quantity || 1),
+  0
+);
+let message = "☕ *VRUTO CAFÉ* ☕\n_café sin filtro._\n━━━━━━━━━━━━━━━━━━\n🧾 *NUEVO PEDIDO*\n━━━━━━━━━━━━━━━━━━\n\n";
 
  message += "👤 *DATOS DEL CLIENTE*\n• Nombre: " + name + "\n• Teléfono: " + phone + "\n\n📍 *DATOS DE ENTREGA*\n• Dirección: " + address + "\n";
 
@@ -683,7 +691,7 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 
  cart.forEach((item, index) => {
   const product = menuData.find(p => p.id === item.id);
-  message += "\n*Bebida " + (index + 1) + ": " + item.name + "*\n• Tamaño: " + item.size + "\n• Cantidad: 1\n";
+  message += "\n*Bebida " + (index + 1) + ": " + item.name + "*\n• Tamaño: " + item.size + "\n• Cantidad: " + (item.quantity || 1) + "\n";
 
   if(product && product.milk) {
     message += "• Leche: " + item.milk + (item.milk === "Almendra" ? " (+$15.00 MXN)" : "") + "\n";
@@ -697,10 +705,12 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 
   if(item.note.trim()) message += "• Indicaciones: " + item.note.trim() + "\n";
 
-  message += "• Precio: " + money(itemPrice(item)) + "\n";
+message += "• Precio unitario: " + money(itemPrice(item)) +
+  "\n• Total de esta bebida: " +
+  money(itemPrice(item) * (item.quantity || 1)) + "\n";
  });
 
- message += "\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n• Productos: " + cart.length + "\n• Subtotal: " + money(total) + "\n• Envío: Por confirmar\n• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
+ message += "\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n"• Productos: " + cart.reduce((sum, item) => sum + (item.quantity || 1), 0) + "\n• Subtotal: " + money(total) + "\n• Envío: Por confirmar\n• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
 
  if(generalNotes) message += "\n📝 *NOTAS ADICIONALES*\n" + generalNotes + "\n";
 
