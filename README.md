@@ -153,7 +153,12 @@ const menuData = [
   {id:15,name:"Chai Latte Frío",displayName:"Chai Latte",category:"Fríos",description:"Chai especiado con leche y hielo.",hot:false,milk:true,coldPrice:78},
   {id:16,name:"Chai Sucio Frío",displayName:"Chai Sucio",category:"Fríos",description:"Chai con espresso, leche y hielo.",hot:false,milk:true,coldPrice:85},
   {id:17,name:"Matcha Frío",displayName:"Matcha",category:"Fríos",description:"Matcha helado y cremoso.",hot:false,milk:true,coldPrice:85},
-  {id:18,name:"Taro Latte Frío",displayName:"Taro Latte",category:"Fríos",description:"Taro con leche y hielo.",hot:false,milk:true,coldPrice:80}
+  {id:18,name:"Taro Latte Frío",displayName:"Taro Latte",category:"Fríos",description:"Taro con leche y hielo.",hot:false,milk:true,coldPrice:80},
+
+{id:19,name:"Pumpkin Spice Caliente",displayName:"Pumpkin Spice Caliente",category:"Especiales",description:"Espresso, leche y especias de calabaza.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80}},
+
+{id:20,name:"Pumpkin Spice Frío",displayName:"Pumpkin Spice Frío",category:"Especiales",description:"Pumpkin Spice Latte helado con notas de calabaza y especias.",hot:false,milk:true,coldPrice:85}
+];
 ];
 
 const milkOptions=[
