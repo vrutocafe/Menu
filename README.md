@@ -118,8 +118,28 @@
   .whatsapp-btn { width: 100%; border: 0; border-radius: 12px; padding: 15px; background: var(--olive); color: white; font-weight: 700; font-size: 15px; }
   .whatsapp-btn:disabled { opacity: .45; cursor: not-allowed; }
   
-  .about { text-align: center; background: var(--cream); padding-top: 42px; padding-bottom: 42px; }
-  .about p { max-width: 560px; margin: 12px auto; line-height: 1.7; }
+/* SECCIÓN ABOUT MÁS COMPACTA */
+.about {
+  text-align: center;
+  background: var(--cream);
+  padding: 22px 6%;
+}
+
+.about h2 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.about p {
+  max-width: 500px;
+  margin: 7px auto;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.about p strong {
+  font-size: 12px;
+}
 
 footer {
   background: var(--dark);
