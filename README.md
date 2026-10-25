@@ -656,6 +656,67 @@ h3 a {
     font-size: 16px;
   }
 }
+/* CARRITO VRUTO — VERDE OLIVO + CONTADOR ROJO */
+
+.header-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  position: relative;
+  background: #69734b;
+  color: #fffdf7;
+  border: none;
+  border-radius: 30px;
+  padding: 11px 17px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.header-cart:hover {
+  background: #535d3b;
+  transform: translateY(-1px);
+}
+
+.header-cart svg {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+}
+
+.cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 23px;
+  height: 23px;
+  padding: 0 5px;
+  border-radius: 50%;
+  background: #d94343;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0 0 2px #69734b;
+}
+
+@media (max-width: 700px) {
+  .header-cart {
+    gap: 7px;
+    padding: 10px 12px;
+  }
+
+  .header-cart svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-badge {
+    min-width: 22px;
+    height: 22px;
+  }
+}
 </style>
 </head>
 <body>
@@ -666,9 +727,17 @@ h3 a {
     alt="VRUTO CAFÉ"
   >
 </a>
-  <button class="header-cart" onclick="goToCart()">
-    🛒 Carrito (<span id="cartCount">0</span>)
-  </button>
+  <button class="header-cart" onclick="goToCart()" aria-label="Ver carrito">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 8H6"
+      fill="none" stroke="currentColor" stroke-width="1.8"
+      stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10" cy="20" r="1.2" fill="currentColor"/>
+    <circle cx="18" cy="20" r="1.2" fill="currentColor"/>
+  </svg>
+  <span>Carrito</span>
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
 </header>
 <main>
   <section class="hero" id="inicio">
