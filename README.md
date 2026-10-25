@@ -1086,7 +1086,7 @@ h3 a {
 }
 
 .instagram-heading h2 {
-  color: var(--text);
+  color: var(--dark);
   font-size: clamp(25px, 4vw, 36px);
   margin: 9px 0;
 }
@@ -1453,22 +1453,27 @@ h3 a {
     Síguenos en Instagram ↗
   </a>
   <p class="instagram-handle">@vrutocafe</p>
-  <section class="about">
-    <h2>Un buen café cambia el día.</h2>
-    <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
-    <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
-  </section>
+</section>
+
+<section class="about">
+  <h2>Un buen café cambia el día.</h2>
+  <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
+  <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
+</section>
+
+</main>
 
 <footer class="main-footer">
-<img src="./vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">  <span>café sin filtro. · Mazatlán, Sinaloa</span>
+  <img src="./vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">
+  <span>café sin filtro. · Mazatlán, Sinaloa</span>
+
   <div class="social-links">
-    <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://wa.me/526693683462" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://wa.me/526693683462" target="_blank" rel="noopener noreferrer">WhatsApp</a>
   </div>
 
   <small>© <span id="year"></span> VRUTO Café</small>
-
-
+</footer>
 
 <button class="mobile-cart" onclick="goToCart()">
   <span class="mobile-cart-info">
