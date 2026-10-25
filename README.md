@@ -1017,8 +1017,6 @@ const descuentoPedido = getDiscount();
 const totalPedido = getFinalTotal();
 const totalBebidas = getDrinkCount();
 
-);
-
 let message =
   "☕ *VRUTO CAFÉ* ☕\n" +
   "_café sin filtro._\n" +
