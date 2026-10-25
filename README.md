@@ -1398,6 +1398,62 @@ h3 a {
       </div>
     </div>
   </section>
+  <!-- INSTAGRAM VRUTO -->
+<section class="vruto-instagram" id="instagram">
+  <div class="instagram-heading">
+    <span class="instagram-eyebrow">CAFÉ SIN FILTRO.</span>
+    <h2>Un poco más de VRUTO</h2>
+    <p>Café, matcha y momentos que se antojan.</p>
+  </div>
+
+  <div class="instagram-reels">
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/Dc1w5ERPft6/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 1 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Descubre VRUTO</span>
+    </a>
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/DdKdgsnSvoB/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 2 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Un café para tu día</span>
+    </a>
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/DdrgtXqNxJ-/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 3 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Momentos VRUTO</span>
+    </a>
+
+  </div>
+
+  <a class="instagram-follow"
+     href="https://www.instagram.com/vrutocafe/"
+     target="_blank"
+     rel="noopener noreferrer">
+    Síguenos en Instagram ↗
+  </a>
+  <p class="instagram-handle">@vrutocafe</p>
+  </select>
   <section class="about">
     <h2>Un buen café cambia el día.</h2>
     <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
