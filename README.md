@@ -449,6 +449,7 @@ const menuData = [
 const milkOptions = [
   {value:"Entera",label:"Leche entera"},
   {value:"Deslactosada",label:"Leche deslactosada"},
+  {value:"Deslactosada Light",label:"Leche deslactosada Light"},
   {value:"Almendra",label:"Leche de almendra (+$15)",extra:15},
   {value:"Sin leche",label:"Sin leche"}
 ];
