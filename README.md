@@ -790,6 +790,45 @@ h3 a {
   opacity: 0.8;
 }
 
+.main-footer {
+  background: var(--olive);
+  color: var(--white);
+  text-align: center;
+  padding: 16px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.main-footer strong {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 2px;
+  margin-bottom: 2px;
+}
+
+.main-footer > span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.main-footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 6px 0;
+}
+
+.main-footer .social-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.main-footer small {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
 </style>
 </head>
 <body>
@@ -930,9 +969,10 @@ h3 a {
   </section>
 </main>
 
+
 <footer class="main-footer">
   <strong>VRUTO</strong>
-  <p>café sin filtro. · Mazatlán, Sinaloa</p>
+  <span>café sin filtro. · Mazatlán, Sinaloa</span>
 
   <div class="social-links">
     <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener">Instagram</a>
@@ -941,6 +981,7 @@ h3 a {
 
   <small>© <span id="year"></span> VRUTO Café</small>
 </footer>
+
 
 <button class="mobile-cart" onclick="goToCart()">
   <span class="mobile-cart-info">
