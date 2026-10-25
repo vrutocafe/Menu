@@ -1005,7 +1005,11 @@ document.getElementById("discountCode").addEventListener("keydown", event => {
     applyDiscount();
   }
 });
-
+document.getElementById("discountCode").addEventListener("input", () => {
+  appliedPromo = null;
+  document.getElementById("discountStatus").textContent = "";
+  renderCart();
+});
 
 function getPrice(product, size) {
   return product.hot ? product.prices[size] : product.coldPrice;
