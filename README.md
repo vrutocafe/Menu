@@ -283,7 +283,7 @@
   </div>
 </section>
   <section id="menu">
-    <div class="section-heading"><h2></h2><p>Elige tus favoritos y arma tu pedido.</p></div>
+    <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       
       <button class="filter" data-filter="Calientes">Calientes</button>
