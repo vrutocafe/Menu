@@ -892,6 +892,114 @@ h3 a {
   line-height: 1.2;
   font-size: 11px;
 }
+
+/* VRUTO — CÓMO PEDIR, DISEÑO COMPACTO */
+.how-to-order {
+  background: var(--cream);
+  padding: 24px 6%;
+}
+
+.how-to-order .section-heading {
+  margin-bottom: 16px;
+}
+
+.how-to-order .section-heading h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.how-to-order .section-heading p {
+  font-size: 13px;
+}
+
+.how-to-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.how-to-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.how-to-number {
+  flex: 0 0 29px;
+  width: 29px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--olive);
+  color: white;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.how-to-card h3 {
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 2px 0 5px;
+}
+
+.how-to-card p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .how-to-order {
+    padding: 20px 5%;
+  }
+
+  .how-to-order .section-heading {
+    margin-bottom: 12px;
+  }
+
+  .how-to-order .section-heading h2 {
+    font-size: 23px;
+  }
+
+  .how-to-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .how-to-card {
+    padding: 11px 12px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+
+  .how-to-number {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .how-to-card h3 {
+    font-size: 13px;
+    margin: 1px 0 3px;
+  }
+
+  .how-to-card p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
 </style>
 </head>
 <body>
