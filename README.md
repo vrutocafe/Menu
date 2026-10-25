@@ -77,9 +77,14 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="#inicio">VRUTO<span>®</span></a>
-  <button class="header-cart" onclick="goToCart()">🛒 Carrito (<span id="cartCount">0</span>)</button>
+<header class="site-header">
+  <a class="brand-logo" href="#inicio">
+    <img src="imagenes/logo.png" alt="VRUTO Café">
+  </a><a href="#menu" class="nav-menu">MENÚ</a>
+
+  <button class="header-cart" onclick="goToCart()">
+    🛒 Carrito (<span id="cartCount">0</span>)
+  </button>
 </header>
 <main>
   <section class="hero" id="inicio">
