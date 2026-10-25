@@ -717,6 +717,45 @@ h3 a {
     height: 22px;
   }
 }
+.social-footer {
+  background: #f4f0e6;
+  color: #454a35;
+  text-align: center;
+  padding: 45px 20px 30px;
+  margin-top: 50px;
+}
+
+.social-footer h2 {
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.social-footer p {
+  margin-bottom: 22px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.social-links a {
+  color: #69734b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.social-links a:hover {
+  color: #454a35;
+}
+
+.social-footer small {
+  color: #777765;
+  font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -1494,5 +1533,22 @@ function observeRevealElements() {
 observeRevealElements();
 
 </script>
+<footer class="social-footer">
+  <h2>VRUTO CAFÉ</h2>
+  <p>Café sin filtro.</p>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/vrutocafe/"
+       target="_blank" rel="noopener">Instagram</a>
+
+    <a href="https://www.facebook.com/"
+       target="_blank" rel="noopener">Facebook</a>
+
+    <a href="https://wa.me/526693683462"
+       target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <small>© 2026 VRUTO Café · Mazatlán, Sinaloa</small>
+</footer>
 </body>
 </html>
