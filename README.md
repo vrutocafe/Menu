@@ -268,7 +268,7 @@
   <div class="seasonal-image">
     <img
       src="1790312149990.png"
-      alt="Pumpkin Spice Latte de VRUTO Café"
+      alt="1790312149990.png"
       loading="lazy"
     >
   </div>  <div class="seasonal-content">
