@@ -267,7 +267,7 @@
   <section class="seasonal">
   <div class="seasonal-image">
     <img
-      src="IMG-20261022-WA0006.jpg"
+      src="1790312149990.png"
       alt="PumpkinSPiceLatte"
       loading="lazy"
     >
