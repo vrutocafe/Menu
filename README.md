@@ -364,7 +364,7 @@ const extraOptions = [
   {value:"syrup",label:"Jarabe extra (+$15)",price:15}
 ];
 
-let cart = [], currentFilter = "Todos";
+let cart = [], currentFilter = "Calientes";
 const money = amount => "$" + amount.toFixed(2) + " MXN";
 
 function getPrice(product, size) {
