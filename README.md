@@ -854,6 +854,8 @@ h3 a {
   height: auto;
   margin: 0 auto 8px;
   object-fit: contain;
+  background-color: transparent !important;
+  mix-blend-mode: normal;
 }
 </style>
 </head>
