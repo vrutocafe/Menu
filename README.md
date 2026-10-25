@@ -2111,6 +2111,5 @@ function observeRevealElements() {
 observeRevealElements();
 
 </script>
-</footer>
 </body>
 </html>
