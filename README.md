@@ -260,6 +260,45 @@ h3 a {
   display: none !important;
 }
 
+/* ANIMACIONES DE ENTRADA VRUTO */
+
+@keyframes vrutoEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación al cargar la portada */
+.hero .eyebrow {
+  animation: vrutoEntrada 0.8s ease-out both;
+}
+
+.hero h1 {
+  animation: vrutoEntrada 0.9s ease-out 0.15s both;
+}
+
+.hero p {
+  animation: vrutoEntrada 0.9s ease-out 0.3s both;
+}
+
+.hero .primary-btn {
+  animation: vrutoEntrada 0.9s ease-out 0.45s both;
+}
+/* Accesibilidad: respetar la preferencia
+   de reducir movimiento del dispositivo */
+@media (prefers-reduced-motion: reduce) {
+  .hero .eyebrow,
+  .hero h1,
+  .hero p,
+  .hero .primary-btn {
+    animation: none;
+  }
+}
 </style>
 </head>
 <body>
