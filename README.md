@@ -43,7 +43,7 @@
     align-items: center;
   }
 
-  .brand-logo img {https://kommodo.ai/i/18CY099hSz8FCxPjSrcK
+  .brand-logo img {
     display: block;
     width: 125px;
     max-height: 65px;
@@ -243,7 +243,7 @@
 <body>
 <header class="site-header">
   <a class="brand-logo" href="#inicio">
-    <img src="imagenes/logo.png" alt="VRUTO CAFÉ">
+    <img src="https://cdn.imagetourls.com/uploads/tyImg/vSYTIWXw.png" alt="VRUTO CAFÉ">
   </a>
   <button class="header-cart" onclick="goToCart()">
     🛒 Carrito (<span id="cartCount">0</span>)
