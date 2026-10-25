@@ -710,7 +710,12 @@ message += "• Precio unitario: " + money(itemPrice(item)) +
   money(itemPrice(item) * (item.quantity || 1)) + "\n";
  });
 
- message += "\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n"• Productos: " + cart.reduce((sum, item) => sum + (item.quantity || 1), 0) + "\n• Subtotal: " + money(total) + "\n• Envío: Por confirmar\n• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
+message += "\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n";
+message += "• Productos: " + cart.reduce((sum, item) => sum + (item.quantity || 1), 0) + "\n";
+message += "• Subtotal: " + money(total) + "\n";
+message += "• Envío: Por confirmar\n";
+message += "• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n";
+message += "💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
 
  if(generalNotes) message += "\n📝 *NOTAS ADICIONALES*\n" + generalNotes + "\n";
 
