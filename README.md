@@ -243,14 +243,11 @@
     height: 290px;
   }
 }
-.section-heading {
-  text-align: center;
-  width: 100%;
-}
-
-.section-heading h2,
-.section-heading p {
-  text-align: center;
+.section-heading h2 a,
+.section-heading h2 .anchor,
+.section-heading h2 .header-anchor,
+.section-heading h2 a.anchor {
+  display: none !important;
 }
 </style>
 </head>
