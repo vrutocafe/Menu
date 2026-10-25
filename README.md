@@ -962,7 +962,6 @@ h3 a {
     </div>
   </section>
   <section class="about">
-    <div class="eyebrow">VRUTO</div>
     <h2>Un buen café cambia el día.</h2>
     <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
     <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
