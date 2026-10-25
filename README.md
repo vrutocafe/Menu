@@ -1017,7 +1017,53 @@ h3 a {
   margin-top: 0 !important;
   padding-top: 20px !important;
 }
+/* ANIMACIÓN — CÓMO PEDIR */
+@keyframes vrutoStepAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.how-to-order .section-heading {
+  animation: vrutoStepAppear 0.6s ease both;
+}
+
+.how-to-card {
+  opacity: 0;
+  animation: vrutoStepAppear 0.6s ease forwards;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.how-to-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.how-to-card:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.how-to-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.how-to-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(49, 57, 37, 0.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .how-to-order .section-heading,
+  .how-to-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 </style>
 </head>
 <body>
