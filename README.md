@@ -999,6 +999,24 @@ h3 a {
     line-height: 1.4;
   }
 }
+/* Eliminar espacio entre Cómo pedir y Menú */
+.how-to-order {
+  padding-bottom: 8px !important;
+  margin-bottom: 0 !important;
+}
+
+.how-to-order .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.how-to-grid {
+  margin-bottom: 0 !important;
+}
+
+#menu {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+}
 
 </style>
 </head>
