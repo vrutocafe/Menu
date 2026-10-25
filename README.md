@@ -1375,7 +1375,11 @@ const url =
   "https://wa.me/" + WHATSAPP_NUMBER +
   "?text=" + encodeURIComponent(message);
 
-window.open(url, "_blank");
+const whatsappWindow = window.open(url, "_blank");
+
+if (!whatsappWindow) {
+  window.location.href = url;
+}
 
 });
 
