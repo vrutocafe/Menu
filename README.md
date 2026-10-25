@@ -996,7 +996,7 @@ h3 a {
 
 
 <footer class="main-footer">
-<img src="vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">  <span>café sin filtro. · Mazatlán, Sinaloa</span>
+<img src="./vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">  <span>café sin filtro. · Mazatlán, Sinaloa</span>
   <div class="social-links">
     <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://wa.me/526693683462" target="_blank" rel="noopener">WhatsApp</a>
