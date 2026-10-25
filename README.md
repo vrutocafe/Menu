@@ -7,6 +7,67 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+ /* ENCABEZADO PREMIUM VRUTO */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 6%;
+  background: #f7f3e8;
+  border-bottom: 1px solid #e5e0d2;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo img {
+  display: block;
+  width: 125px;
+  max-height: 65px;
+  object-fit: contain;
+}
+
+.nav-menu {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header-cart {
+  background: #69734b;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 17px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .brand-logo img {
+    width: 100px;
+    max-height: 50px;
+  }
+
+  .site-header {
+    padding: 12px 4%;
+    gap: 10px;
+  }
+
+  .nav-menu {
+    font-size: 10px;
+  }
+
+  .header-cart {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
 <style>
 :root{--olive:#69734b;--dark:#343a27;--butter:#f2d77a;--cream:#f7f3e8;--white:#fffdf7;--border:#e5e0d2;--muted:#777765}
 *{box-sizing:border-box}
