@@ -481,7 +481,8 @@ function renderMenu() {
      ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
      : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
 
-   return `<article class="product">
+   return `<article class="product reveal"
+  style="--delay: ${Math.min(filtered.indexOf(item) % 4, 3) * 100}ms">
      <div class="category-label">${item.category}</div>
      <div class="product-top"><h3>${label}</h3></div>
      <div class="price">${priceText}</div>
@@ -489,6 +490,7 @@ function renderMenu() {
      <button class="add-btn" onclick="addToCart(${item.id})">+ Agregar al carrito</button>
    </article>`;
  }).join("");
+  observeRevealElements();
 }
 
 document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
@@ -685,6 +687,44 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 document.getElementById("year").textContent = new Date().getFullYear();
 renderMenu();
 renderCart();
+  
+/* ACTIVAR ANIMACIONES AL ENTRAR EN PANTALLA */
+
+const revealElements = document.querySelectorAll(
+  ".seasonal-image, .seasonal-content, " +
+  "#menu .section-heading, #menu .filters, " +
+  "#pedido .section-heading, #pedido .panel, " +
+  ".about > *"
+);
+
+revealElements.forEach(element => {
+  element.classList.add("reveal");
+});
+
+function observeRevealElements() {
+  const elements = document.querySelectorAll(".reveal:not(.visible)");
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach(element => element.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  elements.forEach(element => observer.observe(element));
+}
+
+observeRevealElements();
+
 </script>
 </body>
 </html>
