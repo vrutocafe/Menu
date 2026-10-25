@@ -859,7 +859,12 @@ h3 a {
   height: auto;
   margin: 0 auto 3px;
   padding: 0;
-  background: transparent;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  mix-blend-mode: normal;
+  object-fit: contain;
 }
 
 /* Texto del footer */
