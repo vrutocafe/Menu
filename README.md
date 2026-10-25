@@ -243,7 +243,7 @@
 <body>
 <header class="site-header">
   <a class="brand-logo" href="#inicio">
-    <img src="https://i.postimg.cc/sxSRPPr6/Copia-de-Copia-de-Logo-Chiringuito-de-Playa-Sol-y-Luna-Tipografico-Moderno-20260821-162505-0000.png" alt="VRUTO CAFÉ">
+    <img src="vruto-logo-transparente.png" alt="VRUTO CAFÉ">
   </a>
   <button class="header-cart" onclick="goToCart()">
     🛒 Carrito (<span id="cartCount">0</span>)
