@@ -1411,8 +1411,6 @@ h3 a {
 
   <p class="instagram-handle">@vrutocafe</p>
 
-</section>
-
 <script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
