@@ -604,7 +604,9 @@ function renderCart() {
   </div>`;
  }).join("");
 
- document.getElementById("subtotal").textContent = money(cart.reduce((sum, item) => sum + itemPrice(item), 0));
+document.getElementById("subtotal").textContent = money(
+  cart.reduce((sum, item) => sum + itemPrice(item) * (item.quantity || 1), 0)
+);
 }
 
 function updateSize(id, size) {
