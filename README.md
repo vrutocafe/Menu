@@ -1181,55 +1181,28 @@ h3 a {
 
 .instagram-follow:hover {
   opacity: .88;
-  transform: translateY(-2px);
+/* REELS REALES DE INSTAGRAM */
+.instagram-reels {
+  max-width: 1050px;
+  margin: 0 auto 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
 }
 
-.instagram-handle {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 12px;
+.instagram-media {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  border-radius: 12px !important;
 }
 
-@media (max-width: 600px) {
-  .vruto-instagram {
-    padding: 38px 5% 35px;
-  }
-
-  .instagram-heading {
-    margin-bottom: 20px;
-  }
-
+@media (max-width: 700px) {
   .instagram-reels {
-    gap: 9px;
-    margin-bottom: 23px;
-  }
-
-  .reel-placeholder {
-    border-radius: 8px;
-  }
-
-  .reel-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 13px;
-  }
-
-  .reel-caption {
-    font-size: 11px;
-    line-height: 1.4;
-    margin-top: 8px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .instagram-heading,
-  .instagram-reel {
-    animation: none;
-  }
-
-  .instagram-reel,
-  .instagram-follow {
-    transition: none;
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    gap: 18px;
   }
 }
 </style>
@@ -1398,8 +1371,9 @@ h3 a {
       </div>
     </div>
   </section>
-  <!-- INSTAGRAM VRUTO -->
+<!-- INSTAGRAM VRUTO -->
 <section class="vruto-instagram" id="instagram">
+
   <div class="instagram-heading">
     <span class="instagram-eyebrow">CAFÉ SIN FILTRO.</span>
     <h2>Un poco más de VRUTO</h2>
@@ -1408,41 +1382,23 @@ h3 a {
 
   <div class="instagram-reels">
 
-    <a class="instagram-reel"
-       href="https://www.instagram.com/reel/Dc1w5ERPft6/"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Ver Reel 1 de VRUTO en Instagram">
-      <div class="reel-placeholder">
-        <span class="reel-icon">▶</span>
-        <span>VER REEL</span>
-      </div>
-      <span class="reel-caption">Descubre VRUTO</span>
-    </a>
+    <blockquote
+      class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/reel/Dc1w5ERPft6/"
+      data-instgrm-version="14">
+    </blockquote>
 
-    <a class="instagram-reel"
-       href="https://www.instagram.com/reel/DdKdgsnSvoB/"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Ver Reel 2 de VRUTO en Instagram">
-      <div class="reel-placeholder">
-        <span class="reel-icon">▶</span>
-        <span>VER REEL</span>
-      </div>
-      <span class="reel-caption">Un café para tu día</span>
-    </a>
+    <blockquote
+      class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/reel/DdKdgsnSvoB/"
+      data-instgrm-version="14">
+    </blockquote>
 
-    <a class="instagram-reel"
-       href="https://www.instagram.com/reel/DdrgtXqNxJ-/"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Ver Reel 3 de VRUTO en Instagram">
-      <div class="reel-placeholder">
-        <span class="reel-icon">▶</span>
-        <span>VER REEL</span>
-      </div>
-      <span class="reel-caption">Momentos VRUTO</span>
-    </a>
+    <blockquote
+      class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/reel/DdrgtXqNxJ-/"
+      data-instgrm-version="14">
+    </blockquote>
 
   </div>
 
@@ -1452,7 +1408,12 @@ h3 a {
      rel="noopener noreferrer">
     Síguenos en Instagram ↗
   </a>
+
   <p class="instagram-handle">@vrutocafe</p>
+
+</section>
+
+<script async src="https://www.instagram.com/embed.js"></script>
 </section>
 
 <section class="about">
