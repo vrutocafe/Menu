@@ -64,6 +64,7 @@
     padding: 10px 12px;
     font-size: 12px;
   }
+  <style>
   /* PORTADA FOTOGRÁFICA */
 .hero {
   position: relative;
