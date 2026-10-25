@@ -40,11 +40,11 @@
 
 .brand-logo {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  background: transparent !important;
+  width: auto;
+  margin: 0;
+  background: transparent;
 }
 
 .brand-logo img {
@@ -52,9 +52,7 @@
   width: 160px;
   height: auto;
   object-fit: contain;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  background: transparent;
 }
 
   .nav-menu {
