@@ -149,6 +149,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
     <h1>café sin<br>filtro.</h1>
     <p>Tu próximo café favorito, hasta tu puerta.</p>
     <a class="primary-btn" href="#menu">Explorar menú ↓</a>
+    <<section>
   <section id="menu">
     <div class="section-heading"><h2></h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
