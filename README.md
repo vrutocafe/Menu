@@ -391,6 +391,71 @@ h3 a {
 .cart-remove:hover {
   color: #b34738;
 }
+
+/* DESCUENTOS VRUTO */
+.discount-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f7f3e8;
+  border: 1px solid #e5e0d2;
+  border-radius: 12px;
+}
+
+.discount-box label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.discount-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.discount-input-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #e5e0d2;
+  border-radius: 9px;
+  text-transform: uppercase;
+}
+
+.discount-input-row button {
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  background: var(--olive);
+  color: white;
+  font-weight: 700;
+}
+
+.discount-status {
+  margin: 9px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.discount-success { color: #426b36; }
+.discount-error { color: #a14b3d; }
+
+.discount-summary {
+  display: none;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.discount-amount {
+  color: #426b36;
+  font-weight: 700;
+}
+
+.final-total {
+  font-size: 21px;
+}
 </style>
 </head>
 <body>
@@ -454,14 +519,57 @@ h3 a {
       <div class="panel" id="cartPanel">
         <h3>🛒 Mi carrito</h3>
         <div id="cartItems"><p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p></div>
-        <div class="total-row"><span>Subtotal</span><span id="subtotal">$0.00 MXN</span></div>
-        <p class="empty" style="margin-top: 10px;">El costo de envío se confirma por WhatsApp.</p>
+        
+<div class="total-row">
+  <span>Subtotal</span>
+  <span id="subtotal">$0.00 MXN</span>
+</div>
+
+<div class="discount-box">
+  <label for="discountCode">¿Tienes un código de descuento?</label>
+
+  <div class="discount-input-row">
+    <input
+      type="text"
+      id="discountCode"
+      placeholder="Ingresa tu código"
+      autocomplete="off"
+      maxlength="30"
+    >
+    <button type="button" onclick="applyDiscount()">Aplicar</button>
+  </div>
+
+  <p id="discountStatus" class="discount-status" aria-live="polite"></p>
+</div>
+
+<div id="discountSummary" class="discount-summary">
+  <span id="discountLabel">Descuento</span>
+  <span id="discountAmount" class="discount-amount">-$0.00 MXN</span>
+</div>
+
+<div class="total-row final-total">
+  <span>Total de bebidas</span>
+  <span id="finalTotal">$0.00 MXN</span>
+</div>
+
+<p class="empty" style="margin-top: 10px;">
+  El costo de envío se confirma por WhatsApp.
+</p>
       </div>
       <div class="panel">
         <h3>📍 Datos de entrega</h3>
         <form id="orderForm">
           <div class="field"><label for="customerName">Nombre *</label><input id="customerName" name="customerName" required placeholder="¿A nombre de quién?"></div>
-          <div class="field"><label for="customerPhone">Teléfono de contacto *</label><input id="customerPhone" name="customerPhone" type="tel" required placeholder="Tu número de teléfono"></div>
+          <div class="field"><label for="customerPhone">Teléfono de contacto *</label><input id="customerPhone" name="customerPhone" type="tel" required placeholder="Tu número de teléfono"></div>   
+          
+<div class="field">
+  <label for="deliveryZone">Zona de entrega *</label>
+  <select id="deliveryZone" name="deliveryZone" required>
+    <option value="">Selecciona tu zona</option>
+    <option value="Centro">Centro de Mazatlán</option>
+    <option value="Otra zona">Otra zona de Mazatlán</option>
+  </select>
+</div>
           <div class="field"><label for="deliveryAddress">Dirección completa *</label><textarea id="deliveryAddress" name="deliveryAddress" required placeholder="Calle, número, colonia y ciudad"></textarea></div>
           <div class="field"><label for="references">Referencias de entrega</label><input id="references" name="references" placeholder="Entre calles, color de portón, oficina, etc."></div>
           <div class="field"><label for="generalNotes">Notas adicionales</label><textarea id="generalNotes" name="generalNotes" placeholder="Indicaciones para tu pedido"></textarea></div>
@@ -523,6 +631,171 @@ const extraOptions = [
 
 let cart = [], currentFilter = "Fríos";
 const money = amount => "$" + amount.toFixed(2) + " MXN";
+  
+/* =====================================
+   CÓDIGOS PROMOCIONALES VRUTO CAFÉ
+===================================== */
+
+const DISCOUNT_CODES = {
+  OFFICE15: {
+    percentage: 15,
+    minDrinks: 3,
+    zone: "Centro"
+  }
+};
+
+let appliedPromo = null;
+
+function getDrinkCount() {
+  return cart.reduce(
+    (sum, item) => sum + Number(item.quantity || 1),
+    0
+  );
+}
+
+function getSubtotal() {
+  return cart.reduce(
+    (sum, item) => sum + itemPrice(item) * Number(item.quantity || 1),
+    0
+  );
+}
+
+function getDiscount() {
+  if (!appliedPromo) return 0;
+
+  return Math.round(
+    getSubtotal() * appliedPromo.percentage
+  ) / 100;
+}
+
+function getFinalTotal() {
+  return Math.max(0, getSubtotal() - getDiscount());
+}
+
+function setDiscountStatus(message, success = false) {
+  const status = document.getElementById("discountStatus");
+
+  status.textContent = message;
+  status.className = "discount-status " +
+    (success ? "discount-success" : "discount-error");
+}
+
+function applyDiscount() {
+  const code = document.getElementById("discountCode")
+    .value.trim().toUpperCase();
+
+  const zone = document.getElementById("deliveryZone").value;
+  const promo = DISCOUNT_CODES[code];
+
+  if (!code) {
+    appliedPromo = null;
+    setDiscountStatus("Ingresa un código promocional.");
+    renderCart();
+    return;
+  }
+
+  if (!promo) {
+    appliedPromo = null;
+    setDiscountStatus("El código ingresado no es válido.");
+    renderCart();
+    return;
+  }
+
+  if (getDrinkCount() < promo.minDrinks) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "Necesitas al menos " + promo.minDrinks + " bebidas para usar este código."
+    );
+    renderCart();
+    return;
+  }
+
+  if (zone !== promo.zone) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "OFFICE15 solo es válido para entregas en el Centro de Mazatlán."
+    );
+    renderCart();
+    return;
+  }
+
+  appliedPromo = {
+    code,
+    percentage: promo.percentage,
+    minDrinks: promo.minDrinks,
+    zone: promo.zone
+  };
+
+  setDiscountStatus(
+    "¡Código aplicado! Tienes " + promo.percentage + "% de descuento.",
+    true
+  );
+
+  renderCart();
+}
+
+function renderDiscountTotals() {
+  const subtotal = getSubtotal();
+
+  // Comprueba de nuevo las condiciones al actualizar el carrito.
+  if (appliedPromo) {
+    if (getDrinkCount() < appliedPromo.minDrinks) {
+      appliedPromo = null;
+      setDiscountStatus(
+        "Descuento eliminado: necesitas al menos 3 bebidas."
+      );
+    } else if (
+      document.getElementById("deliveryZone").value !== appliedPromo.zone
+    ) {
+      appliedPromo = null;
+      setDiscountStatus(
+        "Descuento eliminado: la promoción solo aplica en el Centro."
+      );
+    }
+  }
+
+  const discount = getDiscount();
+  const finalTotal = Math.max(0, subtotal - discount);
+
+  document.getElementById("subtotal").textContent = money(subtotal);
+  document.getElementById("finalTotal").textContent = money(finalTotal);
+
+  const summary = document.getElementById("discountSummary");
+
+  if (appliedPromo && discount > 0) {
+    summary.style.display = "flex";
+    document.getElementById("discountLabel").textContent =
+      "Descuento " + appliedPromo.percentage + "%";
+    document.getElementById("discountAmount").textContent =
+      "-" + money(discount);
+  } else {
+    summary.style.display = "none";
+  }
+}
+
+// Si cambia la zona de entrega, vuelve a validar.
+document.getElementById("deliveryZone").addEventListener("change", () => {
+  if (
+    appliedPromo &&
+    document.getElementById("deliveryZone").value !== appliedPromo.zone
+  ) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "Descuento eliminado: la promoción solo aplica en el Centro."
+    );
+  }
+
+  renderCart();
+});
+
+// Permite aplicar el código pulsando Enter.
+document.getElementById("discountCode").addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    applyDiscount();
+  }
+});
+
 
 function getPrice(product, size) {
   return product.hot ? product.prices[size] : product.coldPrice;
@@ -601,12 +874,14 @@ function renderCart() {
  const container = document.getElementById("cartItems");
 const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); document.getElementById("cartCount").textContent = count;
  document.getElementById("mobileCartCount").textContent = count;
+ 
+if (!count) {
+  container.innerHTML =
+    '<p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p>';
 
- if(!count) {
-   container.innerHTML = '<p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p>';
-   document.getElementById("subtotal").textContent = money(0);
-   return;
- }
+  renderDiscountTotals();
+  return;
+}
 
  container.innerHTML = cart.map(item => {
   const product = menuData.find(p => p.id === item.id);
@@ -670,9 +945,7 @@ const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); documen
   </div>`;
  }).join("");
 
-document.getElementById("subtotal").textContent = money(
-  cart.reduce((sum, item) => sum + itemPrice(item) * (item.quantity || 1), 0)
-);
+renderDiscountTotals();
 }
 
 function updateSize(id, size) {
@@ -738,15 +1011,12 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
    return;
  }
 
+const zonaPedido = document.getElementById("deliveryZone").value;
+const subtotalPedido = getSubtotal();
+const descuentoPedido = getDiscount();
+const totalPedido = getFinalTotal();
+const totalBebidas = getDrinkCount();
 
-const total = cart.reduce(
-  (sum, item) => sum + itemPrice(item) * (item.quantity || 1),
-  0
-);
-
-const totalBebidas = cart.reduce(
-  (sum, item) => sum + (item.quantity || 1),
-  0
 );
 
 let message =
@@ -810,17 +1080,30 @@ cart.forEach((item, index) => {
     "• *Importe: " + money(itemPrice(item) * cantidad) + "*\n";
 });
 
+
 message +=
   "\n━━━━━━━━━━━━━━━━━━\n" +
   "💰 *RESUMEN DE COMPRA*\n" +
   "━━━━━━━━━━━━━━━━━━\n" +
   "• Total de bebidas: " + totalBebidas + "\n" +
-  "• Subtotal: " + money(total) + "\n" +
+  "• Zona de entrega: " + zonaPedido + "\n" +
+  "• Subtotal: " + money(subtotalPedido) + "\n";
+
+if (appliedPromo && descuentoPedido > 0) {
+  message +=
+    "• Código promocional: " + appliedPromo.code + "\n" +
+    "• Descuento (" + appliedPromo.percentage + "%): -" +
+    money(descuentoPedido) + "\n";
+}
+
+message +=
   "• Envío: Por confirmar\n" +
-  "• *TOTAL: " + money(total) + " + envío*\n\n" +
+  "• *TOTAL DE BEBIDAS: " + money(totalPedido) + "*\n" +
+  "• Total final con envío: Por confirmar\n\n" +
   "💳 *MÉTODO DE PAGO*\n" +
   "Transferencia bancaria\n" +
   "_Te compartiremos los datos bancarios por este medio._\n";
+
 
 if (generalNotes) {
   message +=
