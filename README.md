@@ -1458,8 +1458,6 @@ h3 a {
     <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
     <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
   </section>
-</main>
-
 
 <footer class="main-footer">
 <img src="./vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">  <span>café sin filtro. · Mazatlán, Sinaloa</span>
@@ -2111,4 +2109,3 @@ observeRevealElements();
 </footer>
 </body>
 </html>
-
