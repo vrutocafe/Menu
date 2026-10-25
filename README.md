@@ -1071,9 +1071,6 @@ function addToCart(id) {
 
   // El cliente permanece en el menú para seguir comprando.
 }
- renderCart();
- document.getElementById("pedido").scrollIntoView({behavior: "smooth"});
-}
 function itemPrice(item) {
   const milk = milkOptions.find(o => o.value === item.milk);
   return item.price
