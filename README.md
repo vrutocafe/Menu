@@ -64,6 +64,69 @@
     padding: 10px 12px;
     font-size: 12px;
   }
+  /* PORTADA FOTOGRÁFICA */
+.hero {
+  position: relative;
+  min-height: 520px;
+  padding: 85px 8%;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #fffdf7;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35, 39, 28, 0.82),
+      rgba(35, 39, 28, 0.30)
+    ),
+    url("imagenes/portada.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero h1 {
+  font-size: clamp(55px, 8vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  margin: 22px 0;
+}
+
+.hero p {
+  max-width: 430px;
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.hero .eyebrow {
+  color: #f2d77a;
+}
+
+.hero .primary-btn {
+  background: #f2d77a;
+  color: #343a27;
+  padding: 15px 24px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 440px;
+    padding: 65px 7%;
+    background-position: 58% center;
+  }
+
+  .hero h1 {
+    font-size: 58px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
 }
 :root{--olive:#69734b;--dark:#343a27;--butter:#f2d77a;--cream:#f7f3e8;--white:#fffdf7;--border:#e5e0d2;--muted:#777765}
 *{box-sizing:border-box}
