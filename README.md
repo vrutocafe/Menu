@@ -457,48 +457,107 @@ h3 a {
   font-size: 21px;
 }
 
-/* CORRECCION REAL DE DESBORDAMIENTO EN MOVIL */
-@media screen and (max-width: 600px) {
 
-  html,
-  body {
+/* VRUTO: CORRECCIÓN DEFINITIVA DEL PEDIDO EN MÓVILES */
+@media screen and (max-width: 700px) {
+
+  #pedido {
     width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
+    min-width: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow: hidden;
   }
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  #order,
-  #order form,
-  #order .container,
-  #order .section-container {
+  #pedido .order-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    gap: 16px;
   }
 
-  #order input,
-  #order select,
-  #order textarea {
+  #pedido .panel {
     width: 100%;
-    max-width: 100%;
     min-width: 0;
-    box-sizing: border-box;
+    max-width: 100%;
+    padding: 16px;
+    margin: 0;
+    overflow-wrap: anywhere;
   }
 
-  #order .cart-item,
-  #order .cart-row,
-  #order .order-item {
+  #pedido #cartItems,
+  #pedido .cart-item,
+  #pedido .cart-item-head,
+  #pedido .cart-options,
+  #pedido .field,
+  #pedido form {
+    width: 100%;
+    min-width: 0;
     max-width: 100%;
+  }
+
+  #pedido .cart-item-head {
+    align-items: flex-start;
+    overflow-wrap: anywhere;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  #pedido .cart-item-head span {
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
+  #pedido .field input,
+  #pedido .field select,
+  #pedido .field textarea,
+  #pedido .cart-options select,
+  #pedido .cart-options textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #pedido .discount-input-row {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  #pedido .discount-input-row input {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+  }
+
+  #pedido .discount-input-row button {
+    flex: 0 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #pedido .total-row {
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  #pedido .total-row span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #pedido .final-total {
+    font-size: 17px;
+  }
+
+  #pedido .notice {
+    overflow-wrap: anywhere;
+  }
 }
 </style>
 </head>
