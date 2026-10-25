@@ -583,6 +583,79 @@ h3 a {
     overflow-wrap: anywhere;
   }
 }
+
+/* VRUTO — carrito móvil mejorado */
+.mobile-cart {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .mobile-cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: fixed;
+    z-index: 999;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    width: auto;
+    min-height: 64px;
+    padding: 12px 17px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    background: var(--dark);
+    color: var(--white);
+    box-shadow: 0 5px 22px rgba(0,0,0,.20);
+    text-align: left;
+  }
+
+  .mobile-cart-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #mobileCartLabel {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mobile-cart-detail {
+    color: #e8e5d9;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mobile-cart-action {
+    flex-shrink: 0;
+    background: var(--butter);
+    color: var(--dark);
+    padding: 10px 13px;
+    border-radius: 24px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  body {
+    padding-bottom: 95px;
+  }
+
+  .add-btn,
+  .filter,
+  .cart-quantity button,
+  .whatsapp-btn {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
 </style>
 </head>
 <body>
@@ -715,7 +788,17 @@ h3 a {
   </section>
 </main>
 <footer><strong>VRUTO</strong><br>café sin filtro. · Mazatlán, Sinaloa<br>© <span id="year"></span> VRUTO</footer>
-<button class="mobile-cart" onclick="goToCart()">Ver carrito · <span id="mobileCartCount">0</span> artículos</button>
+
+<button class="mobile-cart" onclick="goToCart()">
+  <span class="mobile-cart-info">
+    <span id="mobileCartLabel">Ver carrito</span>
+    <span class="mobile-cart-detail">
+      <span id="mobileCartCount">0</span> bebidas ·
+      <span id="mobileCartTotal">$0.00</span>
+    </span>
+  </span>
+  <span class="mobile-cart-action">Revisar →</span>
+</button>
 
 <script>
 const WHATSAPP_NUMBER = "526693683462";
@@ -963,18 +1046,31 @@ document.querySelectorAll(".filter").forEach(button => button.addEventListener("
  renderMenu();
 }));
 
+
 function addToCart(id) {
- const product = menuData.find(p => p.id === id);
- if(!product) return;
- const size = product.hot ? "12 oz" : "16 oz";
- cart.push({
-   cartId: String(Date.now()) + Math.random().toString(36).slice(2,7),
-   id: product.id, name: product.name, size,
-   quantity: 1,
-   price: getPrice(product, size),
-   milk: product.milk ? "Entera" : "Sin leche",
-   sugar: product.sugar ? "Sin azúcar" : "No aplica",
-   extras: [], note: ""
+  const product = menuData.find(p => p.id === id);
+  if (!product) return;
+
+  const size = product.hot ? "12 oz" : "16 oz";
+
+  cart.push({
+    cartId: String(Date.now()) +
+      Math.random().toString(36).slice(2, 7),
+    id: product.id,
+    name: product.name,
+    size,
+    quantity: 1,
+    price: getPrice(product, size),
+    milk: product.milk ? "Entera" : "Sin leche",
+    sugar: product.sugar ? "Sin azúcar" : "No aplica",
+    extras: [],
+    note: ""
+  });
+
+  renderCart();
+
+  // El cliente permanece en el menú para seguir comprando.
+}
  });
  renderCart();
  document.getElementById("pedido").scrollIntoView({behavior: "smooth"});
@@ -999,8 +1095,17 @@ function changeQuantity(id, change) {
 
 function renderCart() {
  const container = document.getElementById("cartItems");
-const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); document.getElementById("cartCount").textContent = count;
- document.getElementById("mobileCartCount").textContent = count;
+
+const count = getDrinkCount();
+
+document.getElementById("cartCount").textContent = count;
+document.getElementById("mobileCartCount").textContent = count;
+
+document.getElementById("mobileCartTotal").textContent =
+  "$" + getFinalTotal().toFixed(2);
+
+document.getElementById("mobileCartLabel").textContent =
+  count > 0 ? "Revisar pedido" : "Ver carrito";
  
 if (!count) {
   container.innerHTML =
