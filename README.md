@@ -456,6 +456,58 @@ h3 a {
 .final-total {
   font-size: 21px;
 }
+
+/* AJUSTES PARA MOVIL: CARRITO Y DATOS DE ENTREGA */
+@media (max-width: 600px) {
+
+  /* Evita que los elementos se salgan de la pantalla */
+  #order,
+  #order *,
+  .cart-section,
+  .checkout-section {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Contenedor principal del pedido */
+  .order-container,
+  .order-content,
+  .checkout-container,
+  .cart-container {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Carrito y formulario en una sola columna */
+  .cart-section,
+  .checkout-section {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Campos del formulario */
+  #order input,
+  #order select,
+  #order textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Filas y botones */
+  #order .cart-item,
+  #order .discount-input-row {
+    flex-wrap: wrap;
+  }
+
+  #order button {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
 </style>
 </head>
 <body>
