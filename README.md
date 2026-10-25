@@ -159,7 +159,6 @@ const menuData = [
 
 {id:20,name:"Pumpkin Spice Frío",displayName:"Pumpkin Spice Frío",category:"Especiales",description:"Pumpkin Spice Latte helado con notas de calabaza y especias.",hot:false,milk:true,coldPrice:85}
 ];
-];
 
 const milkOptions=[
   {value:"Entera",label:"Leche entera"},
