@@ -120,7 +120,26 @@
   
   .about { text-align: center; background: var(--cream); padding-top: 42px; padding-bottom: 42px; }
   .about p { max-width: 560px; margin: 12px auto; line-height: 1.7; }
-  footer { background: var(--dark); color: white; text-align: center; padding: 25px 15px; font-size: 13px; }
+
+footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 20px 15px;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  footer {
+    padding: 12px 10px;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  footer strong {
+    font-size: 12px;
+  }
+}
   
   .mobile-cart { display: none; position: fixed; z-index: 20; bottom: 14px; left: 14px; right: 14px; padding: 14px; background: var(--olive); color: white; border: 0; border-radius: 14px; box-shadow: 0 4px 18px #0002; font-weight: 700; }
 
