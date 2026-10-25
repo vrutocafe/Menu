@@ -1064,157 +1064,16 @@ h3 a {
     transform: none;
   }
 }
-
 /* INSTAGRAM — VRUTO CAFÉ */
 .vruto-instagram {
   background: var(--cream);
-  padding: 55px 6% 50px;
+  padding: 58px 6% 48px;
   text-align: center;
   overflow: hidden;
 }
 
 .instagram-heading {
-  margin: 0 auto 28px;
-  animation: vrutoStepAppear .6s ease both;
-}
-
-.instagram-eyebrow {
-  color: var(--olive);
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-
-.instagram-heading h2 {
-  color: var(--dark);
-  font-size: clamp(25px, 4vw, 36px);
-  margin: 9px 0;
-}
-
-.instagram-heading p {
-  color: var(--muted);
-  font-size: 14px;
-  margin: 0;
-}
-
-.instagram-reels {
-  max-width: 960px;
-  margin: 0 auto 28px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  text-align: left;
-}
-
-.instagram-reel {
-  display: block;
-  color: var(--text);
-  text-decoration: none;
-  min-width: 0;
-  animation: vrutoStepAppear .65s ease both;
-  transition: transform .25s ease;
-}
-
-.instagram-reel:nth-child(2) {
-  animation-delay: .15s;
-}
-
-.instagram-reel:nth-child(3) {
-  animation-delay: .3s;
-}
-
-.reel-placeholder {
-  aspect-ratio: 9 / 16;
-  border-radius: 12px;
-  background: linear-gradient(
-    145deg,
-    #e8e1d1,
-    #c9ceb5,
-    #858f6a
-  );
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  overflow: hidden;
-}
-
-.reel-icon {
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(255,255,255,.85);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  padding-left: 3px;
-  font-size: 17px;
-  background: rgba(255,255,255,.12);
-}
-
-.reel-caption {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: 11px;
-}
-
-.instagram-reel:hover {
-  transform: translateY(-5px);
-}
-
-.instagram-follow {
-  display: inline-block;
-  background: var(--olive);
-  color: white;
-  text-decoration: none;
-  padding: 13px 23px;
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: opacity .2s ease, transform .2s ease;
-}
-
-.instagram-follow:hover {
-  opacity: .88;
-/* REELS REALES DE INSTAGRAM */
-.instagram-reels {
-  max-width: 1050px;
-  margin: 0 auto 28px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  align-items: start;
-}
-
-.instagram-media {
-  width: 100% !important;
-  min-width: 0 !important;
-  margin: 0 auto !important;
-  border-radius: 12px !important;
-}
-
-@media (max-width: 700px) {
-  .instagram-reels {
-    grid-template-columns: 1fr;
-    max-width: 420px;
-    gap: 18px;
-  }
-}
-/* INSTAGRAM — VRUTO CAFÉ */
-.vruto-instagram {
-  background: var(--cream);
-  padding: 68px 6% 60px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.instagram-heading {
-  margin: 0 auto 36px;
+  margin: 0 auto 32px;
   animation: vrutoStepAppear .6s ease both;
 }
 
@@ -1243,89 +1102,53 @@ h3 a {
   margin: 0 auto;
 }
 
-/* CONTENEDOR DE REELS */
+/* REELS */
 .instagram-reels {
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto 34px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 22px;
   align-items: start;
 }
 
-/* TARJETAS DE INSTAGRAM */
 .instagram-reels .instagram-media {
   box-sizing: border-box !important;
   width: 100% !important;
   min-width: 0 !important;
   max-width: 100% !important;
   margin: 0 auto !important;
-  border: 1px solid rgba(105, 115, 75, 0.16) !important;
-  border-radius: 16px !important;
+  border: 1px solid rgba(105, 115, 75, .16) !important;
+  border-radius: 14px !important;
   overflow: hidden !important;
-  background: #fffdf7 !important;
-  box-shadow: 0 5px 18px rgba(45, 47, 34, 0.06) !important;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-/* BOTÓN PARA VISITAR INSTAGRAM */
-.instagram-follow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 13px 23px;
-  border: 1px solid var(--olive);
-  border-radius: 30px;
-  color: var(--olive);
-  background: transparent;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  transition: background .25s ease, color .25s ease;
-}
-
-.instagram-follow:hover {
-  background: var(--olive);
-  color: #fffdf7;
-}
-
-.instagram-handle {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  margin: 14px 0 0;
+  background: var(--white) !important;
+  box-shadow: 0 5px 18px rgba(45, 47, 34, .06) !important;
 }
 
 /* TABLET */
 @media (max-width: 800px) {
   .vruto-instagram {
-    padding: 52px 5% 45px;
+    padding: 48px 5% 40px;
   }
 
   .instagram-reels {
     gap: 14px;
-  }
-
-  .instagram-reels .instagram-media {
-    border-radius: 12px !important;
   }
 }
 
 /* CELULAR */
 @media (max-width: 600px) {
   .vruto-instagram {
-    padding: 44px 6% 40px;
+    padding: 40px 5% 34px;
   }
 
   .instagram-heading {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
   }
 
   .instagram-heading h2 {
-    font-size: 29px;
+    font-size: 28px;
   }
 
   .instagram-heading p {
@@ -1336,28 +1159,13 @@ h3 a {
   .instagram-reels {
     grid-template-columns: 1fr;
     max-width: 380px;
-    gap: 22px;
-    margin-bottom: 28px;
-  }
-
-  .instagram-reels .instagram-media {
-    border-radius: 15px !important;
-  }
-
-  .instagram-follow {
-    padding: 12px 20px;
+    gap: 20px;
   }
 }
 
-/* RESPETAR MOVIMIENTO REDUCIDO */
 @media (prefers-reduced-motion: reduce) {
   .instagram-heading {
     animation: none;
-  }
-
-  .instagram-reels .instagram-media,
-  .instagram-follow {
-    transition: none;
   }
 }
 </style>
