@@ -290,7 +290,7 @@
 
   </div>
 </section>
-  <section id="menu">
+  <section id="">
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       
