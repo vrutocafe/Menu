@@ -286,7 +286,7 @@
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       
-      <button class="filter" data-filter="Calientes">Calientes</button>
+      <button class="filter active" data-filter="Calientes">Calientes</button>
       <button class="filter" data-filter="Fríos">Fríos</button>
       <button class="filter" data-filter="Especiales">Especiales</button>
     </div>
