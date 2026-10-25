@@ -1064,6 +1064,174 @@ h3 a {
     transform: none;
   }
 }
+
+/* INSTAGRAM — VRUTO CAFÉ */
+.vruto-instagram {
+  background: var(--cream);
+  padding: 55px 6% 50px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.instagram-heading {
+  margin: 0 auto 28px;
+  animation: vrutoStepAppear .6s ease both;
+}
+
+.instagram-eyebrow {
+  color: var(--olive);
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.instagram-heading h2 {
+  color: var(--text);
+  font-size: clamp(25px, 4vw, 36px);
+  margin: 9px 0;
+}
+
+.instagram-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.instagram-reels {
+  max-width: 960px;
+  margin: 0 auto 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  text-align: left;
+}
+
+.instagram-reel {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  min-width: 0;
+  animation: vrutoStepAppear .65s ease both;
+  transition: transform .25s ease;
+}
+
+.instagram-reel:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.instagram-reel:nth-child(3) {
+  animation-delay: .3s;
+}
+
+.reel-placeholder {
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  background: linear-gradient(
+    145deg,
+    #e8e1d1,
+    #c9ceb5,
+    #858f6a
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  overflow: hidden;
+}
+
+.reel-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding-left: 3px;
+  font-size: 17px;
+  background: rgba(255,255,255,.12);
+}
+
+.reel-caption {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 11px;
+}
+
+.instagram-reel:hover {
+  transform: translateY(-5px);
+}
+
+.instagram-follow {
+  display: inline-block;
+  background: var(--olive);
+  color: white;
+  text-decoration: none;
+  padding: 13px 23px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.instagram-follow:hover {
+  opacity: .88;
+  transform: translateY(-2px);
+}
+
+.instagram-handle {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .vruto-instagram {
+    padding: 38px 5% 35px;
+  }
+
+  .instagram-heading {
+    margin-bottom: 20px;
+  }
+
+  .instagram-reels {
+    gap: 9px;
+    margin-bottom: 23px;
+  }
+
+  .reel-placeholder {
+    border-radius: 8px;
+  }
+
+  .reel-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .reel-caption {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instagram-heading,
+  .instagram-reel {
+    animation: none;
+  }
+
+  .instagram-reel,
+  .instagram-follow {
+    transition: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -1218,6 +1386,63 @@ h3 a {
     <option value="">Selecciona tu zona</option>
     <option value="Centro">Centro de Mazatlán</option>
     <option value="Otra zona">Otra zona de Mazatlán</option>
+  </select>
+    
+<!-- INSTAGRAM VRUTO -->
+<section class="vruto-instagram" id="instagram">
+  <div class="instagram-heading">
+    <span class="instagram-eyebrow">CAFÉ SIN FILTRO.</span>
+    <h2>Un poco más de VRUTO</h2>
+    <p>Café, matcha y momentos que se antojan.</p>
+  </div>
+
+  <div class="instagram-reels">
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/Dc1w5ERPft6/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 1 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Descubre VRUTO</span>
+    </a>
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/DdKdgsnSvoB/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 2 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Un café para tu día</span>
+    </a>
+
+    <a class="instagram-reel"
+       href="https://www.instagram.com/reel/DdrgtXqNxJ-/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Ver Reel 3 de VRUTO en Instagram">
+      <div class="reel-placeholder">
+        <span class="reel-icon">▶</span>
+        <span>VER REEL</span>
+      </div>
+      <span class="reel-caption">Momentos VRUTO</span>
+    </a>
+
+  </div>
+
+  <a class="instagram-follow"
+     href="https://www.instagram.com/vrutocafe/"
+     target="_blank"
+     rel="noopener noreferrer">
+    Síguenos en Instagram ↗
+  </a>
+  <p class="instagram-handle">@vrutocafe</p>
   </select>
 </div>
           <div class="field"><label for="deliveryAddress">Dirección completa *</label><textarea id="deliveryAddress" name="deliveryAddress" required placeholder="Calle, número, colonia y ciudad"></textarea></div>
