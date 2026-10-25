@@ -738,52 +738,109 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
    return;
  }
 
+
 const total = cart.reduce(
   (sum, item) => sum + itemPrice(item) * (item.quantity || 1),
   0
 );
-let message = "☕ *VRUTO CAFÉ* ☕\n_café sin filtro._\n━━━━━━━━━━━━━━━━━━\n🧾 *NUEVO PEDIDO*\n━━━━━━━━━━━━━━━━━━\n\n";
 
- message += "👤 *DATOS DEL CLIENTE*\n• Nombre: " + name + "\n• Teléfono: " + phone + "\n\n📍 *DATOS DE ENTREGA*\n• Dirección: " + address + "\n";
+const totalBebidas = cart.reduce(
+  (sum, item) => sum + (item.quantity || 1),
+  0
+);
 
- if(references) message += "• Referencias: " + references + "\n";
+let message =
+  "☕ *VRUTO CAFÉ* ☕\n" +
+  "_café sin filtro._\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "🧾 *NUEVO PEDIDO*\n" +
+  "━━━━━━━━━━━━━━━━━━\n\n";
 
- message += "\n━━━━━━━━━━━━━━━━━━\n🛍️ *DETALLE DEL PEDIDO*\n━━━━━━━━━━━━━━━━━━\n";
+message +=
+  "👤 *DATOS DEL CLIENTE*\n" +
+  "• Nombre: " + name + "\n" +
+  "• Teléfono: " + phone + "\n\n" +
+  "📍 *DIRECCIÓN DE ENTREGA*\n" +
+  "• " + address + "\n";
 
- cart.forEach((item, index) => {
+if (references) {
+  message += "• Referencias: " + references + "\n";
+}
+
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "🛍️ *DETALLE DEL PEDIDO*\n" +
+  "━━━━━━━━━━━━━━━━━━\n";
+
+cart.forEach((item, index) => {
   const product = menuData.find(p => p.id === item.id);
-  message += "\n*Bebida " + (index + 1) + ": " + item.name + "*\n• Tamaño: " + item.size + "\n• Cantidad: " + (item.quantity || 1) + "\n";
+  const cantidad = item.quantity || 1;
 
-  if(product && product.milk) {
-    message += "• Leche: " + item.milk + (item.milk === "Almendra" ? " (+$15.00 MXN)" : "") + "\n";
+  message +=
+    "\n*BEBIDA " + (index + 1) + " · " +
+    item.name + "*\n" +
+    "• Tamaño: " + item.size + "\n" +
+    "• Cantidad: " + cantidad + "\n";
+
+  if (product && product.milk) {
+    message += "• Leche: " + item.milk + "\n";
   }
 
-  if(product && product.sugar) message += "• Azúcar: " + item.sugar + "\n";
-
-  if(item.extras.length) {
-    message += "• Extras: " + item.extras.map(key => extraOptions.find(o => o.value === key).label).join(", ") + "\n";
+  if (product && product.sugar) {
+    message += "• Azúcar: " + item.sugar + "\n";
   }
 
-  if(item.note.trim()) message += "• Indicaciones: " + item.note.trim() + "\n";
+  if (item.extras.length) {
+    message +=
+      "• Extras: " +
+      item.extras
+        .map(key => {
+          const extra = extraOptions.find(o => o.value === key);
+          return extra ? extra.label : key;
+        })
+        .join(", ") + "\n";
+  }
 
-message += "• Precio unitario: " + money(itemPrice(item)) +
-  "\n• Total de esta bebida: " +
-  money(itemPrice(item) * (item.quantity || 1)) + "\n";
- });
+  if (item.note.trim()) {
+    message += "• Indicaciones: " + item.note.trim() + "\n";
+  }
 
-message += "\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n";
-message += "• Productos: " + cart.reduce((sum, item) => sum + (item.quantity || 1), 0) + "\n";
-message += "• Subtotal: " + money(total) + "\n";
-message += "• Envío: Por confirmar\n";
-message += "• *TOTAL A PAGAR: " + money(total) + " + envío*\n\n";
-message += "💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
+  message +=
+    "• Precio por bebida: " + money(itemPrice(item)) + "\n" +
+    "• *Importe: " + money(itemPrice(item) * cantidad) + "*\n";
+});
 
- if(generalNotes) message += "\n📝 *NOTAS ADICIONALES*\n" + generalNotes + "\n";
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "💰 *RESUMEN DE COMPRA*\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "• Total de bebidas: " + totalBebidas + "\n" +
+  "• Subtotal: " + money(total) + "\n" +
+  "• Envío: Por confirmar\n" +
+  "• *TOTAL: " + money(total) + " + envío*\n\n" +
+  "💳 *MÉTODO DE PAGO*\n" +
+  "Transferencia bancaria\n" +
+  "_Te compartiremos los datos bancarios por este medio._\n";
 
- message += "\n━━━━━━━━━━━━━━━━━━\n¡Gracias por elegir *VRUTO CAFÉ*! ☕\nHola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia y confirmar el costo del envío?";
+if (generalNotes) {
+  message +=
+    "\n📝 *NOTAS ADICIONALES*\n" +
+    generalNotes + "\n";
+}
 
- const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
- window.open(url, "_blank");
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "¡Gracias por elegir *VRUTO CAFÉ*! ☕\n\n" +
+  "Hola, quiero confirmar este pedido. " +
+  "¿Me comparten los datos para realizar la transferencia " +
+  "y confirmar el costo del envío?";
+
+const url =
+  "https://wa.me/" + WHATSAPP_NUMBER +
+  "?text=" + encodeURIComponent(message);
+
+window.open(url, "_blank");
+
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
