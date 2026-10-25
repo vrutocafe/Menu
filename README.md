@@ -65,8 +65,6 @@
     font-size: 12px;
   }
 }
-  </style>
-
 :root{--olive:#69734b;--dark:#343a27;--butter:#f2d77a;--cream:#f7f3e8;--white:#fffdf7;--border:#e5e0d2;--muted:#777765}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
