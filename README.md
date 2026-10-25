@@ -243,6 +243,15 @@
     height: 290px;
   }
 }
+.section-heading {
+  text-align: center;
+  width: 100%;
+}
+
+.section-heading h2,
+.section-heading p {
+  text-align: center;
+}
 </style>
 </head>
 <body>
@@ -290,7 +299,7 @@
 
   </div>
 </section>
-  <section id="">
+  <section id="menu">
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       
