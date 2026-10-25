@@ -230,13 +230,13 @@
     </div>
   </section>
   <section class="about">
-    <div class="eyebrow">VRUTO Café</div>
+    <div class="eyebrow">VRUTO</div>
     <h2>Un buen café cambia el día.</h2>
     <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
     <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
   </section>
 </main>
-<footer><strong>VRUTO Café</strong><br>café sin filtro. · Mazatlán, Sinaloa<br>© <span id="year"></span> VRUTO Café</footer>
+<footer><strong>VRUTO</strong><br>café sin filtro. · Mazatlán, Sinaloa<br>© <span id="year"></span> VRUTO</footer>
 <button class="mobile-cart" onclick="goToCart()">Ver carrito · <span id="mobileCartCount">0</span> artículos</button>
 
 <script>
