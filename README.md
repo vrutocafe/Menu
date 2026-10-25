@@ -328,7 +328,69 @@ h3 a {
     transition: none;
   }
 }
+/* CONTROLES DE CANTIDAD DEL CARRITO VRUTO */
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
 
+.cart-quantity button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9ddce;
+  border-radius: 12px;
+  background: #f7f5ec;
+  color: #454b35;
+  font-size: 22px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.cart-quantity button:hover {
+  background: #687451;
+  color: #fffdf7;
+  border-color: #687451;
+  transform: translateY(-1px);
+}
+
+.cart-quantity button:active {
+  transform: scale(0.94);
+}
+
+.cart-quantity .quantity-number {
+  min-width: 18px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #33382b;
+}
+
+.cart-quantity .quantity-label {
+  font-size: 12px;
+  color: #858575;
+}
+
+/* Mejora visual del botón de eliminar */
+.cart-remove {
+  border: none;
+  background: transparent;
+  color: #9a766c;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.cart-remove:hover {
+  color: #b34738;
+}
 </style>
 </head>
 <body>
@@ -558,18 +620,18 @@ function renderCart() {
   <span>${money(itemPrice(item) * (item.quantity || 1))}</span>
 </div>
 
-<div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+<div class="cart-quantity">
   <button type="button"
     onclick="changeQuantity('${item.cartId}',-1)"
     aria-label="Restar una bebida">−</button>
 
-  <strong>${item.quantity || 1}</strong>
+  <span class="quantity-number">${item.quantity || 1}</span>
 
   <button type="button"
     onclick="changeQuantity('${item.cartId}',1)"
     aria-label="Agregar una bebida">+</button>
 
-  <span style="font-size:12px;color:#777765">bebida(s)</span>
+  <span class="quantity-label">bebida(s)</span>
 </div>
 
 <div class="cart-options">
