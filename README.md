@@ -151,7 +151,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
     <a class="primary-btn" href="#menu">Explorar menú ↓</a>
   </section>
   <section id="menu">
-    <div class="section-heading"><h2>Menú</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
+    <div class="section-heading"><h2></h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       <button class="filter active" data-filter="Todos">Todo</button>
       <button class="filter" data-filter="Calientes">Calientes</button>
