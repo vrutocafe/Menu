@@ -249,6 +249,17 @@
 .section-heading h2 a.anchor {
   display: none !important;
 }
+
+/* OCULTAR ICONOS DE ENLACE AUTOMÁTICOS */
+a.anchor,
+.anchor,
+.header-anchor,
+h1 a,
+h2 a,
+h3 a {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
