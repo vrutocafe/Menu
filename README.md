@@ -756,6 +756,40 @@ h3 a {
   color: #777765;
   font-size: 12px;
 }
+
+.main-footer {
+  background: var(--olive);
+  color: var(--white);
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.main-footer strong {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.main-footer p {
+  margin: 8px 0 18px;
+}
+
+.main-footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+.main-footer .social-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.main-footer small {
+  opacity: 0.8;
+}
+
 </style>
 </head>
 <body>
@@ -895,7 +929,18 @@ h3 a {
     <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
   </section>
 </main>
-<footer><strong>VRUTO</strong><br>café sin filtro. · Mazatlán, Sinaloa<br>© <span id="year"></span> VRUTO</footer>
+
+<footer class="main-footer">
+  <strong>VRUTO</strong>
+  <p>café sin filtro. · Mazatlán, Sinaloa</p>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/526693683462" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <small>© <span id="year"></span> VRUTO Café</small>
+</footer>
 
 <button class="mobile-cart" onclick="goToCart()">
   <span class="mobile-cart-info">
@@ -1533,22 +1578,6 @@ function observeRevealElements() {
 observeRevealElements();
 
 </script>
-<footer class="social-footer">
-  <h2>VRUTO CAFÉ</h2>
-  <p>Café sin filtro.</p>
-
-  <div class="social-links">
-    <a href="https://www.instagram.com/vrutocafe/"
-       target="_blank" rel="noopener">Instagram</a>
-
-    <a href="https://www.facebook.com/"
-       target="_blank" rel="noopener">Facebook</a>
-
-    <a href="https://wa.me/526693683462"
-       target="_blank" rel="noopener">WhatsApp</a>
-  </div>
-
-  <small>© 2026 VRUTO Café · Mazatlán, Sinaloa</small>
 </footer>
 </body>
 </html>
