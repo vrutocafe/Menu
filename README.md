@@ -1453,7 +1453,6 @@ h3 a {
     Síguenos en Instagram ↗
   </a>
   <p class="instagram-handle">@vrutocafe</p>
-  </select>
   <section class="about">
     <h2>Un buen café cambia el día.</h2>
     <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
