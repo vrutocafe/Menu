@@ -238,43 +238,6 @@
     height: 290px;
   }
 }
-/* TARJETAS VISUALES DEL MENÚ */
-.product {
-  padding: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fffdf7;
-  border: 1px solid #e5e0d2;
-  box-shadow: 0 5px 20px rgba(52, 58, 39, 0.05);
-}
-
-.product-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
-
-.product-info {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.product .add-btn {
-  margin-top: auto;
-}
-
-@media (max-width: 600px) {
-  .product-image {
-    height: 140px;
-  }
-
-  .product-info {
-    padding: 12px;
-  }
-}
 </style>
 </head>
 <body>
