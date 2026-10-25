@@ -43,6 +43,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
+  background: transparent !important;
 }
 
 .brand-logo img {
@@ -50,6 +52,9 @@
   width: 160px;
   height: auto;
   object-fit: contain;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
   .nav-menu {
