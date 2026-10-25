@@ -125,19 +125,24 @@ footer {
   background: var(--dark);
   color: white;
   text-align: center;
-  padding: 20px 15px;
-  font-size: 12px;
+  padding: 10px 12px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+footer p {
+  margin: 0;
 }
 
 @media (max-width: 700px) {
   footer {
-    padding: 12px 10px;
+    padding: 8px 10px !important;
     font-size: 10px;
-    line-height: 1.5;
+    line-height: 1.2;
   }
 
   footer strong {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
   
@@ -156,7 +161,7 @@ footer {
     .product-top { flex-direction: column; gap: 5px; }
     .price { font-size: 15px; }
     .mobile-cart { display: block; }
-    footer { padding-bottom: 85px; }
+    footer { padding-bottom: 8px; }
   }
   @media(max-width: 370px) { .menu-grid { grid-template-columns: 1fr; } }
   .hero {
