@@ -983,12 +983,34 @@ function renderDiscountTotals() {
   }
 }
 
-// Si cambia la zona de entrega, vuelve a validar.
+
+ // Si cambia la zona, revalidar el código promocional automáticamente.
 document.getElementById("deliveryZone").addEventListener("change", () => {
+  const code = document.getElementById("discountCode")
+    .value.trim().toUpperCase();
+
+  const zone = document.getElementById("deliveryZone").value;
+  const promo = DISCOUNT_CODES[code];
+
+  // Si hay un código válido, suficientes bebidas y la zona es Centro,
+  // aplicar automáticamente el descuento.
   if (
-    appliedPromo &&
-    document.getElementById("deliveryZone").value !== appliedPromo.zone
+    promo &&
+    getDrinkCount() >= promo.minDrinks &&
+    zone === promo.zone
   ) {
+    appliedPromo = {
+      code,
+      percentage: promo.percentage,
+      minDrinks: promo.minDrinks,
+      zone: promo.zone
+    };
+
+    setDiscountStatus(
+      "¡Código aplicado! Tienes " + promo.percentage + "% de descuento.",
+      true
+    );
+  } else if (appliedPromo && zone !== appliedPromo.zone) {
     appliedPromo = null;
     setDiscountStatus(
       "Descuento eliminado: la promoción solo aplica en el Centro."
@@ -997,6 +1019,7 @@ document.getElementById("deliveryZone").addEventListener("change", () => {
 
   renderCart();
 });
+
 
 // Permite aplicar el código pulsando Enter.
 document.getElementById("discountCode").addEventListener("keydown", event => {
