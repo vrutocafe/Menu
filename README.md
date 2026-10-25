@@ -957,6 +957,42 @@ h3 a {
     </div>
     <div class="menu-grid" id="menuGrid"></div>
   </section>
+  
+<section class="how-to-order" id="como-pedir">
+  <div class="section-heading">
+    <h2>¿Cómo pedir?</h2>
+    <p>Tu café favorito en tres pasos.</p>
+  </div>
+
+  <div class="how-to-grid">
+
+    <article class="how-to-card">
+      <span class="how-to-number">1</span>
+      <div>
+        <h3>Elige tu café</h3>
+        <p>Explora el menú y agrega tus bebidas al carrito.</p>
+      </div>
+    </article>
+
+    <article class="how-to-card">
+      <span class="how-to-number">2</span>
+      <div>
+        <h3>Completa tus datos</h3>
+        <p>Indica tu dirección, zona de entrega y preferencias.</p>
+      </div>
+    </article>
+
+    <article class="how-to-card">
+      <span class="how-to-number">3</span>
+      <div>
+        <h3>Confirma por WhatsApp</h3>
+        <p>Envía tu pedido y confirma el envío y la transferencia.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
   <section id="pedido">
     <div class="section-heading"><h2>Tu pedido</h2><p>Revisa tu carrito y dinos dónde entregarlo.</p></div>
     <div class="order-layout">
