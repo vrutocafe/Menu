@@ -508,6 +508,7 @@ function addToCart(id) {
  cart.push({
    cartId: String(Date.now()) + Math.random().toString(36).slice(2,7),
    id: product.id, name: product.name, size,
+   quantity: 1,
    price: getPrice(product, size),
    milk: product.milk ? "Entera" : "Sin leche",
    sugar: product.sugar ? "Sin azúcar" : "No aplica",
@@ -518,6 +519,15 @@ function addToCart(id) {
 }
 
 function itemPrice(item) {
+  
+function changeQuantity(id, change) {
+  const item = cart.find(i => i.cartId === id);
+  if (!item) return;
+
+  item.quantity = Math.max(1, (item.quantity || 1) + change);
+  renderCart();
+}
+
  const milk = milkOptions.find(o => o.value === item.milk);
  return item.price + (milk?.extra || 0) + item.extras.reduce((sum, key) => sum + (extraOptions.find(o => o.value === key)?.price || 0), 0);
 }
