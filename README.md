@@ -143,7 +143,7 @@
   .hero {
   background-image:
     linear-gradient(rgba(30, 32, 24, 0.35), rgba(30, 32, 24, 0.35)),
-    url("portada.jpg");
+    url("1787366429118.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
