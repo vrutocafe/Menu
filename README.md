@@ -43,7 +43,7 @@
     align-items: center;
   }
 
-  .brand-logo img {
+  .brand-logo img {https://kommodo.ai/i/18CY099hSz8FCxPjSrcK
     display: block;
     width: 125px;
     max-height: 65px;
