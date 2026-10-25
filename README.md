@@ -243,7 +243,7 @@
 <body>
 <header class="site-header">
   <a class="brand-logo" href="#inicio">
-    <img src="https://imgur.com/a/m5o8T6g" alt="VRUTO CAFÉ">
+    <img src="https://www.image2url.com/r2/default/images/1792897328958-346a2171-22f4-4a34-b4eb-10c684581b39.png" alt="VRUTO CAFÉ">
   </a>
   <button class="header-cart" onclick="goToCart()">
     🛒 Carrito (<span id="cartCount">0</span>)
