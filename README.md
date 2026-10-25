@@ -599,8 +599,7 @@ function changeQuantity(id, change) {
 
 function renderCart() {
  const container = document.getElementById("cartItems");
- const count = cart.length;
- document.getElementById("cartCount").textContent = count;
+const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); document.getElementById("cartCount").textContent = count;
  document.getElementById("mobileCartCount").textContent = count;
 
  if(!count) {
