@@ -980,7 +980,7 @@ h3 a {
   </div>
 
   <small>© <span id="year"></span> VRUTO Café</small>
-</footer>
+
 
 
 <button class="mobile-cart" onclick="goToCart()">
