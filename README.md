@@ -136,7 +136,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
 <body>
 <header class="site-header">
   <a class="brand-logo" href="#inicio">
-    <img src="imagenes/logo.png" alt="VRUTO Café">
+    <img src="imagenes/logo.png" alt="VRUTO CAFÉ">
   </a><a href="#menu" class="nav-menu"></a>
 
   <button class="header-cart" onclick="goToCart()">
@@ -153,7 +153,6 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
   <section id="menu">
     <div class="section-heading"><h2></h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
-      <button class="filter active" data-filter="Todos">Todo</button>
       <button class="filter" data-filter="Calientes">Calientes</button>
       <button class="filter" data-filter="Fríos">Fríos</button>
       <button class="filter" data-filter="Especiales">Especiales</button>
