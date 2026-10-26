@@ -1140,6 +1140,64 @@ h3 a {
     gap: 18px;
   }
 }
+
+/* VRUTO — REEL MINIMALISTA */
+.vruto-instagram {
+  background: var(--cream, #f7f4ec);
+  padding: 60px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.instagram-heading {
+  margin: 0 auto 28px;
+}
+
+.instagram-heading h2 {
+  font-size: clamp(26px, 4vw, 36px);
+  color: var(--dark, #292b22);
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.instagram-heading p {
+  color: var(--muted, #77776c);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.instagram-reels {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.instagram-reels > blockquote.instagram-media {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 380px !important;
+  margin: 0 auto !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 480px) {
+  .vruto-instagram {
+    padding: 42px 16px;
+  }
+
+  .instagram-reels {
+    max-width: 100%;
+  }
+
+  .instagram-reels > blockquote.instagram-media {
+    max-width: 360px !important;
+  }
+}
 </style>
 </head>
 <body>
