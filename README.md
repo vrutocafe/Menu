@@ -1064,12 +1064,10 @@ h3 a {
     transform: none;
   }
 }
-
-/* VRUTO — INSTAGRAM RESPONSIVO */
+/* VRUTO — CONTENEDOR DE REELS */
 .vruto-instagram {
-  width: 100%;
-  padding: 42px 5%;
   background: var(--cream);
+  padding: 42px 5% 35px;
   text-align: center;
   overflow: hidden;
 }
@@ -1103,34 +1101,34 @@ h3 a {
   margin: 0 auto;
 }
 
-/* Tres marcos iguales en computadora */
 .instagram-reels {
-  width: 100%;
-  max-width: 1050px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
   align-items: start;
 }
 
-/* Cada Reel ocupa el ancho de su columna */
-.instagram-reels .instagram-media {
+.instagram-reels blockquote.instagram-media {
+  display: block !important;
   width: 100% !important;
   min-width: 0 !important;
   max-width: 100% !important;
   margin: 0 !important;
+  padding: 0 !important;
   box-sizing: border-box !important;
 }
 
-/* La inserción de Instagram no debe desbordarse */
-.instagram-reels iframe {
-  display: block;
+/* El iframe que genera Instagram */
+.instagram-reels blockquote.instagram-media iframe {
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
 }
 
-/* Tablet: dos columnas */
+/* Tablet */
 @media (max-width: 800px) {
   .instagram-reels {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1138,19 +1136,14 @@ h3 a {
   }
 }
 
-/* Móvil: un Reel por fila */
+/* Celular */
 @media (max-width: 520px) {
   .vruto-instagram {
     padding: 30px 16px;
   }
 
-  .instagram-heading {
-    margin-bottom: 20px;
-  }
-
   .instagram-reels {
     grid-template-columns: minmax(0, 1fr);
-    width: 100%;
     max-width: 380px;
     gap: 18px;
   }
@@ -2008,9 +2001,20 @@ function observeRevealElements() {
 
 observeRevealElements();
 
-</script>
-<script async src="https://www.instagram.com/embed.js"
-  onload="if(window.instgrm) window.instgrm.Embeds.process()">
+<script>
+(function () {
+  function cargarInstagram() {
+    if (window.instgrm && window.instgrm.Embeds) {
+      window.instgrm.Embeds.process();
+    }
+  }
+
+  var script = document.createElement("script");
+  script.src = "https://www.instagram.com/embed.js";
+  script.async = true;
+  script.onload = cargarInstagram;
+  document.body.appendChild(script);
+})();
 </script>
 </body>
 </html>
