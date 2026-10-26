@@ -1173,6 +1173,32 @@ footer {
 body > *:last-child {
   margin-bottom: 0 !important;
 }
+/* VRUTO — QUITAR ESPACIO AL FINAL DE LA PÁGINA */
+html,
+body {
+  margin: 0 !important;
+  min-height: 0;
+}
+
+body {
+  padding-bottom: 0 !important;
+}
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.main-footer {
+  margin-bottom: 0 !important;
+}
+
+/* Mantener el carrito flotante sin reservar espacio extra */
+@media (max-width: 700px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+}
 </style>
 </head>
 <body>
