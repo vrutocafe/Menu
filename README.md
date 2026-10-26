@@ -1064,7 +1064,8 @@ h3 a {
     transform: none;
   }
 }
-/* VRUTO — CONTENEDOR DE REELS */
+
+/* VRUTO — REELS RESPONSIVOS */
 .vruto-instagram {
   background: var(--cream);
   padding: 42px 5% 35px;
@@ -1111,7 +1112,7 @@ h3 a {
   align-items: start;
 }
 
-.instagram-reels blockquote.instagram-media {
+.instagram-reels > blockquote.instagram-media {
   display: block !important;
   width: 100% !important;
   min-width: 0 !important;
@@ -1121,14 +1122,6 @@ h3 a {
   box-sizing: border-box !important;
 }
 
-/* El iframe que genera Instagram */
-.instagram-reels blockquote.instagram-media iframe {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
-/* Tablet */
 @media (max-width: 800px) {
   .instagram-reels {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1136,7 +1129,6 @@ h3 a {
   }
 }
 
-/* Celular */
 @media (max-width: 520px) {
   .vruto-instagram {
     padding: 30px 16px;
@@ -1999,22 +1991,10 @@ function observeRevealElements() {
   elements.forEach(element => observer.observe(element));
 }
 
+
 observeRevealElements();
-
-<script>
-(function () {
-  function cargarInstagram() {
-    if (window.instgrm && window.instgrm.Embeds) {
-      window.instgrm.Embeds.process();
-    }
-  }
-
-  var script = document.createElement("script");
-  script.src = "https://www.instagram.com/embed.js";
-  script.async = true;
-  script.onload = cargarInstagram;
-  document.body.appendChild(script);
-})();
 </script>
+
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
