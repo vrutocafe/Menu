@@ -1472,7 +1472,7 @@ const WHATSAPP_NUMBER = "526693683462";
   const SUPABASE_URL = "https://eqguxuacvdvdbxtxbogf.supabase.co";
 const SUPABASE_PUBLIC_KEY = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
 
-const menuData = [
+let menuData = [
   {id:1,name:"Americano",category:"Calientes",description:"Espresso con agua caliente.",hot:true,milk:false,prices:{"12 oz":50,"16 oz":60},sugar:true},
   {id:2,name:"Latte Regular",category:"Calientes",description:"Espresso con leche cremosa.",hot:true,milk:true,prices:{"12 oz":65,"16 oz":75},sugar:true},
   {id:3,name:"Latte Caramel",category:"Calientes",description:"Espresso, leche y caramelo.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
@@ -1729,7 +1729,7 @@ function renderMenu() {
      <div class="product-top"><h3>${label}</h3></div>
      <div class="price">${priceText}</div>
      <p>${item.description}</p>
-     <button class="add-btn" onclick="addToCart(${item.id})">+ Agregar al carrito</button>
+     <button class="add-btn" onclick="addToCart('${item.id}')">+ Agregar al carrito</button>
    </article>`;
  }).join("");
   observeRevealElements();
@@ -2091,6 +2091,96 @@ function observeRevealElements() {
   elements.forEach(element => observer.observe(element));
 }
 
+async function loadMenuFromSupabase() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=id,name,description,product_type,cold_price,hot_price_12,hot_price_16,available,sort_order&available=eq.true&order=sort_order.asc`,
+      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_PUBLIC_KEY,
+          Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
+        },
+        cache: "no-store"
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Supabase respondió con el error ${response.status}`
+      );
+    }
+
+    const products = await response.json();
+
+    if (!Array.isArray(products) || products.length === 0) {
+      console.warn(
+        "Supabase no devolvió productos. Se conserva el menú de respaldo."
+      );
+      return;
+    }
+
+    menuData = products.map(product => {
+      const isHot =
+        String(product.product_type).toLowerCase() === "hot";
+
+      const isPumpkin =
+        product.name.toLowerCase().includes("pumpkin spice");
+
+      const isAmericano =
+        product.name.toLowerCase().includes("americano");
+
+      const isLatteRegular =
+        product.name.toLowerCase().includes("latte regular");
+
+      let displayName = product.name;
+
+      if (!isHot && isLatteRegular) {
+        displayName = "Latte Reg.";
+      }
+
+      return {
+        id: product.id,
+        name: product.name,
+        displayName,
+        category: isPumpkin
+          ? "Especiales"
+          : isHot
+            ? "Calientes"
+            : "Fríos",
+        description: product.description || "",
+        hot: isHot,
+        milk: !isAmericano,
+        sugar: isAmericano || isLatteRegular,
+        prices: isHot
+          ? {
+              "12 oz": Number(product.hot_price_12),
+              "16 oz": Number(product.hot_price_16)
+            }
+          : {},
+        coldPrice: isHot
+          ? null
+          : Number(product.cold_price)
+      };
+    });
+
+    renderMenu();
+    renderCart();
+
+    console.log(
+      `VRUTO Café: ${menuData.length} productos cargados desde Supabase.`
+    );
+
+  } catch (error) {
+    console.error(
+      "No se pudo cargar el menú desde Supabase:",
+      error
+    );
+    // Se conserva el menú original como respaldo.
+  }
+}
+
+loadMenuFromSupabase();
 
 observeRevealElements();
 </script>
