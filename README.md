@@ -1226,6 +1226,28 @@ footer.main-footer {
 body > script {
   display: none !important;
 }
+/* ANIMACIÓN DEL REEL VRUTO */
+.vruto-instagram {
+  animation: vrutoReelEntrada 0.8s ease-out both;
+}
+
+@keyframes vrutoReelEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respetar la preferencia de movimiento del usuario */
+@media (prefers-reduced-motion: reduce) {
+  .vruto-instagram {
+    animation: none;
+  }
+}
 </style>
 </head>
 <body>
