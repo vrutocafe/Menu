@@ -3,101 +3,1409 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#69734b">
-<title>VRUTO Café | Café sin filtro</title>
+<title>VRUTO | Café sin filtro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--olive:#69734b;--dark:#343a27;--butter:#f2d77a;--cream:#f7f3e8;--white:#fffdf7;--border:#e5e0d2;--muted:#777765}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:'Quicksand',Arial,sans-serif;background:var(--cream);color:var(--dark)}
-button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
-header{background:var(--cream);padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
-.logo{font-size:27px;font-weight:700;letter-spacing:2px;display:flex;align-items:center;flex-shrink:0}.logo img{width:115px;height:auto;max-height:48px;object-fit:contain}.logo span{color:var(--olive)}
-.desktop-nav{display:flex;align-items:center;justify-content:center;gap:clamp(10px,2vw,25px);flex-wrap:wrap}.desktop-nav a{font-size:13px;font-weight:700;transition:color .2s}.desktop-nav a:hover{color:var(--olive)}
+  :root {
+    --olive: #69734b;
+    --dark: #343a27;
+    --butter: #f2d77a;
+    --cream: #f7f3e8;
+    --white: #fffdf7;
+    --border: #e5e0d2;
+    --muted: #777765;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Quicksand', Arial, sans-serif; background: var(--cream); color: var(--dark); }
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
 
-.header-cart{border:0;background:var(--olive);color:white;border-radius:30px;padding:11px 16px;font-weight:700}
-.hero{padding:65px 7% 60px;background:var(--butter);text-align:center}.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:12px;font-weight:700}
-.hero h1{font-size:clamp(42px,8vw,76px);line-height:1;margin:18px 0;letter-spacing:-2px}.hero p{font-size:17px;margin:0 auto 24px}
-.primary-btn{display:inline-block;border:0;background:var(--olive);color:white;padding:14px 23px;border-radius:30px;font-weight:700}
-section{padding:48px 6%}.section-heading{text-align:center;margin-bottom:28px}.section-heading h2{font-size:32px;margin:0 0 8px}.section-heading p{color:var(--muted);margin:0}
-.filters{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:25px 0}.filter{padding:9px 16px;border:1px solid var(--border);border-radius:30px;background:var(--white);color:var(--dark)}
-.filter.active{background:var(--olive);color:white;border-color:var(--olive)}
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px;max-width:1100px;margin:auto}
-.product{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:18px;display:flex;flex-direction:column;min-height:210px;min-width:0;overflow:hidden}
-.product-top{display:flex;justify-content:space-between;gap:10px}.product h3{margin:0 0 8px;font-size:17px;overflow-wrap:anywhere;line-height:1.25;font-size:19px}.product p{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 15px}
-.price{color:var(--olive);font-weight:700;white-space:normal;font-size:14px;line-height:1.65;display:flex;flex-direction:column;gap:2px;margin:5px 0 8px}.price-line{display:block;font-size:13px;line-height:1.45}.category-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--olive);font-weight:700;margin-bottom:12px}
-.add-btn{margin-top:auto;width:100%;padding:11px;background:var(--olive);color:white;border:0;border-radius:10px;font-weight:700}.add-btn:hover,.primary-btn:hover{opacity:.9}
-#pedido{background:#eeeadc}.order-layout{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
-.panel{background:var(--white);padding:23px;border-radius:18px;border:1px solid var(--border)}.panel h3{margin-top:0}.empty{color:var(--muted);font-size:14px}
-.cart-item{border-bottom:1px solid var(--border);padding:15px 0}.cart-item:last-child{border-bottom:0}
-.cart-item-head{display:flex;justify-content:space-between;gap:10px;font-weight:700}.cart-item small{color:var(--muted)}
-.cart-options{margin-top:10px;display:grid;gap:9px}.cart-options label,.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
-.qty-row{display:flex;align-items:center;gap:12px;margin-top:9px}.qty-btn{width:31px;height:31px;border:1px solid var(--border);background:var(--cream);border-radius:50%}
-.remove-btn{border:0;background:transparent;color:#a14b3d;font-size:12px;padding:5px 0}
-.field{margin-bottom:14px}.field input,.field select,.field textarea,.cart-options select,.cart-options textarea{width:100%;border:1px solid var(--border);border-radius:9px;background:white;padding:11px;color:var(--dark)}
-.field textarea,.cart-options textarea{resize:vertical;min-height:65px}
-.total-row{display:flex;justify-content:space-between;font-weight:700;font-size:19px;padding-top:17px;border-top:1px solid var(--border);margin-top:12px}
-.notice{background:#f7f0d8;padding:12px;border-radius:10px;font-size:13px;line-height:1.5;margin:14px 0}
-.whatsapp-btn{width:100%;border:0;border-radius:12px;padding:15px;background:var(--olive);color:white;font-weight:700;font-size:15px}.whatsapp-btn:disabled{opacity:.45;cursor:not-allowed}
-.about{text-align:center;background:var(--cream);padding-top:55px;padding-bottom:55px}.about p{max-width:620px;margin:12px auto;line-height:1.8}
-.brand-story{background:#eeeadc}.story-inner{max-width:1000px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}.story-copy h2{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:12px 0}.story-copy p{line-height:1.8;color:#626451}.story-image{min-height:300px;border-radius:22px;background:linear-gradient(0deg,#343a2744,#343a2700),url('./1790312149990.png') center/cover no-repeat;box-shadow:0 12px 35px #343a271a}.values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}.value-card{padding:17px;background:var(--white);border:1px solid var(--border);border-radius:14px}.value-card strong{display:block;margin-bottom:6px}.value-card span{font-size:13px;line-height:1.5;color:var(--muted)}
-.how-order{background:var(--white);padding-top:28px;padding-bottom:30px}.how-order .section-heading{margin-bottom:18px}.how-order .section-heading p{margin-top:6px}.order-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1000px;margin:0 auto}.step-card{display:grid;grid-template-columns:34px 1fr;column-gap:12px;align-items:start;padding:16px;background:var(--cream);border-radius:14px;border:1px solid var(--border)}.step-number{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--butter);font-weight:700;font-size:13px;grid-row:span 2;margin:0}.step-card h3{font-size:15px;margin:2px 0 5px}.step-card p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
-.instagram-section{background:#eeeadc;text-align:center}.instagram-grid{max-width:850px;margin:25px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.instagram-tile{aspect-ratio:1;overflow:hidden;border-radius:16px;background:var(--cream);display:block}.instagram-tile img{width:100%;height:100%;object-fit:cover;transition:transform .3s}.instagram-tile:hover img{transform:scale(1.04)}.social-link{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:30px;background:var(--dark);color:white;font-weight:700;margin-top:6px}
-.contact-section{text-align:center;background:var(--butter)}.contact-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}.contact-actions a{display:inline-block;padding:13px 20px;border-radius:30px;background:var(--olive);color:white;font-weight:700}.contact-actions a.secondary{background:var(--white);color:var(--dark)}
+  /* ENCABEZADO PREMIUM VRUTO */
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12px 6%;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;font-size:13px}
-.mobile-cart{display:none;position:fixed;z-index:20;bottom:14px;left:14px;right:14px;padding:14px;background:var(--olive);color:white;border:0;border-radius:14px;box-shadow:0 4px 18px #0002;font-weight:700}
-@media(max-width:850px){header{flex-wrap:wrap}.desktop-nav{order:3;width:100%;justify-content:center;gap:14px}.desktop-nav a{font-size:12px}.story-inner{grid-template-columns:1fr}.story-image{min-height:240px}}
-@media(max-width:700px){header{padding:12px 5%;gap:10px}.logo{font-size:23px}.logo img{width:95px}.hero{padding:55px 6%}section{padding:38px 5%}.order-layout{grid-template-columns:1fr}.menu-grid{grid-template-columns:1fr 1fr;gap:10px}.product{padding:14px;min-height:215px}.product h3{font-size:16px}.product-top{flex-direction:column;gap:5px}.price{font-size:15px}.mobile-cart{display:block}footer{padding-bottom:85px}.order-steps{grid-template-columns:1fr;gap:8px}.step-card{padding:12px 14px;grid-template-columns:30px 1fr;column-gap:10px}.step-number{width:28px;height:28px;font-size:12px}.step-card h3{font-size:14px;margin-top:1px}.step-card p{font-size:12px;line-height:1.45}.how-order{padding-top:24px;padding-bottom:24px}.values{grid-template-columns:1fr}.instagram-grid{gap:7px}.desktop-nav{gap:11px}.desktop-nav a{font-size:11px}.header-cart{padding:10px 12px;font-size:12px}}
+.brand-logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  margin: 0;
+  background: transparent;
+}
 
-@media(max-width:370px){.menu-grid{grid-template-columns:1fr}}
+.brand-logo img {
+  display: block;
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+}
+
+  .nav-menu {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .header-cart {
+    background: var(--olive);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 11px 16px;
+    font-weight: 700;
+  }
+
+  .hero { padding: 65px 7% 60px; background: var(--butter); text-align: center; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 3px; font-size: 12px; font-weight: 700; }
+  .hero h1 { font-size: clamp(42px, 8vw, 76px); line-height: 1; margin: 18px 0; letter-spacing: -2px; }
+  .hero p { font-size: 17px; margin: 0 auto 24px; }
+  .primary-btn { display: inline-block; border: 0; background: var(--olive); color: white; padding: 14px 23px; border-radius: 30px; font-weight: 700; }
+  
+  section { padding: 48px 6%; }
+  .section-heading { text-align: center; margin-bottom: 28px; }
+  .section-heading h2 { font-size: 32px; margin: 0 0 8px; }
+  .section-heading p { color: var(--muted); margin: 0; }
+  
+  .filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin: 25px 0; }
+  .filter { padding: 9px 16px; border: 1px solid var(--border); border-radius: 30px; background: var(--white); color: var(--dark); }
+  .filter.active { background: var(--olive); color: white; border-color: var(--olive); }
+  
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 17px; max-width: 1100px; margin: auto; }
+  .product { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; min-height: 210px; min-width: 0; overflow: hidden; }
+  .product-top { display: flex; justify-content: space-between; gap: 10px; }
+  .product h3 { margin: 0 0 8px; overflow-wrap: anywhere; line-height: 1.25; font-size: 19px; }
+  .product p { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 15px; }
+  .price { color: var(--olive); font-weight: 700; white-space: normal; font-size: 14px; line-height: 1.65; display: flex; flex-direction: column; gap: 2px; margin: 5px 0 8px; }
+  .price-line { display: block; font-size: 13px; line-height: 1.45; }
+  .category-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--olive); font-weight: 700; margin-bottom: 12px; }
+  .add-btn { margin-top: auto; width: 100%; padding: 11px; background: var(--olive); color: white; border: 0; border-radius: 10px; font-weight: 700; }
+  .add-btn:hover, .primary-btn:hover { opacity: .9; }
+  
+  #pedido { background: #eeeadc; }
+  .order-layout { max-width: 1000px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+  .panel { background: var(--white); padding: 23px; border-radius: 18px; border: 1px solid var(--border); }
+  .panel h3 { margin-top: 0; }
+  .empty { color: var(--muted); font-size: 14px; }
+  .cart-item { border-bottom: 1px solid var(--border); padding: 15px 0; }
+  .cart-item:last-child { border-bottom: 0; }
+  .cart-item-head { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; }
+  .cart-item small { color: var(--muted); }
+  .cart-options { margin-top: 10px; display: grid; gap: 9px; }
+  .cart-options label, .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+  .remove-btn { border: 0; background: transparent; color: #a14b3d; font-size: 12px; padding: 5px 0; }
+  
+  .field { margin-bottom: 14px; }
+  .field input, .field select, .field textarea, .cart-options select, .cart-options textarea { width: 100%; border: 1px solid var(--border); border-radius: 9px; background: white; padding: 11px; color: var(--dark); }
+  .field textarea, .cart-options textarea { resize: vertical; min-height: 65px; }
+  
+  .total-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 19px; padding-top: 17px; border-top: 1px solid var(--border); margin-top: 12px; }
+  .notice { background: #f7f0d8; padding: 12px; border-radius: 10px; font-size: 13px; line-height: 1.5; margin: 14px 0; }
+  .whatsapp-btn { width: 100%; border: 0; border-radius: 12px; padding: 15px; background: var(--olive); color: white; font-weight: 700; font-size: 15px; }
+  .whatsapp-btn:disabled { opacity: .45; cursor: not-allowed; }
+  
+/* SECCIÓN ABOUT MÁS COMPACTA */
+.about {
+  text-align: center;
+  background: var(--cream);
+  padding: 22px 6%;
+}
+
+.about h2 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.about p {
+  max-width: 500px;
+  margin: 7px auto;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.about p strong {
+  font-size: 12px;
+}
+
+footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 10px 12px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  footer {
+    padding: 8px 10px !important;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  footer strong {
+    font-size: 11px;
+  }
+}
+  
+  .mobile-cart { display: none; position: fixed; z-index: 20; bottom: 14px; left: 14px; right: 14px; padding: 14px; background: var(--olive); color: white; border: 0; border-radius: 14px; box-shadow: 0 4px 18px #0002; font-weight: 700; }
+
+  @media(max-width: 700px) {
+    .brand-logo img { width: 100px; max-height: 50px; }
+    .site-header { padding: 12px 4%; gap: 10px; }
+    .header-cart { padding: 10px 12px; font-size: 12px; }
+    .hero { padding: 55px 6%; }
+    section { padding: 38px 5%; }
+    .order-layout { grid-template-columns: 1fr; }
+    .menu-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .product { padding: 14px; min-height: 215px; }
+    .product h3 { font-size: 16px; }
+    .product-top { flex-direction: column; gap: 5px; }
+    .price { font-size: 15px; }
+    .mobile-cart { display: block; }
+    footer { padding-bottom: 8px; }
+  }
+  @media(max-width: 370px) { .menu-grid { grid-template-columns: 1fr; } }
+  .hero {
+  background-image:
+    linear-gradient(rgba(30, 32, 24, 0.35), rgba(30, 32, 24, 0.35)),
+    url("1787366429118.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fffdf7;
+  border-radius: 18px;
+}
+
+.hero h1,
+.hero p,
+.hero .eyebrow {
+  color: #fffdf7;
+}
+/* SECCIÓN DE TEMPORADA */
+.seasonal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+  padding: 65px 8%;
+  background: #e9e4d5;
+}
+
+.seasonal-image {
+  height: 370px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.seasonal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s;
+}
+
+.seasonal-image:hover img {
+  transform: scale(1.04);
+}
+
+.seasonal-content {
+  max-width: 470px;
+}
+
+.seasonal-label {
+  color: #69734b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.seasonal-content h2 {
+  font-size: clamp(35px, 5vw, 58px);
+  line-height: 1;
+  margin: 18px 0;
+}
+
+.seasonal-content p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #666653;
+}
+
+.seasonal-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.seasonal-prices span {
+  padding: 10px 13px;
+  background: #f7f3e8;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.seasonal-button {
+  display: inline-block;
+  background: #69734b;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 650px) {
+  .seasonal {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 40px 6%;
+  }
+
+  .seasonal-image {
+    height: 290px;
+  }
+}
+.section-heading h2 a,
+.section-heading h2 .anchor,
+.section-heading h2 .header-anchor,
+.section-heading h2 a.anchor {
+  display: none !important;
+}
+
+/* OCULTAR ICONOS DE ENLACE AUTOMÁTICOS */
+a.anchor,
+.anchor,
+.header-anchor,
+h1 a,
+h2 a,
+h3 a {
+  display: none !important;
+}
+
+/* ANIMACIONES DE ENTRADA VRUTO */
+
+@keyframes vrutoEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación al cargar la portada */
+.hero .eyebrow {
+  animation: vrutoEntrada 0.8s ease-out both;
+}
+
+.hero h1 {
+  animation: vrutoEntrada 0.9s ease-out 0.15s both;
+}
+
+.hero p {
+  animation: vrutoEntrada 0.9s ease-out 0.3s both;
+}
+
+.hero .primary-btn {
+  animation: vrutoEntrada 0.9s ease-out 0.45s both;
+}
+/* Accesibilidad: respetar la preferencia
+   de reducir movimiento del dispositivo */
+@media (prefers-reduced-motion: reduce) {
+  .hero .eyebrow,
+  .hero h1,
+  .hero p,
+  .hero .primary-btn {
+    animation: none;
+  }
+}
+
+/* ANIMACIONES AL DESPLAZARSE */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Aparición escalonada de las tarjetas */
+.product.reveal {
+  transition-delay: var(--delay, 0ms);
+}
+
+/* Respetar la preferencia de reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+/* CONTROLES DE CANTIDAD DEL CARRITO VRUTO */
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.cart-quantity button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9ddce;
+  border-radius: 12px;
+  background: #f7f5ec;
+  color: #454b35;
+  font-size: 22px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.cart-quantity button:hover {
+  background: #687451;
+  color: #fffdf7;
+  border-color: #687451;
+  transform: translateY(-1px);
+}
+
+.cart-quantity button:active {
+  transform: scale(0.94);
+}
+
+.cart-quantity .quantity-number {
+  min-width: 18px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #33382b;
+}
+
+.cart-quantity .quantity-label {
+  font-size: 12px;
+  color: #858575;
+}
+
+/* Mejora visual del botón de eliminar */
+.cart-remove {
+  border: none;
+  background: transparent;
+  color: #9a766c;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.cart-remove:hover {
+  color: #b34738;
+}
+
+/* DESCUENTOS VRUTO */
+.discount-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f7f3e8;
+  border: 1px solid #e5e0d2;
+  border-radius: 12px;
+}
+
+.discount-box label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.discount-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.discount-input-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #e5e0d2;
+  border-radius: 9px;
+  text-transform: uppercase;
+}
+
+.discount-input-row button {
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  background: var(--olive);
+  color: white;
+  font-weight: 700;
+}
+
+.discount-status {
+  margin: 9px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.discount-success { color: #426b36; }
+.discount-error { color: #a14b3d; }
+
+.discount-summary {
+  display: none;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.discount-amount {
+  color: #426b36;
+  font-weight: 700;
+}
+
+.final-total {
+  font-size: 21px;
+}
+
+
+/* VRUTO: CORRECCIÓN DEFINITIVA DEL PEDIDO EN MÓVILES */
+@media screen and (max-width: 700px) {
+
+  #pedido {
+    width: 100%;
+    min-width: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow: hidden;
+  }
+
+  #pedido .order-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 16px;
+  }
+
+  #pedido .panel {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 16px;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #pedido #cartItems,
+  #pedido .cart-item,
+  #pedido .cart-item-head,
+  #pedido .cart-options,
+  #pedido .field,
+  #pedido form {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #pedido .cart-item-head {
+    align-items: flex-start;
+    overflow-wrap: anywhere;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  #pedido .cart-item-head span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #pedido .field input,
+  #pedido .field select,
+  #pedido .field textarea,
+  #pedido .cart-options select,
+  #pedido .cart-options textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #pedido .discount-input-row {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  #pedido .discount-input-row input {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+  }
+
+  #pedido .discount-input-row button {
+    flex: 0 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #pedido .total-row {
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  #pedido .total-row span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #pedido .final-total {
+    font-size: 17px;
+  }
+
+  #pedido .notice {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* VRUTO — carrito móvil mejorado */
+.mobile-cart {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .mobile-cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: fixed;
+    z-index: 999;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    width: auto;
+    min-height: 64px;
+    padding: 12px 17px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    background: var(--dark);
+    color: var(--white);
+    box-shadow: 0 5px 22px rgba(0,0,0,.20);
+    text-align: left;
+  }
+
+  .mobile-cart-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #mobileCartLabel {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .mobile-cart-detail {
+    color: #e8e5d9;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mobile-cart-action {
+    flex-shrink: 0;
+    background: var(--butter);
+    color: var(--dark);
+    padding: 10px 13px;
+    border-radius: 24px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  body {
+    padding-bottom: 95px;
+  }
+
+  .add-btn,
+  .filter,
+  .cart-quantity button,
+  .whatsapp-btn {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+/* CARRITO VRUTO — VERDE OLIVO + CONTADOR ROJO */
+
+.header-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  position: relative;
+  background: #69734b;
+  color: #fffdf7;
+  border: none;
+  border-radius: 30px;
+  padding: 11px 17px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.header-cart:hover {
+  background: #535d3b;
+  transform: translateY(-1px);
+}
+
+.header-cart svg {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+}
+
+.cart-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 23px;
+  height: 23px;
+  padding: 0 5px;
+  border-radius: 50%;
+  background: #d94343;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0 0 2px #69734b;
+}
+
+@media (max-width: 700px) {
+  .header-cart {
+    gap: 7px;
+    padding: 10px 12px;
+  }
+
+  .header-cart svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-badge {
+    min-width: 22px;
+    height: 22px;
+  }
+}
+.social-footer {
+  background: #f4f0e6;
+  color: #454a35;
+  text-align: center;
+  padding: 45px 20px 30px;
+  margin-top: 50px;
+}
+
+.social-footer h2 {
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.social-footer p {
+  margin-bottom: 22px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.social-links a {
+  color: #69734b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.social-links a:hover {
+  color: #454a35;
+}
+
+.social-footer small {
+  color: #777765;
+  font-size: 12px;
+}
+
+.main-footer {
+  background: var(--olive);
+  color: var(--white);
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.main-footer strong {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.main-footer p {
+  margin: 8px 0 18px;
+}
+
+.main-footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+.main-footer .social-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.main-footer small {
+  opacity: 0.8;
+}
+
+.main-footer {
+  background: var(--olive);
+  color: var(--white);
+  text-align: center;
+  padding: 16px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.main-footer strong {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 2px;
+  margin-bottom: 2px;
+}
+
+.main-footer > span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.main-footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 6px 0;
+}
+
+.main-footer .social-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* FOOTER COMPACTO */
+.main-footer {
+  padding: 12px 15px !important;
+  gap: 4px !important;
+  line-height: 1.2 !important;
+  text-align: center;
+}
+
+/* Logo más pequeño */
+.footer-logo {
+  display: block;
+  width: 65px;
+  height: auto;
+  margin: 0 auto 3px;
+  padding: 0;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  mix-blend-mode: normal;
+  object-fit: contain;
+}
+
+/* Texto del footer */
+.main-footer span {
+  line-height: 1.2;
+}
+
+.main-footer .social-links {
+  margin: 4px 0;
+  gap: 12px;
+  line-height: 1.2;
+}
+
+.main-footer .social-links a {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* Copyright */
+.main-footer small {
+  display: block;
+  margin: 3px 0 0;
+  padding: 0;
+  line-height: 1.2;
+  font-size: 11px;
+}
+
+/* VRUTO — CÓMO PEDIR, DISEÑO COMPACTO */
+.how-to-order {
+  background: var(--cream);
+  padding: 24px 6%;
+}
+
+.how-to-order .section-heading {
+  margin-bottom: 16px;
+}
+
+.how-to-order .section-heading h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.how-to-order .section-heading p {
+  font-size: 13px;
+}
+
+.how-to-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.how-to-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.how-to-number {
+  flex: 0 0 29px;
+  width: 29px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--olive);
+  color: white;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.how-to-card h3 {
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 2px 0 5px;
+}
+
+.how-to-card p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .how-to-order {
+    padding: 20px 5%;
+  }
+
+  .how-to-order .section-heading {
+    margin-bottom: 12px;
+  }
+
+  .how-to-order .section-heading h2 {
+    font-size: 23px;
+  }
+
+  .how-to-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .how-to-card {
+    padding: 11px 12px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+
+  .how-to-number {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .how-to-card h3 {
+    font-size: 13px;
+    margin: 1px 0 3px;
+  }
+
+  .how-to-card p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+/* Eliminar espacio entre Cómo pedir y Menú */
+.how-to-order {
+  padding-bottom: 8px !important;
+  margin-bottom: 0 !important;
+}
+
+.how-to-order .section-heading {
+  margin-bottom: 12px !important;
+}
+
+.how-to-grid {
+  margin-bottom: 0 !important;
+}
+
+#menu {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+}
+/* ANIMACIÓN — CÓMO PEDIR */
+@keyframes vrutoStepAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.how-to-order .section-heading {
+  animation: vrutoStepAppear 0.6s ease both;
+}
+
+.how-to-card {
+  opacity: 0;
+  animation: vrutoStepAppear 0.6s ease forwards;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.how-to-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.how-to-card:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.how-to-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.how-to-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(49, 57, 37, 0.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .how-to-order .section-heading,
+  .how-to-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* VRUTO — INSTAGRAM MINIMALISTA */
+.vruto-instagram {
+  background: #f7f3e8;
+  padding: 48px 18px 54px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.instagram-heading {
+  margin: 0 auto 25px;
+}
+
+.instagram-eyebrow {
+  display: inline-block;
+  color: #69734b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.instagram-heading h2 {
+  color: #343a27;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin: 5px 0 9px;
+}
+
+.instagram-heading p {
+  color: #777765;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0 auto;
+}
+
+.instagram-reels {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+}
+
+/* Contenedor exterior del reel */
+.instagram-reels > .instagram-media {
+  display: block !important;
+  flex: 0 1 380px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 380px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  background: #fffdf7 !important;
+  border: 1px solid #e5e0d2 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 28px rgba(52, 58, 39, 0.09) !important;
+}
+
+@media (max-width: 480px) {
+  .vruto-instagram {
+    padding: 36px 14px 42px;
+  }
+
+  .instagram-reels {
+    max-width: 100% !important;
+  }
+
+  .instagram-reels > .instagram-media {
+    max-width: 380px !important;
+  }
+}
+/* AJUSTE DE ESPACIO ENTRE REEL Y TEXTO */
+.vruto-instagram {
+  padding-bottom: 15px !important;
+  margin-bottom: 0 !important;
+}
+
+.instagram-heading {
+  margin-bottom: 10px !important;
+}
+
+.instagram-reels {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Sección que contiene "Un buen café" */
+.vruto-instagram + section {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+}
+/* ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+html,
+body {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+footer {
+  margin-bottom: 0 !important;
+  padding-bottom: 20px !important;
+}
+
+body > *:last-child {
+  margin-bottom: 0 !important;
+}
+/* VRUTO — QUITAR ESPACIO AL FINAL DE LA PÁGINA */
+html,
+body {
+  margin: 0 !important;
+  min-height: 0;
+}
+
+body {
+  padding-bottom: 0 !important;
+}
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.main-footer {
+  margin-bottom: 0 !important;
+}
+
+/* Mantener el carrito flotante sin reservar espacio extra */
+@media (max-width: 700px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+/* ELIMINAR ESPACIO EXTRA AL FINAL */
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+body {
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+footer.main-footer {
+  margin-bottom: 0 !important;
+}
+
+/* Evitar que elementos finales agreguen altura */
+body > script {
+  display: none !important;
+}
+/* ANIMACIÓN DEL REEL VRUTO AL HACER SCROLL */
+
+.vruto-instagram.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  animation: none;
+}
+
+.vruto-instagram.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vruto-instagram.reveal,
+  .vruto-instagram.reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="#inicio" aria-label="VRUTO Café, inicio"><img src="./vruto-logo-transparente.png" alt="VRUTO Café" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','VRUTO<span>®</span>')"></a>
-  <nav class="desktop-nav" aria-label="Navegación principal">
-    <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a><a href="#como-pedir">Cómo pedir</a><a href="#menu">Menú</a><a href="#instagram">Instagram</a><a href="#contacto">Contacto</a>
-  </nav>
-  <button class="header-cart" onclick="goToCart()">🛒 Carrito (<span id="cartCount">0</span>)</button>
+<header class="site-header">
+ <a class="brand-logo" href="#inicio">
+  <img
+    src="./vruto-logo-transparente.png"
+    alt="VRUTO CAFÉ"
+  >
+</a>
+  <button class="header-cart" onclick="goToCart()" aria-label="Ver carrito">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 8H6"
+      fill="none" stroke="currentColor" stroke-width="1.8"
+      stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10" cy="20" r="1.2" fill="currentColor"/>
+    <circle cx="18" cy="20" r="1.2" fill="currentColor"/>
+  </svg>
+  <span>Carrito</span>
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
 </header>
 <main>
   <section class="hero" id="inicio">
-    <div class="eyebrow">Coffee · Matcha · Chill</div><h1>café sin<br>filtro.</h1>
-    <p>Tu próximo café favorito, hasta tu puerta.</p><a class="primary-btn" href="#menu">Explorar menú ↓</a>
+    <div class="eyebrow">Coffee · Matcha · Chill</div>
+    <h1>café sin<br>filtro.</h1>
+    <p>Tu próximo café favorito, hasta tu puerta.</p>
+    <a class="primary-btn" href="#menu">Explorar menú ↓</a>
   </section>
-  <section class="brand-story" id="nosotros">
-    <div class="story-inner">
-      <div class="story-copy"><div class="eyebrow">Conoce VRUTO</div><h2>Un buen café cambia el día.</h2><p>En VRUTO creemos que el café debe ser sencillo, rico y hecho a tu manera. Preparamos café, matcha y bebidas especiales para acompañarte en tu rutina, tu trabajo o ese momento en el que solo necesitas hacer una pausa.</p><p><strong>Café sin filtro. Directo hasta ti.</strong></p>
-        <div class="values"><div class="value-card"><strong>Sin complicaciones</strong><span>Tu bebida favorita, fácil de pedir.</span></div><div class="value-card"><strong>A tu manera</strong><span>Personaliza leche, extras y notas.</span></div><div class="value-card"><strong>Directo hasta ti</strong><span>Servicio a domicilio en Mazatlán.</span></div></div>
-      </div><div class="story-image" role="img" aria-label="Imagen de temporada de VRUTO Café"></div>
-    </div>
-  </section>
-  <section class="how-order" id="como-pedir"><div class="section-heading"><div class="eyebrow">Rápido y sencillo</div><h2>¿Cómo pedir?</h2><p>Tu café favorito está a unos pasos.</p></div>
-    <div class="order-steps"><article class="step-card"><div class="step-number">01</div><h3>Elige tus favoritos</h3><p>Explora el menú y agrega al carrito las bebidas que se te antojen.</p></article><article class="step-card"><div class="step-number">02</div><h3>Personaliza tu pedido</h3><p>Selecciona tamaño, tipo de leche, extras y cualquier indicación especial.</p></article><article class="step-card"><div class="step-number">03</div><h3>Envía y confirma</h3><p>Completa tus datos y manda el pedido por WhatsApp. Confirmaremos envío y datos de transferencia.</p></article></div>
-    <div style="text-align:center"><a class="primary-btn" href="#menu">Ver menú y ordenar ↓</a></div>
-  </section>
+  <section class="seasonal">
+  <div class="seasonal-image">
+    <img
+      src="1790312149990.png"
+      alt="PumpkinSPiceLatte"
+      loading="lazy"
+    >
+  </div>  <div class="seasonal-content">
+    <span class="seasonal-label">EDICIÓN DE TEMPORADA</span><h2>Pumpkin Spice.</h2>
+
+<p>
+  Espresso, leche y especias de calabaza.
+  Tu bebida favorita de otoño, a tu manera.
+</p>
+
+<div class="seasonal-prices">
+  <span>Caliente desde $70</span>
+  <span>Frío $85</span>
+</div>
+
+<a href="#menu" class="seasonal-button">
+  DESCUBRIR EN EL MENÚ →
+</a>
+
+  </div>
+</section>
+<!-- CÓMO PEDIR -->
+<section class="how-to-order" id="como-pedir">
+  <div class="section-heading">
+    <h2>¿Cómo pedir?</h2>
+    <p>Tu café favorito en tres pasos.</p>
+  </div>
+
+  <div class="how-to-grid">
+    <article class="how-to-card">
+      <span class="how-to-number">1</span>
+      <div>
+        <h3>Elige tu café</h3>
+        <p>Explora el menú y agrega tus bebidas al carrito.</p>
+      </div>
+    </article>
+
+    <article class="how-to-card">
+      <span class="how-to-number">2</span>
+      <div>
+        <h3>Completa tus datos</h3>
+        <p>Indica tu dirección, zona de entrega y preferencias.</p>
+      </div>
+    </article>
+
+    <article class="how-to-card">
+      <span class="how-to-number">3</span>
+      <div>
+        <h3>Confirma por WhatsApp</h3>
+        <p>Envía tu pedido y confirma el envío y la transferencia.</p>
+      </div>
+    </article>
+  </div>
+</section>
   <section id="menu">
-    <div class="section-heading"><h2>Menú</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
+    <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
-      <button class="filter active" data-filter="Todos">Todo</button><button class="filter" data-filter="Calientes">Calientes</button>
-      <button class="filter" data-filter="Fríos">Fríos</button><button class="filter" data-filter="Especiales">Especiales</button>
+      
+      <button class="filter" data-filter="Calientes">Calientes</button>
+      <button class="filter active" data-filter="Fríos">Fríos</button>
+      <button class="filter" data-filter="Especiales">Especiales</button>
     </div>
     <div class="menu-grid" id="menuGrid"></div>
   </section>
+
   <section id="pedido">
     <div class="section-heading"><h2>Tu pedido</h2><p>Revisa tu carrito y dinos dónde entregarlo.</p></div>
     <div class="order-layout">
       <div class="panel" id="cartPanel">
-        <h3>🛒 Mi carrito</h3><div id="cartItems"><p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p></div>
-        <div class="total-row"><span>Subtotal</span><span id="subtotal">$0.00 MXN</span></div>
-        <p class="empty">El costo de envío se confirma por WhatsApp.</p>
+        <h3>🛒 Mi carrito</h3>
+        <div id="cartItems"><p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p></div>
+        
+<div class="total-row">
+  <span>Subtotal</span>
+  <span id="subtotal">$0.00 MXN</span>
+</div>
+
+<div class="discount-box">
+  <label for="discountCode">¿Tienes un código de descuento?</label>
+
+  <div class="discount-input-row">
+    <input
+      type="text"
+      id="discountCode"
+      placeholder="Ingresa tu código"
+      autocomplete="off"
+      maxlength="30"
+    >
+    <button type="button" onclick="applyDiscount()">Aplicar</button>
+  </div>
+
+  <p id="discountStatus" class="discount-status" aria-live="polite"></p>
+</div>
+
+<div id="discountSummary" class="discount-summary">
+  <span id="discountLabel">Descuento</span>
+  <span id="discountAmount" class="discount-amount">-$0.00 MXN</span>
+</div>
+
+<div class="total-row final-total">
+  <span>Total de bebidas</span>
+  <span id="finalTotal">$0.00 MXN</span>
+</div>
+
+<p class="empty" style="margin-top: 10px;">
+  El costo de envío se confirma por WhatsApp.
+</p>
       </div>
       <div class="panel">
         <h3>📍 Datos de entrega</h3>
         <form id="orderForm">
           <div class="field"><label for="customerName">Nombre *</label><input id="customerName" name="customerName" required placeholder="¿A nombre de quién?"></div>
-          <div class="field"><label for="customerPhone">Teléfono de contacto *</label><input id="customerPhone" name="customerPhone" type="tel" required placeholder="Tu número de teléfono"></div>
+          <div class="field"><label for="customerPhone">Teléfono de contacto *</label><input id="customerPhone" name="customerPhone" type="tel" required placeholder="Tu número de teléfono"></div>   
+          
+<div class="field">
+  <label for="deliveryZone">Zona de entrega *</label>
+  <select id="deliveryZone" name="deliveryZone" required>
+    <option value="">Selecciona tu zona</option>
+    <option value="Centro">Centro de Mazatlán</option>
+    <option value="Otra zona">Otra zona de Mazatlán</option>
+  </select>
+</div>
           <div class="field"><label for="deliveryAddress">Dirección completa *</label><textarea id="deliveryAddress" name="deliveryAddress" required placeholder="Calle, número, colonia y ciudad"></textarea></div>
           <div class="field"><label for="references">Referencias de entrega</label><input id="references" name="references" placeholder="Entre calles, color de portón, oficina, etc."></div>
           <div class="field"><label for="generalNotes">Notas adicionales</label><textarea id="generalNotes" name="generalNotes" placeholder="Indicaciones para tu pedido"></textarea></div>
@@ -108,30 +1416,72 @@ footer{background:var(--dark);color:white;text-align:center;padding:25px 15px;fo
       </div>
     </div>
   </section>
-  <section class="instagram-section" id="instagram"><div class="section-heading"><div class="eyebrow">Síguenos</div><h2>Un vistazo a VRUTO</h2><p>Descubre novedades, bebidas y promociones en Instagram.</p></div>
-    <div class="instagram-grid"><a class="instagram-tile" href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer"><img src="./1790312149990.png" alt="Novedades de VRUTO Café"></a><a class="instagram-tile" href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer"><img src="./1787366429118.jpg" alt="Imagen de marca VRUTO Café"></a><a class="instagram-tile" href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer"><img src="./vruto-logo-transparente.png" alt="Logo de VRUTO Café"></a></div>
-    <a class="social-link" href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">@vrutocafe · Ver Instagram ↗</a>
-  </section>
-  <section class="contact-section" id="contacto"><div class="eyebrow">¿Se te antojó?</div><h2>Tu próximo café te espera.</h2><p>Arma tu pedido en línea o escríbenos para resolver tus dudas.</p><div class="contact-actions"><a href="#menu">Ordenar ahora</a><a class="secondary" href="https://wa.me/526693683462" target="_blank" rel="noopener noreferrer">WhatsApp</a><a class="secondary" href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">Instagram</a></div></section>
-  <section class="about"><div class="eyebrow">VRUTO Café</div><h2>Un buen café cambia el día.</h2>
-    <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p><p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
-  </section>
+<!-- INSTAGRAM VRUTO -->
+<section class="vruto-instagram" id="instagram">
+
+  <div class="instagram-heading">
+    <span class="instagram-eyebrow">CAFÉ SIN FILTRO.</span>
+    <h2>Un poco más de VRUTO</h2>
+    <p>Café, matcha y momentos que se antojan.</p>
+  </div>
+
+  <div class="instagram-reels">
+
+    <blockquote
+      class="instagram-media"
+      data-instgrm-permalink="https://www.instagram.com/reel/DdKdgsnSvoB/"
+      data-instgrm-version="14">
+    </blockquote>
+
+  </div>
+
+</section>
+<section class="about">
+  <h2>Un buen café cambia el día.</h2>
+  <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
+  <p><strong>Servicio a domicilio · Mazatlán, Sinaloa</strong></p>
+</section>
+
 </main>
-<footer><strong>VRUTO Café</strong><br>café sin filtro. · Mazatlán, Sinaloa<br><a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">Instagram @vrutocafe</a> · <a href="https://wa.me/526693683462" target="_blank" rel="noopener noreferrer">WhatsApp</a><br>© <span id="year"></span> VRUTO Café</footer>
-<button class="mobile-cart" onclick="goToCart()">Ver carrito · <span id="mobileCartCount">0</span> artículos</button>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<footer class="main-footer">
+  <img src="./vruto-logo-transparente.png" alt="VRUTO Café" class="footer-logo">
+  <span>café sin filtro. · Mazatlán, Sinaloa</span>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://wa.me/526693683462" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+
+  <small>© <span id="year"></span> VRUTO Café</small>
+</footer>
+
+<button class="mobile-cart" onclick="goToCart()">
+  <span class="mobile-cart-info">
+    <span id="mobileCartLabel">Ver carrito</span>
+    <span class="mobile-cart-detail">
+      <span id="mobileCartCount">0</span> bebidas ·
+      <span id="mobileCartTotal">$0.00</span>
+    </span>
+  </span>
+  <span class="mobile-cart-action">Revisar →</span>
+</button>
+
 <script>
 const WHATSAPP_NUMBER = "526693683462";
-const fallbackMenuData = [
+  const SUPABASE_URL = "https://eqguxuacvdvdbxtxbogf.supabase.co";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
+
+const menuData = [
   {id:1,name:"Americano",category:"Calientes",description:"Espresso con agua caliente.",hot:true,milk:false,prices:{"12 oz":50,"16 oz":60},sugar:true},
   {id:2,name:"Latte Regular",category:"Calientes",description:"Espresso con leche cremosa.",hot:true,milk:true,prices:{"12 oz":65,"16 oz":75},sugar:true},
-  {id:3,name:"Latte Caramel",category:"Especiales",description:"Espresso, leche y caramelo.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
-  {id:4,name:"Latte Vainilla",category:"Especiales",description:"Latte suave con un toque de vainilla.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:75},
-  {id:5,name:"Latte Moka",category:"Especiales",description:"Espresso, leche y chocolate.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
-  {id:6,name:"Chai Latte",category:"Especiales",description:"Té chai especiado con leche.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
-  {id:7,name:"Chai Sucio",category:"Especiales",description:"Chai especiado con espresso y leche.",hot:true,milk:true,prices:{"12 oz":80,"16 oz":90},coldPrice:85},
-  {id:8,name:"Matcha",category:"Especiales",description:"Matcha cremoso y equilibrado.",hot:true,milk:true,prices:{"12 oz":75,"16 oz":85},coldPrice:85},
-  {id:9,name:"Taro Latte",category:"Especiales",description:"Bebida cremosa de taro.",hot:true,milk:true,prices:{"12 oz":75,"16 oz":85},coldPrice:80},
+  {id:3,name:"Latte Caramel",category:"Calientes",description:"Espresso, leche y caramelo.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
+  {id:4,name:"Latte Vainilla",category:"Calientes",description:"Latte suave con un toque de vainilla.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:75},
+  {id:5,name:"Moka Latte",category:"Calientes",description:"Latte con chocolate.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
+  {id:6,name:"Chai Latte",category:"Calientes",description:"Té chai especiado con leche.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80},coldPrice:78},
+  {id:7,name:"Chai Sucio",category:"Calientes",description:"Chai especiado con espresso.",hot:true,milk:true,prices:{"12 oz":80,"16 oz":90},coldPrice:85},
+  {id:8,name:"Matcha",category:"Calientes",description:"Matcha cremoso y equilibrado.",hot:true,milk:true,prices:{"12 oz":75,"16 oz":85},coldPrice:85},
+  {id:9,name:"Taro Latte",category:"Calientes",description:"Bebida cremosa de taro.",hot:true,milk:true,prices:{"12 oz":75,"16 oz":85},coldPrice:80},
   {id:10,name:"Americano Frío",displayName:"Americano",category:"Fríos",description:"Espresso con agua y hielo.",hot:false,milk:false,coldPrice:60,sugar:true},
   {id:11,name:"Latte Regular Frío",displayName:"Latte Reg.",category:"Fríos",description:"Latte helado, suave y cremoso.",hot:false,milk:true,coldPrice:75,sugar:true},
   {id:12,name:"Caramelo Frío",displayName:"Caramelo",category:"Fríos",description:"Latte helado con caramelo.",hot:false,milk:true,coldPrice:78},
@@ -144,129 +1494,607 @@ const fallbackMenuData = [
   {id:19,name:"Pumpkin Spice Caliente",displayName:"Pumpkin Spice Caliente",category:"Especiales",description:"Espresso, leche y especias de calabaza.",hot:true,milk:true,prices:{"12 oz":70,"16 oz":80}},
   {id:20,name:"Pumpkin Spice Frío",displayName:"Pumpkin Spice Frío",category:"Especiales",description:"Pumpkin Spice Latte helado con notas de calabaza y especias.",hot:false,milk:true,coldPrice:85}
 ];
-let menuData = [...fallbackMenuData];
 
-// Configura estos dos valores con la URL del proyecto y la clave PUBLICA de Supabase.
-const SUPABASE_URL = "https://eqguxuacvdvdbxtxbogf.supabase.co";
-const SUPABASE_PUBLIC_KEY = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
-
-const milkOptions=[
-  {value:"Entera",label:"Leche entera"},{value:"Deslactosada",label:"Leche deslactosada"},
-  {value:"Almendra",label:"Leche de almendra (+$15)",extra:15},{value:"Sin leche",label:"Sin leche"}
+const milkOptions = [
+  {value:"Entera",label:"Leche entera"},
+  {value:"Deslactosada",label:"Leche deslactosada"},
+  {value:"Deslactosada Light",label:"Leche deslactosada Light"},
+  {value:"Almendra",label:"Leche de almendra (+$15)",extra:15},
+  {value:"Sin leche",label:"Sin leche"}
 ];
-const extraOptions=[{value:"shot",label:"Shot extra (+$15)",price:15},{value:"syrup",label:"Jarabe extra (+$15)",price:15}];
-let cart=[],currentFilter="Todos";
-const money=amount=>"$"+amount.toFixed(2)+" MXN";
-function getPrice(product,size){return product.hot?product.prices[size]:product.coldPrice;}
-function renderMenu(){
- const grid=document.getElementById("menuGrid");
- const filtered=currentFilter==="Todos"?menuData:
-   currentFilter==="Calientes"?menuData.filter(item=>item.hot===true&&!item.food):
-   currentFilter==="Fríos"?menuData.filter(item=>item.hot===false&&!item.food):
-   currentFilter==="Especiales"?menuData.filter(item=>item.category==="Especiales"||item.food):
-   currentFilter.startsWith("cat:")?menuData.filter(item=>item.categoryName===currentFilter.slice(4)):menuData;
- grid.innerHTML=filtered.map(item=>{
-   const label=item.displayName||item.name;
-   const priceText=item.food?`<span class="price-line">1 pza · ${money(item.coldPrice)}</span>`:item.hot?`<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`:`<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
-   return `<article class="product"><div class="category-label">${escapeHTML(item.categoryName||item.category)}</div><div class="product-top"><h3>${label}</h3></div><div class="price">${priceText}</div><p>${item.description}</p><button class="add-btn" data-add-to-cart="${escapeHTML(String(item.id))}">+ Agregar al carrito</button></article>`;
- }).join("");
- grid.querySelectorAll("[data-add-to-cart]").forEach(button=>button.addEventListener("click",()=>addToCart(button.dataset.addToCart)));
+
+const extraOptions = [
+  {value:"shot",label:"Shot extra (+$15)",price:15},
+  {value:"syrup",label:"Jarabe extra (+$15)",price:15}
+];
+
+let cart = [], currentFilter = "Fríos";
+const money = amount => "$" + amount.toFixed(2) + " MXN";
+  
+/* =====================================
+   CÓDIGOS PROMOCIONALES VRUTO CAFÉ
+===================================== */
+
+const DISCOUNT_CODES = {
+  OFFICE15: {
+    percentage: 15,
+    minDrinks: 3,
+    zone: "Centro"
+  }
+};
+
+let appliedPromo = null;
+
+function getDrinkCount() {
+  return cart.reduce(
+    (sum, item) => sum + Number(item.quantity || 1),
+    0
+  );
 }
-document.querySelector(".filters").addEventListener("click",event=>{
- const button=event.target.closest(".filter");if(!button)return;
- document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));button.classList.add("active");currentFilter=button.dataset.filter;renderMenu();
+
+function getSubtotal() {
+  return cart.reduce(
+    (sum, item) => sum + itemPrice(item) * Number(item.quantity || 1),
+    0
+  );
+}
+
+function getDiscount() {
+  if (!appliedPromo) return 0;
+
+  return Math.round(
+    getSubtotal() * appliedPromo.percentage
+  ) / 100;
+}
+
+function getFinalTotal() {
+  return Math.max(0, getSubtotal() - getDiscount());
+}
+
+function setDiscountStatus(message, success = false) {
+  const status = document.getElementById("discountStatus");
+
+  status.textContent = message;
+  status.className = "discount-status " +
+    (success ? "discount-success" : "discount-error");
+}
+
+function applyDiscount() {
+  const code = document.getElementById("discountCode")
+    .value.trim().toUpperCase();
+
+  const zone = document.getElementById("deliveryZone").value;
+  const promo = DISCOUNT_CODES[code];
+
+  if (!code) {
+    appliedPromo = null;
+    setDiscountStatus("Ingresa un código promocional.");
+    renderCart();
+    return;
+  }
+
+  if (!promo) {
+    appliedPromo = null;
+    setDiscountStatus("El código ingresado no es válido.");
+    renderCart();
+    return;
+  }
+
+  if (getDrinkCount() < promo.minDrinks) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "Necesitas al menos " + promo.minDrinks + " bebidas para usar este código."
+    );
+    renderCart();
+    return;
+  }
+
+  if (zone !== promo.zone) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "OFFICE15 solo es válido para entregas en el Centro de Mazatlán."
+    );
+    renderCart();
+    return;
+  }
+
+  appliedPromo = {
+    code,
+    percentage: promo.percentage,
+    minDrinks: promo.minDrinks,
+    zone: promo.zone
+  };
+
+  setDiscountStatus(
+    "¡Código aplicado! Tienes " + promo.percentage + "% de descuento.",
+    true
+  );
+
+  renderCart();
+}
+
+function renderDiscountTotals() {
+  const subtotal = getSubtotal();
+
+  // Comprueba de nuevo las condiciones al actualizar el carrito.
+  if (appliedPromo) {
+    if (getDrinkCount() < appliedPromo.minDrinks) {
+      appliedPromo = null;
+      setDiscountStatus(
+        "Descuento eliminado: necesitas al menos 3 bebidas."
+      );
+    } else if (
+      document.getElementById("deliveryZone").value !== appliedPromo.zone
+    ) {
+      appliedPromo = null;
+      setDiscountStatus(
+        "Descuento eliminado: la promoción solo aplica en el Centro."
+      );
+    }
+  }
+
+  const discount = getDiscount();
+  const finalTotal = Math.max(0, subtotal - discount);
+
+  document.getElementById("subtotal").textContent = money(subtotal);
+  document.getElementById("finalTotal").textContent = money(finalTotal);
+
+  const summary = document.getElementById("discountSummary");
+
+  if (appliedPromo && discount > 0) {
+    summary.style.display = "flex";
+    document.getElementById("discountLabel").textContent =
+      "Descuento " + appliedPromo.percentage + "%";
+    document.getElementById("discountAmount").textContent =
+      "-" + money(discount);
+  } else {
+    summary.style.display = "none";
+  }
+}
+
+
+ // Si cambia la zona, revalidar el código promocional automáticamente.
+document.getElementById("deliveryZone").addEventListener("change", () => {
+  const code = document.getElementById("discountCode")
+    .value.trim().toUpperCase();
+
+  const zone = document.getElementById("deliveryZone").value;
+  const promo = DISCOUNT_CODES[code];
+
+  // Si hay un código válido, suficientes bebidas y la zona es Centro,
+  // aplicar automáticamente el descuento.
+  if (
+    promo &&
+    getDrinkCount() >= promo.minDrinks &&
+    zone === promo.zone
+  ) {
+    appliedPromo = {
+      code,
+      percentage: promo.percentage,
+      minDrinks: promo.minDrinks,
+      zone: promo.zone
+    };
+
+    setDiscountStatus(
+      "¡Código aplicado! Tienes " + promo.percentage + "% de descuento.",
+      true
+    );
+  } else if (appliedPromo && zone !== appliedPromo.zone) {
+    appliedPromo = null;
+    setDiscountStatus(
+      "Descuento eliminado: la promoción solo aplica en el Centro."
+    );
+  }
+
+  renderCart();
 });
-function renderCategoryFilters(){
- const wrap=document.querySelector(".filters");
- const baseFilters=[["Todos","Todo"],["Calientes","Calientes"],["Fríos","Fríos"],["Especiales","Especiales"]];
- wrap.innerHTML=baseFilters.map(([value,label])=>`<button class="filter ${value===currentFilter?'active':''}" data-filter="${escapeHTML(value)}">${escapeHTML(label)}</button>`).join("");
-}
-function addToCart(id){
- const product=menuData.find(p=>p.id===id);if(!product)return;
- const size=product.food?"1 pza":product.hot?"12 oz":"16 oz";
- cart.push({cartId:String(Date.now())+Math.random().toString(36).slice(2,7),id:product.id,name:product.name,size,price:getPrice(product,size),milk:product.milk?"Entera":"Sin leche",sugar:product.sugar?"Sin azúcar":"No aplica",extras:[],note:""});
- renderCart();document.getElementById("pedido").scrollIntoView({behavior:"smooth"});
-}
-function itemPrice(item){
- const milk=milkOptions.find(o=>o.value===item.milk);
- return item.price+(milk?.extra||0)+item.extras.reduce((sum,key)=>sum+(extraOptions.find(o=>o.value===key)?.price||0),0);
-}
-function renderCart(){
- const container=document.getElementById("cartItems"),count=cart.length;
- document.getElementById("cartCount").textContent=count;document.getElementById("mobileCartCount").textContent=count;
- if(!count){container.innerHTML='<p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p>';document.getElementById("subtotal").textContent=money(0);return;}
- container.innerHTML=cart.map(item=>{
-  const product=menuData.find(p=>p.id===item.id),hasMilk=product&&product.milk;
-  const sizeOptions=product.food?["1 pza"]:product.hot?["12 oz","16 oz"]:["16 oz"];
-  return `<div class="cart-item"><div class="cart-item-head"><span>${escapeHTML(item.name)} · ${item.size}</span><span>${money(itemPrice(item))}</span></div>
-  <div class="cart-options">
-  <div><label for="size-${item.cartId}">Tamaño</label><select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">${sizeOptions.map(s=>`<option value="${s}" ${item.size===s?"selected":""}>${s} · ${money(product.food?product.coldPrice:getPrice(product,s))}</option>`).join("")}</select></div>
-  ${hasMilk?`<div><label for="milk-${item.cartId}">Tipo de leche</label><select id="milk-${item.cartId}" onchange="updateMilk('${item.cartId}',this.value)">${milkOptions.map(o=>`<option value="${o.value}" ${item.milk===o.value?"selected":""}>${o.label}</option>`).join("")}</select></div>`:""}
-  ${product.sugar?`<div><label for="sugar-${item.cartId}">Azúcar</label><select id="sugar-${item.cartId}" onchange="updateSugar('${item.cartId}',this.value)"><option ${item.sugar==="Sin azúcar"?"selected":""}>Sin azúcar</option><option ${item.sugar==="Azúcar blanca"?"selected":""}>Azúcar blanca</option><option ${item.sugar==="Stevia"?"selected":""}>Stevia</option></select></div>`:""}
-  <div><label>Extras (cada uno +$15)</label>${extraOptions.map(o=>`<label style="font-weight:500;display:flex;align-items:center;gap:8px;margin:7px 0"><input type="checkbox" ${item.extras.includes(o.value)?"checked":""} onchange="toggleExtra('${item.cartId}','${o.value}',this.checked)" style="width:auto"> ${o.label}</label>`).join("")}</div>
-  <div><label for="note-${item.cartId}">Notas de esta bebida</label><textarea id="note-${item.cartId}" placeholder="Ej. sin hielo, poco dulce..." onchange="updateNote('${item.cartId}',this.value)">${escapeHTML(item.note)}</textarea></div>
-  </div><button class="remove-btn" onclick="removeFromCart('${item.cartId}')">Eliminar producto</button></div>`;
- }).join("");
- document.getElementById("subtotal").textContent=money(cart.reduce((sum,item)=>sum+itemPrice(item),0));
-}
-function updateSize(id,size){const item=cart.find(i=>i.cartId===id),p=item&&menuData.find(p=>p.id===item.id);if(!item||!p)return;item.size=size;item.price=p.food?p.coldPrice:getPrice(p,size);renderCart();}
-function updateMilk(id,value){const item=cart.find(i=>i.cartId===id);if(item){item.milk=value;renderCart();}}
-function updateSugar(id,value){const item=cart.find(i=>i.cartId===id);if(item){item.sugar=value;renderCart();}}
-function toggleExtra(id,key,checked){const item=cart.find(i=>i.cartId===id);if(!item)return;item.extras=checked?[...new Set([...item.extras,key])]:item.extras.filter(x=>x!==key);renderCart();}
-function updateNote(id,value){const item=cart.find(i=>i.cartId===id);if(item)item.note=value;}
-function removeFromCart(id){cart=cart.filter(item=>item.cartId!==id);renderCart();}
-function escapeHTML(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));}
-function goToCart(){document.getElementById("pedido").scrollIntoView({behavior:"smooth"});}
-document.getElementById("orderForm").addEventListener("submit",function(event){
- event.preventDefault();if(!cart.length){alert("Agrega al menos una bebida a tu carrito antes de enviar el pedido.");return;}
- const name=document.getElementById("customerName").value.trim(),phone=document.getElementById("customerPhone").value.trim(),address=document.getElementById("deliveryAddress").value.trim(),references=document.getElementById("references").value.trim(),generalNotes=document.getElementById("generalNotes").value.trim();
- if(!name||!phone||!address){alert("Completa tu nombre, teléfono y dirección de entrega.");return;}
- const total=cart.reduce((sum,item)=>sum+itemPrice(item),0);let message="☕ *VRUTO CAFÉ* ☕\n_café sin filtro._\n━━━━━━━━━━━━━━━━━━\n🧾 *NUEVO PEDIDO*\n━━━━━━━━━━━━━━━━━━\n\n";
- message+="👤 *DATOS DEL CLIENTE*\n• Nombre: "+name+"\n• Teléfono: "+phone+"\n\n📍 *DATOS DE ENTREGA*\n• Dirección: "+address+"\n";
- if(references)message+="• Referencias: "+references+"\n";
- message+="\n━━━━━━━━━━━━━━━━━━\n🛍️ *DETALLE DEL PEDIDO*\n━━━━━━━━━━━━━━━━━━\n";
- cart.forEach((item,index)=>{
-  const product=menuData.find(p=>p.id===item.id);message+="\n*Bebida "+(index+1)+": "+item.name+"*\n• Tamaño: "+item.size+"\n• Cantidad: 1\n";
-  if(product&&product.milk)message+="• Leche: "+item.milk+(item.milk==="Almendra"?" (+$15.00 MXN)":"")+"\n";
-  if(product&&product.sugar)message+="• Azúcar: "+item.sugar+"\n";
-  if(item.extras.length)message+="• Extras: "+item.extras.map(key=>extraOptions.find(o=>o.value===key).label).join(", ")+"\n";
-  if(item.note.trim())message+="• Indicaciones: "+item.note.trim()+"\n";
-  message+="• Precio: "+money(itemPrice(item))+"\n";
- });
- message+="\n━━━━━━━━━━━━━━━━━━\n💰 *RESUMEN DE COMPRA*\n━━━━━━━━━━━━━━━━━━\n• Productos: "+cart.length+"\n• Subtotal: "+money(total)+"\n• Envío: Por confirmar\n• *TOTAL A PAGAR: "+money(total)+" + envío*\n\n💳 *MÉTODO DE PAGO*\nTransferencia bancaria\n_Los datos bancarios se compartirán por este medio._\n";
- if(generalNotes)message+="\n📝 *NOTAS ADICIONALES*\n"+generalNotes+"\n";
- message+="\n━━━━━━━━━━━━━━━━━━\n¡Gracias por elegir *VRUTO Café*! ☕\nHola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia y confirmar el costo del envío?";
- const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);window.open(url,"_blank");
+
+
+// Permite aplicar el código pulsando Enter.
+document.getElementById("discountCode").addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    applyDiscount();
+  }
 });
-function mapSupabaseProduct(row){
- const isPumpkin=/pumpkin\s*spice/i.test(row.name);
- const category=isPumpkin?"Especiales":(row.product_type==="hot"?"Calientes":row.product_type==="cold"?"Fríos":"Especiales");
- const base={name:row.name,description:row.description||"",category,categoryName:category,milk:!/americano/i.test(row.name)&&row.product_type!=="food",sugar:/americano|latte regular/i.test(row.name),image_url:row.image_url||""};
- const numeric=v=>v===null||v===undefined?0:Number(v);
- if(row.product_type==="both"){
-  return [
-   {...base,id:row.id+"-hot",dbId:row.id,hot:true,food:false,prices:{"12 oz":numeric(row.hot_price_12),"16 oz":numeric(row.hot_price_16)}},
-   {...base,id:row.id+"-cold",dbId:row.id,hot:false,food:false,coldPrice:numeric(row.cold_price)}
-  ];
+document.getElementById("discountCode").addEventListener("input", () => {
+  appliedPromo = null;
+  document.getElementById("discountStatus").textContent = "";
+  renderCart();
+});
+
+function getPrice(product, size) {
+  return product.hot ? product.prices[size] : product.coldPrice;
+}
+
+function renderMenu() {
+ const grid = document.getElementById("menuGrid");
+ const filtered = currentFilter === "Todos"
+  ? menuData
+  : currentFilter === "Calientes"
+    ? menuData.filter(item => item.hot === true)
+    : currentFilter === "Fríos"
+      ? menuData.filter(item => item.hot === false)
+      : menuData.filter(item => item.category === "Especiales");
+
+ grid.innerHTML = filtered.map(item => {
+   const label = item.displayName || item.name;
+   const priceText = item.hot
+     ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
+     : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
+
+   return `<article class="product reveal"
+  style="--delay: ${Math.min(filtered.indexOf(item) % 4, 3) * 100}ms">
+     <div class="category-label">${item.category}</div>
+     <div class="product-top"><h3>${label}</h3></div>
+     <div class="price">${priceText}</div>
+     <p>${item.description}</p>
+     <button class="add-btn" onclick="addToCart(${item.id})">+ Agregar al carrito</button>
+   </article>`;
+ }).join("");
+  observeRevealElements();
+}
+
+document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
+ document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+ button.classList.add("active");
+ currentFilter = button.dataset.filter;
+ renderMenu();
+}));
+
+
+function addToCart(id) {
+  const product = menuData.find(p => p.id === id);
+  if (!product) return;
+
+  const size = product.hot ? "12 oz" : "16 oz";
+
+  cart.push({
+    cartId: String(Date.now()) +
+      Math.random().toString(36).slice(2, 7),
+    id: product.id,
+    name: product.name,
+    size,
+    quantity: 1,
+    price: getPrice(product, size),
+    milk: product.milk ? "Entera" : "Sin leche",
+    sugar: product.sugar ? "Sin azúcar" : "No aplica",
+    extras: [],
+    note: ""
+  });
+
+  renderCart();
+
+  // El cliente permanece en el menú para seguir comprando.
+}
+function itemPrice(item) {
+  const milk = milkOptions.find(o => o.value === item.milk);
+  return item.price
+    + (milk?.extra || 0)
+    + item.extras.reduce(
+        (sum, key) => sum + (extraOptions.find(o => o.value === key)?.price || 0),
+        0
+      );
+}
+
+function changeQuantity(id, change) {
+  const item = cart.find(i => i.cartId === id);
+  if (!item) return;
+
+  item.quantity = Math.max(1, (item.quantity || 1) + change);
+  renderCart();
+}
+
+function renderCart() {
+ const container = document.getElementById("cartItems");
+
+const count = getDrinkCount();
+
+document.getElementById("cartCount").textContent = count;
+document.getElementById("mobileCartCount").textContent = count;
+
+document.getElementById("mobileCartTotal").textContent =
+  "$" + getFinalTotal().toFixed(2);
+
+document.getElementById("mobileCartLabel").textContent =
+  count > 0 ? "Revisar pedido" : "Ver carrito";
+ 
+if (!count) {
+  container.innerHTML =
+    '<p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p>';
+
+  renderDiscountTotals();
+  return;
+}
+
+ container.innerHTML = cart.map(item => {
+  const product = menuData.find(p => p.id === item.id);
+  const hasMilk = product && product.milk;
+  const sizeOptions = product.hot ? ["12 oz", "16 oz"] : ["16 oz"];
+
+  return `<div class="cart-item">
+    <div class="cart-item-head">
+  <span>${escapeHTML(item.name)} · ${item.size}</span>
+  <span>${money(itemPrice(item) * (item.quantity || 1))}</span>
+</div>
+
+<div class="cart-quantity">
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',-1)"
+    aria-label="Restar una bebida">−</button>
+
+  <span class="quantity-number">${item.quantity || 1}</span>
+
+  <button type="button"
+    onclick="changeQuantity('${item.cartId}',1)"
+    aria-label="Agregar una bebida">+</button>
+
+  <span class="quantity-label">bebida(s)</span>
+</div>
+
+<div class="cart-options">
+      <div>
+        <label for="size-${item.cartId}">Tamaño</label>
+        <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
+          ${sizeOptions.map(s => `<option value="${s}" ${item.size === s ? "selected" : ""}>${s} · ${money(getPrice(product, s))}</option>`).join("")}
+        </select>
+      </div>
+      ${hasMilk ? `<div>
+        <label for="milk-${item.cartId}">Tipo de leche</label>
+        <select id="milk-${item.cartId}" onchange="updateMilk('${item.cartId}',this.value)">
+          ${milkOptions.map(o => `<option value="${o.value}" ${item.milk === o.value ? "selected" : ""}>${o.label}</option>`).join("")}
+        </select>
+      </div>` : ""}
+      ${product.sugar ? `<div>
+        <label for="sugar-${item.cartId}">Azúcar</label>
+        <select id="sugar-${item.cartId}" onchange="updateSugar('${item.cartId}',this.value)">
+          <option ${item.sugar === "Sin azúcar" ? "selected" : ""}>Sin azúcar</option>
+          <option ${item.sugar === "Azúcar blanca" ? "selected" : ""}>Azúcar blanca</option>
+          <option ${item.sugar === "Stevia" ? "selected" : ""}>Stevia</option>
+        </select>
+      </div>` : ""}
+      <div>
+        <label>Extras (cada uno +$15)</label>
+        ${extraOptions.map(o => `<label style="font-weight:500;display:flex;align-items:center;gap:8px;margin:7px 0">
+          <input type="checkbox" ${item.extras.includes(o.value) ? "checked" : ""} onchange="toggleExtra('${item.cartId}','${o.value}',this.checked)" style="width:auto">
+          ${o.label}
+        </label>`).join("")}
+      </div>
+      <div>
+        <label for="note-${item.cartId}">Notas de esta bebida</label>
+        <textarea id="note-${item.cartId}" placeholder="Ej. sin hielo, poco dulce..." onchange="updateNote('${item.cartId}',this.value)">${escapeHTML(item.note)}</textarea>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeFromCart('${item.cartId}')">Eliminar producto</button>
+  </div>`;
+ }).join("");
+
+renderDiscountTotals();
+}
+
+function updateSize(id, size) {
+ const item = cart.find(i => i.cartId === id);
+ const p = item && menuData.find(p => p.id === item.id);
+ if(!item || !p) return;
+ item.size = size;
+ item.price = getPrice(p, size);
+ renderCart();
+}
+
+function updateMilk(id, value) {
+ const item = cart.find(i => i.cartId === id);
+ if(item) { item.milk = value; renderCart(); }
+}
+
+function updateSugar(id, value) {
+ const item = cart.find(i => i.cartId === id);
+ if(item) { item.sugar = value; renderCart(); }
+}
+
+function toggleExtra(id, key, checked) {
+ const item = cart.find(i => i.cartId === id);
+ if(!item) return;
+ item.extras = checked ? [...new Set([...item.extras, key])] : item.extras.filter(x => x !== key);
+ renderCart();
+}
+
+function updateNote(id, value) {
+ const item = cart.find(i => i.cartId === id);
+ if(item) item.note = value;
+}
+
+function removeFromCart(id) {
+ cart = cart.filter(item => item.cartId !== id);
+ renderCart();
+}
+
+function escapeHTML(value) {
+ return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+}
+
+function goToCart() {
+ document.getElementById("pedido").scrollIntoView({behavior: "smooth"});
+}
+
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+ event.preventDefault();
+
+ if(!cart.length) {
+   alert("Agrega al menos una bebida a tu carrito antes de enviar el pedido.");
+   return;
  }
- if(row.product_type==="hot")return [{...base,id:row.id,hot:true,food:false,prices:{"12 oz":numeric(row.hot_price_12),"16 oz":numeric(row.hot_price_16)}}];
- if(row.product_type==="food")return [{...base,id:row.id,hot:false,food:true,milk:false,sugar:false,coldPrice:numeric(row.cold_price)}];
- return [{...base,id:row.id,hot:false,food:false,coldPrice:numeric(row.cold_price)}];
+
+ const name = document.getElementById("customerName").value.trim();
+ const phone = document.getElementById("customerPhone").value.trim();
+ const address = document.getElementById("deliveryAddress").value.trim();
+ const references = document.getElementById("references").value.trim();
+ const generalNotes = document.getElementById("generalNotes").value.trim();
+
+ if(!name || !phone || !address) {
+   alert("Completa tu nombre, teléfono y dirección de entrega.");
+   return;
+ }
+
+const zonaPedido = document.getElementById("deliveryZone").value;
+const subtotalPedido = getSubtotal();
+const descuentoPedido = getDiscount();
+const totalPedido = getFinalTotal();
+const totalBebidas = getDrinkCount();
+
+let message =
+  "☕ *VRUTO CAFÉ* ☕\n" +
+  "_café sin filtro._\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "🧾 *NUEVO PEDIDO*\n" +
+  "━━━━━━━━━━━━━━━━━━\n\n";
+
+message +=
+  "👤 *DATOS DEL CLIENTE*\n" +
+  "• Nombre: " + name + "\n" +
+  "• Teléfono: " + phone + "\n\n" +
+  "📍 *DIRECCIÓN DE ENTREGA*\n" +
+  "• " + address + "\n";
+
+if (references) {
+  message += "• Referencias: " + references + "\n";
 }
-async function loadSupabaseMenu(){
- const configured=SUPABASE_URL.startsWith("https://")&&SUPABASE_PUBLIC_KEY&&!SUPABASE_PUBLIC_KEY.startsWith("PEGA_AQUI");
- if(!configured||!window.supabase?.createClient){console.info("VRUTO: Supabase aún no está configurado; se muestra el menú de respaldo.");renderMenu();renderCart();return;}
- try{
-  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
-  const {data,error}=await client.from("products").select("id,name,description,product_type,cold_price,hot_price_12,hot_price_16,image_url,sort_order,categories(name,active)").eq("available",true).order("sort_order").order("name");
-  if(error)throw error;
-  const rows=(data||[]).filter(row=>row.categories?.active!==false);
-  if(!rows.length){console.warn("VRUTO: Supabase no devolvió productos disponibles; se conserva el menú de respaldo.");renderMenu();renderCart();return;}
-  menuData=rows.flatMap(mapSupabaseProduct);
-  renderCategoryFilters();renderMenu();renderCart();
- }catch(error){console.error("No se pudo cargar el menú de Supabase:",error);renderMenu();renderCart();}
+
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "🛍️ *DETALLE DEL PEDIDO*\n" +
+  "━━━━━━━━━━━━━━━━━━\n";
+
+cart.forEach((item, index) => {
+  const product = menuData.find(p => p.id === item.id);
+  const cantidad = item.quantity || 1;
+
+  message +=
+    "\n*BEBIDA " + (index + 1) + " · " +
+    item.name + "*\n" +
+    "• Tamaño: " + item.size + "\n" +
+    "• Cantidad: " + cantidad + "\n";
+
+  if (product && product.milk) {
+    message += "• Leche: " + item.milk + "\n";
+  }
+
+  if (product && product.sugar) {
+    message += "• Azúcar: " + item.sugar + "\n";
+  }
+
+  if (item.extras.length) {
+    message +=
+      "• Extras: " +
+      item.extras
+        .map(key => {
+          const extra = extraOptions.find(o => o.value === key);
+          return extra ? extra.label : key;
+        })
+        .join(", ") + "\n";
+  }
+
+  if (item.note.trim()) {
+    message += "• Indicaciones: " + item.note.trim() + "\n";
+  }
+
+  message +=
+    "• Precio por bebida: " + money(itemPrice(item)) + "\n" +
+    "• *Importe: " + money(itemPrice(item) * cantidad) + "*\n";
+});
+
+
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "💰 *RESUMEN DE COMPRA*\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "• Total de bebidas: " + totalBebidas + "\n" +
+  "• Zona de entrega: " + zonaPedido + "\n" +
+  "• Subtotal: " + money(subtotalPedido) + "\n";
+
+if (appliedPromo && descuentoPedido > 0) {
+  message +=
+    "• Código promocional: " + appliedPromo.code + "\n" +
+    "• Descuento (" + appliedPromo.percentage + "%): -" +
+    money(descuentoPedido) + "\n";
 }
-document.getElementById("year").textContent=new Date().getFullYear();renderCategoryFilters();renderMenu();renderCart();loadSupabaseMenu();
+
+message +=
+  "• Envío: Por confirmar\n" +
+  "• *TOTAL DE BEBIDAS: " + money(totalPedido) + "*\n" +
+  "• Total final con envío: Por confirmar\n\n" +
+  "💳 *MÉTODO DE PAGO*\n" +
+  "Transferencia bancaria\n" +
+  "_Te compartiremos los datos bancarios por este medio._\n";
+
+
+if (generalNotes) {
+  message +=
+    "\n📝 *NOTAS ADICIONALES*\n" +
+    generalNotes + "\n";
+}
+
+message +=
+  "\n━━━━━━━━━━━━━━━━━━\n" +
+  "¡Gracias por elegir *VRUTO CAFÉ*! ☕\n\n" +
+  "Hola, quiero confirmar este pedido. " +
+  "¿Me comparten los datos para realizar la transferencia " +
+  "y confirmar el costo del envío?";
+
+const url =
+  "https://wa.me/" + WHATSAPP_NUMBER +
+  "?text=" + encodeURIComponent(message);
+
+const whatsappWindow = window.open(url, "_blank");
+
+if (!whatsappWindow) {
+  window.location.href = url;
+}
+
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+renderMenu();
+renderCart();
+  
+/* ACTIVAR ANIMACIONES AL ENTRAR EN PANTALLA */
+
+const revealElements = document.querySelectorAll(
+  ".seasonal-image, .seasonal-content, " +
+  "#menu .section-heading, #menu .filters, " +
+  "#pedido .section-heading, #pedido .panel, " +
+  ".vruto-instagram, .about > *"
+);
+
+revealElements.forEach(element => {
+  element.classList.add("reveal");
+});
+
+function observeRevealElements() {
+  const elements = document.querySelectorAll(".reveal:not(.visible)");
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach(element => element.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  elements.forEach(element => observer.observe(element));
+}
+
+
+observeRevealElements();
 </script>
+
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
