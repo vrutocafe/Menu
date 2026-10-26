@@ -1065,139 +1065,80 @@ h3 a {
   }
 }
 
-/* VRUTO — REELS RESPONSIVOS */
+/* VRUTO — INSTAGRAM MINIMALISTA */
 .vruto-instagram {
-  background: var(--cream);
-  padding: 42px 5% 35px;
+  background: #f7f3e8;
+  padding: 48px 18px 54px;
   text-align: center;
   overflow: hidden;
 }
 
 .instagram-heading {
-  margin: 0 auto 28px;
+  margin: 0 auto 25px;
 }
 
 .instagram-eyebrow {
   display: inline-block;
-  color: var(--olive);
+  color: #69734b;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 3px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .instagram-heading h2 {
-  color: var(--dark);
-  font-size: clamp(26px, 3.5vw, 35px);
-  font-weight: 500;
+  color: #343a27;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 600;
   letter-spacing: -1px;
   line-height: 1.2;
-  margin: 6px 0 8px;
+  margin: 5px 0 9px;
 }
 
 .instagram-heading p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  margin: 0 auto;
-}
-
-.instagram-reels {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 1050px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-.instagram-reels > blockquote.instagram-media {
-  display: block !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
-@media (max-width: 800px) {
-  .instagram-reels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-}
-
-@media (max-width: 520px) {
-  .vruto-instagram {
-    padding: 30px 16px;
-  }
-
-  .instagram-reels {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 380px;
-    gap: 18px;
-  }
-}
-
-/* VRUTO — REEL MINIMALISTA */
-.vruto-instagram {
-  background: var(--cream, #f7f4ec);
-  padding: 60px 20px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.instagram-heading {
-  margin: 0 auto 28px;
-}
-
-.instagram-heading h2 {
-  font-size: clamp(26px, 4vw, 36px);
-  color: var(--dark, #292b22);
-  font-weight: 500;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-}
-
-.instagram-heading p {
-  color: var(--muted, #77776c);
+  color: #777765;
   font-size: 13px;
   line-height: 1.7;
-}
-
-.instagram-reels {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 420px;
   margin: 0 auto;
 }
 
-.instagram-reels > blockquote.instagram-media {
+.instagram-reels {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+}
+
+/* Contenedor exterior del reel */
+.instagram-reels > .instagram-media {
+  display: block !important;
+  flex: 0 1 380px !important;
   width: 100% !important;
   min-width: 0 !important;
   max-width: 380px !important;
   margin: 0 auto !important;
-  border-radius: 22px !important;
-  overflow: hidden !important;
   box-sizing: border-box !important;
+  background: #fffdf7 !important;
+  border: 1px solid #e5e0d2 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 28px rgba(52, 58, 39, 0.09) !important;
 }
 
 @media (max-width: 480px) {
   .vruto-instagram {
-    padding: 42px 16px;
+    padding: 36px 14px 42px;
   }
 
   .instagram-reels {
-    max-width: 100%;
+    max-width: 100% !important;
   }
 
-  .instagram-reels > blockquote.instagram-media {
-    max-width: 360px !important;
+  .instagram-reels > .instagram-media {
+    max-width: 380px !important;
   }
 }
+
 </style>
 </head>
 <body>
@@ -1377,19 +1318,7 @@ h3 a {
 
     <blockquote
       class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/reel/Dc1w5ERPft6/"
-      data-instgrm-version="14">
-    </blockquote>
-
-    <blockquote
-      class="instagram-media"
       data-instgrm-permalink="https://www.instagram.com/reel/DdKdgsnSvoB/"
-      data-instgrm-version="14">
-    </blockquote>
-
-    <blockquote
-      class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/reel/DdrgtXqNxJ-/"
       data-instgrm-version="14">
     </blockquote>
 
