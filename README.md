@@ -1347,27 +1347,25 @@ h3 a {
 
     <blockquote
       class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/reel/Dc1w5ERPft6/"
+      data-instgrm-permalink="https://www.instagram.com/reel/Dc1w5ERPft6/?utm_source=ig_embed"
       data-instgrm-version="14">
     </blockquote>
 
     <blockquote
       class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/reel/DdKdgsnSvoB/"
+      data-instgrm-permalink="https://www.instagram.com/reel/DdKdgsnSvoB/?utm_source=ig_embed"
       data-instgrm-version="14">
     </blockquote>
 
     <blockquote
       class="instagram-media"
-      data-instgrm-permalink="https://www.instagram.com/reel/DdrgtXqNxJ-/"
+      data-instgrm-permalink="https://www.instagram.com/reel/DdrgtXqNxJ-/?utm_source=ig_embed"
       data-instgrm-version="14">
     </blockquote>
 
   </div>
-  
-<script async src="https://www.instagram.com/embed.js"></script>
-</section>
 
+</section>
 <section class="about">
   <h2>Un buen café cambia el día.</h2>
   <p>Preparamos tus bebidas favoritas con mucho café y cero complicaciones. Pide en línea y disfruta VRUTO donde estés.</p>
@@ -2024,5 +2022,6 @@ function observeRevealElements() {
 observeRevealElements();
 
 </script>
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
