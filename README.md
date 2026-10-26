@@ -1101,60 +1101,60 @@ h3 a {
   margin: 0 auto;
 }
 
+
+/* VRUTO — REELS RESPONSIVOS */
 .instagram-reels {
   width: 100%;
-  max-width: 960px;
+  max-width: 1520px;
   margin: 0 auto;
+  padding: 0 8px;
+  box-sizing: border-box;
+
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 24px;
   align-items: start;
 }
 
 .instagram-reels .instagram-media {
-  box-sizing: border-box !important;
   width: 100% !important;
-  min-width: 0 !important;
   max-width: 100% !important;
-  margin: 0 auto !important;
-  border: none !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-  background: transparent !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
   box-shadow: none !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
 }
 
-/* TABLET */
-@media (max-width: 800px) {
+/* TABLET: dos columnas */
+@media (max-width: 900px) {
   .instagram-reels {
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 }
 
-/* CELULAR */
+/* CELULAR: una columna */
 @media (max-width: 600px) {
   .vruto-instagram {
-    padding: 32px 5% 28px;
-  }
-
-  .instagram-heading {
-    margin-bottom: 20px;
-  }
-
-  .instagram-heading h2 {
-    font-size: 27px;
-  }
-
-  .instagram-heading p {
-    font-size: 12px;
+    padding: 32px 16px 28px;
   }
 
   .instagram-reels {
-    grid-template-columns: 1fr;
-    max-width: 340px;
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 420px;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .instagram-reels .instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
+
 </style>
 </head>
 <body>
