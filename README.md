@@ -1226,26 +1226,28 @@ footer.main-footer {
 body > script {
   display: none !important;
 }
-/* ANIMACIÓN DEL REEL VRUTO */
-.vruto-instagram {
-  animation: vrutoReelEntrada 0.8s ease-out both;
+/* ANIMACIÓN DEL REEL VRUTO AL HACER SCROLL */
+
+.vruto-instagram.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  animation: none;
 }
 
-@keyframes vrutoReelEntrada {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.vruto-instagram.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Respetar la preferencia de movimiento del usuario */
 @media (prefers-reduced-motion: reduce) {
-  .vruto-instagram {
-    animation: none;
+  .vruto-instagram.reveal,
+  .vruto-instagram.reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 </style>
@@ -2058,7 +2060,7 @@ const revealElements = document.querySelectorAll(
   ".seasonal-image, .seasonal-content, " +
   "#menu .section-heading, #menu .filters, " +
   "#pedido .section-heading, #pedido .panel, " +
-  ".about > *"
+  ".vruto-instagram, .about > *"
 );
 
 revealElements.forEach(element => {
