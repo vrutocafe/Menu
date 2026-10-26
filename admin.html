@@ -83,7 +83,14 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
 </main>
 <script>
 (() => {
-  let supabaseClient = null;
+  const SUPABASE_URL = "https://eqguxuacvdvdbxtxbogf.supabase.co";
+  const SUPABASE_PUBLIC_KEY = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
+
+  let supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLIC_KEY
+  );
+
   let products = [];
   let categories = [];
   const $ = id => document.getElementById(id);
@@ -92,18 +99,29 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
   const money = v => v == null || v === '' ? '—' : '$'+Number(v).toFixed(2)+' MXN';
   const numOrNull = v => v === '' ? null : Number(v);
   const safe = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  (async () => {
+  try {
+    const { data: { session }, error } =
+      await supabaseClient.auth.getSession();
 
-  $('connectBtn').addEventListener('click', async () => {
-    const url=$('projectUrl').value.trim(), key=$('anonKey').value.trim();
-    if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url) || !key) return message('configMsg','Revisa la URL del proyecto y la clave pública.','error');
-    supabaseClient = window.supabase.createClient(url,key);
-    try {
-      const {data:{session},error}=await supabaseClient.auth.getSession();
-      if(error) throw error;
-      show('configPanel',false);
-      if(session) await enterApp(); else show('loginPanel',true);
-    } catch(e) { message('configMsg','No se pudo conectar: '+e.message,'error'); }
-  });
+    if (error) throw error;
+
+    show('configPanel', false);
+
+    if (session) {
+      await enterApp();
+    } else {
+      show('loginPanel', true);
+    }
+  } catch (e) {
+    show('configPanel', false);
+    message(
+      'globalMsg',
+      'No se pudo conectar con Supabase: ' + e.message,
+      'error'
+    );
+  }
+})();
 
   $('loginForm').addEventListener('submit', async e => {
     e.preventDefault();
