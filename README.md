@@ -1158,6 +1158,21 @@ h3 a {
   margin-top: 0 !important;
   padding-top: 20px !important;
 }
+/* ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+html,
+body {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+footer {
+  margin-bottom: 0 !important;
+  padding-bottom: 20px !important;
+}
+
+body > *:last-child {
+  margin-bottom: 0 !important;
+}
 </style>
 </head>
 <body>
