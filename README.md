@@ -1064,16 +1064,18 @@ h3 a {
     transform: none;
   }
 }
-/* INSTAGRAM MINIMALISTA — VRUTO */
+
+/* VRUTO — INSTAGRAM RESPONSIVO */
 .vruto-instagram {
+  width: 100%;
+  padding: 42px 5%;
   background: var(--cream);
-  padding: 42px 5% 35px;
   text-align: center;
   overflow: hidden;
 }
 
 .instagram-heading {
-  margin: 0 auto 24px;
+  margin: 0 auto 28px;
 }
 
 .instagram-eyebrow {
@@ -1101,60 +1103,58 @@ h3 a {
   margin: 0 auto;
 }
 
-
-/* VRUTO — REELS RESPONSIVOS */
+/* Tres marcos iguales en computadora */
 .instagram-reels {
   width: 100%;
-  max-width: 1520px;
+  max-width: 1050px;
   margin: 0 auto;
-  padding: 0 8px;
-  box-sizing: border-box;
-
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 20px;
   align-items: start;
 }
 
+/* Cada Reel ocupa el ancho de su columna */
 .instagram-reels .instagram-media {
   width: 100% !important;
-  max-width: 100% !important;
   min-width: 0 !important;
+  max-width: 100% !important;
   margin: 0 !important;
   box-sizing: border-box !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  border-radius: 14px !important;
-  overflow: hidden !important;
 }
 
-/* TABLET: dos columnas */
-@media (max-width: 900px) {
+/* La inserción de Instagram no debe desbordarse */
+.instagram-reels iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Tablet: dos columnas */
+@media (max-width: 800px) {
   .instagram-reels {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    gap: 14px;
   }
 }
 
-/* CELULAR: una columna */
-@media (max-width: 600px) {
+/* Móvil: un Reel por fila */
+@media (max-width: 520px) {
   .vruto-instagram {
-    padding: 32px 16px 28px;
+    padding: 30px 16px;
+  }
+
+  .instagram-heading {
+    margin-bottom: 20px;
   }
 
   .instagram-reels {
     grid-template-columns: minmax(0, 1fr);
-    max-width: 420px;
-    gap: 20px;
-    padding: 0;
-  }
-
-  .instagram-reels .instagram-media {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 380px;
+    gap: 18px;
   }
 }
-
 </style>
 </head>
 <body>
@@ -2009,6 +2009,8 @@ function observeRevealElements() {
 observeRevealElements();
 
 </script>
-<script async src="https://www.instagram.com/embed.js"></script>
+<script async src="https://www.instagram.com/embed.js"
+  onload="if(window.instgrm) window.instgrm.Embeds.process()">
+</script>
 </body>
 </html>
