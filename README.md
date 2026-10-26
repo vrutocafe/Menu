@@ -1138,7 +1138,26 @@ h3 a {
     max-width: 380px !important;
   }
 }
+/* AJUSTE DE ESPACIO ENTRE REEL Y TEXTO */
+.vruto-instagram {
+  padding-bottom: 15px !important;
+  margin-bottom: 0 !important;
+}
 
+.instagram-heading {
+  margin-bottom: 10px !important;
+}
+
+.instagram-reels {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Sección que contiene "Un buen café" */
+.vruto-instagram + section {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+}
 </style>
 </head>
 <body>
