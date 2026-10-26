@@ -1199,6 +1199,33 @@ main {
     padding-bottom: 0 !important;
   }
 }
+/* ELIMINAR ESPACIO EXTRA AL FINAL */
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+body {
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+footer.main-footer {
+  margin-bottom: 0 !important;
+}
+
+/* Evitar que elementos finales agreguen altura */
+body > script {
+  display: none !important;
+}
 </style>
 </head>
 <body>
