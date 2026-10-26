@@ -1469,6 +1469,8 @@ body > script {
 
 <script>
 const WHATSAPP_NUMBER = "526693683462";
+  const SUPABASE_URL = "https://eqguxuacvdvdbxtxbogf.supabase.co";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
 
 const menuData = [
   {id:1,name:"Americano",category:"Calientes",description:"Espresso con agua caliente.",hot:true,milk:false,prices:{"12 oz":50,"16 oz":60},sugar:true},
