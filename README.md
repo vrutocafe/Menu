@@ -1342,9 +1342,8 @@ body > script {
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
     <div class="filters">
       
-      <button class="filter" data-filter="Calientes">Calientes</button>
-      <button class="filter active" data-filter="Fríos">Fríos</button>
-      <button class="filter" data-filter="Especiales">Especiales</button>
+<div id="menuFilters" class="filters"></div>
+
     </div>
     <div class="menu-grid" id="menuGrid"></div>
   </section>
@@ -1508,6 +1507,7 @@ const extraOptions = [
   {value:"syrup",label:"Jarabe extra (+$15)",price:15}
 ];
 
+let menuCategories = [];
 let cart = [], currentFilter = "Fríos";
 const money = amount => "$" + amount.toFixed(2) + " MXN";
   
@@ -1735,12 +1735,40 @@ function renderMenu() {
   observeRevealElements();
 }
 
-document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
- document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
- button.classList.add("active");
- currentFilter = button.dataset.filter;
- renderMenu();
-}));
+function renderFilters() {
+  const filters = document.getElementById("menuFilters");
+  if (!filters) return;
+
+  const activeCategories = menuCategories
+    .filter(category => category.active)
+    .sort((a, b) => a.sort_order - b.sort_order);
+
+  if (activeCategories.length === 0) {
+    filters.innerHTML = "";
+    return;
+  }
+
+  if (!activeCategories.some(category => category.name === currentFilter)) {
+    currentFilter = activeCategories.some(category => category.name === "Fríos")
+      ? "Fríos"
+      : activeCategories[0].name;
+  }
+
+  filters.innerHTML = activeCategories.map(category => `
+    <button
+      class="filter ${category.name === currentFilter ? "active" : ""}"
+      data-filter="${category.name}"
+    >${category.name}</button>
+  `).join("");
+
+  filters.querySelectorAll(".filter").forEach(button => {
+    button.addEventListener("click", () => {
+      currentFilter = button.dataset.filter;
+      renderFilters();
+      renderMenu();
+    });
+  });
+}
 
 
 function addToCart(id) {
@@ -2094,7 +2122,17 @@ function observeRevealElements() {
 async function loadMenuFromSupabase() {
   try {
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?select=id,name,description,product_type,cold_price,hot_price_12,hot_price_16,available,sort_order&available=eq.true&order=sort_order.asc`,
+`${SUPABASE_URL}/rest/v1/products?select=id,name,category_id,description,product_type,cold_price,hot_price_12,hot_price_16,available,sort_order,is_special&available=eq.true&order=sort_order.asc`,      {
+        method: "GET",
+        headers: {
+          apikey: SUPABASE_PUBLIC_KEY,
+          Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
+        },
+        cache: "no-store"
+      }
+    );
+        const categoriesResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/categories?select=id,name,sort_order,active&active=eq.true&order=sort_order.asc`,
       {
         method: "GET",
         headers: {
@@ -2104,6 +2142,12 @@ async function loadMenuFromSupabase() {
         cache: "no-store"
       }
     );
+
+    if (!categoriesResponse.ok) {
+      throw new Error("No se pudieron cargar las categorías");
+    }
+
+    menuCategories = await categoriesResponse.json();
 
     if (!response.ok) {
       throw new Error(
