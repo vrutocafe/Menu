@@ -174,19 +174,21 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
   }));
   $('newProductBtn').onclick=()=>{resetProductForm();show('editorPanel',true);show('categoryEditor',false);$('editorPanel').scrollIntoView({behavior:'smooth'});};
   $('cancelProductBtn').onclick=()=>show('editorPanel',false);
-  function resetProductForm(){ $('productForm').reset();$('productId').value='';$('pOrder').value=String(products.length*10);$('pAvailable').checked=true;$('editorTitle').textContent='Nuevo producto';fillCategorySelect(); }
+  function resetProductForm(){ $('productForm').reset();$('productId').value='';$('pOrder').value=String(products.length*10);$('pAvailable').checked=true;$('editorTitle').textContent='Nuevo producto';fillCategorySelect();$('pIsSpecial').checked=false; }
   function editProduct(id){
     const p=products.find(x=>x.id===id);if(!p)return;
     $('productId').value=p.id;$('pName').value=p.name;$('pCategory').value=p.category_id;$('pDescription').value=p.description||'';
     $('pType').value=p.product_type;$('pOrder').value=p.sort_order??0;$('pColdPrice').value=p.cold_price??'';$('pHot12').value=p.hot_price_12??'';$('pHot16').value=p.hot_price_16??'';
-    $('pImage').value=p.image_url||'';$('pAvailable').checked=!!p.available;$('editorTitle').textContent='Editar producto';show('editorPanel',true);show('categoryEditor',false);$('editorPanel').scrollIntoView({behavior:'smooth'});
+    $('pImage').value=p.image_url||'';$('pAvailable').checked=!!p.available;$('pIsSpecial').checked=!!p.is_special;$('editorTitle').textContent='Editar producto';show('editorPanel',true);show('categoryEditor',false);$('editorPanel').scrollIntoView({behavior:'smooth'});
   }
   $('productForm').addEventListener('submit',async e=>{
     e.preventDefault();const id=$('productId').value;const data={
       name:$('pName').value.trim(),category_id:$('pCategory').value||null,description:$('pDescription').value.trim()||null,
       product_type:$('pType').value,sort_order:Number($('pOrder').value||0),
       cold_price:numOrNull($('pColdPrice').value),hot_price_12:numOrNull($('pHot12').value),hot_price_16:numOrNull($('pHot16').value),
-      image_url:$('pImage').value.trim()||null,available:$('pAvailable').checked
+          image_url:$('pImage').value.trim()||null,
+          available:$('pAvailable').checked,
+          is_special:$('pIsSpecial').checked
     };
     if(!data.category_id)return message('productMsg','Crea una categoría antes de guardar un producto.','error');
     const q=id?supabaseClient.from('products').update(data).eq('id',id):supabaseClient.from('products').insert(data);
