@@ -868,12 +868,12 @@
 </header>
 
 <main>
-  <section class="hero" id="inicio">
-    <div class="eyebrow">Coffee · Matcha · Chill</div>
-    <h1>café sin<br>filtro.</h1>
-    <p>Tu próximo café favorito, hasta tu puerta.</p>
-    <a class="primary-btn" href="#menu">Explorar menú ↓</a>
-  </section>
+<section class="hero" id="inicio">
+  <div class="eyebrow">Coffee · Matcha · Chill</div>
+  <h1 id="menuBannerTitle">café sin<br>filtro.</h1>
+  <p id="menuBannerDescription">Tu próximo café favorito, hasta tu puerta.</p>
+  <a id="menuBannerButton" class="primary-btn" href="#menu">Explorar menú ↓</a>
+</section>
 
   <section class="seasonal" id="seasonalSection">
     <div class="seasonal-image">
@@ -1776,7 +1776,76 @@ async function loadSeasonalFromSupabase() {
     console.error("No se pudo cargar la temporada:",error);
   }
 }
+async function loadMenuBannerFromSupabase() {
+  try {
+    const headers = {
+      apikey: SUPABASE_PUBLIC_KEY,
+      Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
+    };
 
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_settings?select=key,value&key=eq.menu_banner`,
+      { headers, cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error al cargar el banner: ${response.status}`);
+    }
+
+    const rows = await response.json();
+    if (!rows.length || !rows[0].value) return;
+
+    const banner = rows[0].value;
+
+    // No aplicar los valores de ejemplo de la configuración inicial.
+    if (
+      banner.title === "Café sin filtro" &&
+      banner.description === "Tu café favorito, directo hasta ti." &&
+      !(banner.image_url || banner.image)
+    ) {
+      return;
+    }
+
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    if (banner.active === false) {
+      hero.hidden = true;
+      return;
+    }
+
+    hero.hidden = false;
+
+    const title = document.getElementById("menuBannerTitle");
+    const description = document.getElementById("menuBannerDescription");
+    const button = document.getElementById("menuBannerButton");
+
+    if (title && banner.title) title.textContent = banner.title;
+    if (description && banner.description) {
+      description.textContent = banner.description;
+    }
+
+    if (button && banner.button_text) {
+      button.textContent = banner.button_text;
+      button.href = banner.button_url || banner.button_link || "#menu";
+    }
+
+    const imageUrl = banner.image_url || banner.image;
+
+    if (imageUrl) {
+      const validUrl = /^https?:\/\//i.test(imageUrl);
+
+      if (validUrl) {
+        hero.style.backgroundImage =
+          `linear-gradient(rgba(30,32,24,.35),rgba(30,32,24,.35)),url("${imageUrl}")`;
+      }
+    }
+  } catch (error) {
+    console.error("No se pudo cargar el banner de VRUTO:", error);
+  }
+}
+
+loadMenuBannerFromSupabase();
 renderFilters();
 renderMenu();
 renderCart();
