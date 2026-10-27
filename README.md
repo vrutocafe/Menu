@@ -845,6 +845,69 @@
       transition: none !important;
     }
   }
+  
+/* Nombre de quien recibe cada bebida */
+.customer-drink-field {
+  margin: 14px 0;
+  padding: 14px;
+  background: #f7f6f0;
+  border: 1px solid #e7e5da;
+  border-radius: 12px;
+}
+
+.customer-drink-field > label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.customer-drink-label {
+  color: #454938;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.customer-drink-optional {
+  color: #858576;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.customer-drink-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  border: 1px solid #deded2;
+  border-radius: 8px;
+  background: #fffefa;
+  color: #34372b;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.customer-drink-field input:focus {
+  border-color: #69734b;
+  box-shadow: 0 0 0 3px rgba(105, 115, 75, .12);
+}
+
+.customer-drink-field input::placeholder {
+  color: #a19f92;
+}
+
+.customer-drink-field p {
+  margin: 8px 0 0;
+  color: #858576;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 </style>
 </head>
 <body>
