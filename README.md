@@ -1479,20 +1479,29 @@ function renderCart() {
         <span class="quantity-label">bebida(s)</span>
       </div>
 
-      <div class="cart-options">
-      <div>
-  <label for="customer-${item.cartId}">
-    Nombre de quien recibe (opcional)
-  </label>
-  <input
-    type="text"
-    id="customer-${item.cartId}"
-    maxlength="40"
-    placeholder="Ej. Ana, Carlos..."
-    value="${escapeHTML(item.customerName || "")}"
-    oninput="updateCustomerName('${item.cartId}',this.value)"
-  >
+      
+<div class="cart-options">
+  <div class="customer-drink-field">
+    <label for="customer-${item.cartId}">
+      <span class="customer-drink-label">
+        ¿Para quién es esta bebida?
+      </span>
+      <span class="customer-drink-optional">Opcional</span>
+    </label>
+
+    <input
+      type="text"
+      id="customer-${item.cartId}"
+      maxlength="40"
+      placeholder="Ej. Ana, Carlos..."
+      value="${escapeHTML(item.customerName || "")}"
+      oninput="updateCustomerName('${item.cartId}', this.value)"
+    >
+
+    <p>Identifica cada bebida si tu pedido es para varias personas.</p>
+  </div>
 </div>
+
         <div>
           <label for="size-${item.cartId}">Tamaño</label>
           <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
