@@ -84,13 +84,128 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
     </form><div id="loginMsg" class="notice hidden"></div>
   </section>
   <section id="appPanel" class="hidden">
-    <div class="editor-toggles">
+
+let selectedBannerImage = null;
+
+function previewBannerImage(src) {
+  const preview = $('bannerImagePreview');
+
+  if (!src) {
+    preview.removeAttribute('src');
+    show('bannerImagePreview', false);
+    return;
+  }
+
+  preview.onload = () => show('bannerImagePreview', true);
+  preview.onerror = () => show('bannerImagePreview', false);
+  preview.src = src;
+}
+
+$('bannerImageUrl').addEventListener('input', () => {
+  selectedBannerImage = null;
+  $('bannerImageFile').value = '';
+  previewBannerImage($('bannerImageUrl').value.trim());
+});
+
+$('bannerImageFile').addEventListener('change', event => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type)) {
+    message('bannerMsg', 'Usa JPG, PNG, WebP o AVIF.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    message('bannerMsg', 'La imagen no puede superar 5 MB.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  selectedBannerImage = file;
+  previewBannerImage(URL.createObjectURL(file));
+});
+
+async function loadBannerSettings() {
+  const { data, error } = await supabaseClient
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'menu_banner')
+    .maybeSingle();
+
+  if (error) {
+    message('bannerMsg', 'No se pudo cargar: ' + error.message, 'error');
+    return;
+  }
+
+  const b = data?.value;
+  if (!b) return;
+
+  $('bannerTitle').value = b.title || '';
+  $('bannerDescription').value = b.description || '';
+  $('bannerImageUrl').value = b.image_url || '';
+  $('bannerButtonText').value = b.button_text || '';
+  $('bannerButtonUrl').value = b.button_url || '#menu';
+  $('bannerActive').checked = b.active !== false;
+
+  previewBannerImage(b.image_url || '');
+}
+
+$('bannerForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const submitButton = $('bannerForm').querySelector('[type="submit"]');
+  submitButton.disabled = true;
+
+  try {
+    let imageUrl = $('bannerImageUrl').value.trim() || null;
+
+    if (selectedBannerImage) {
+      imageUrl = await uploadProductImage(selectedBannerImage);
+      $('bannerImageUrl').value = imageUrl;
+      selectedBannerImage = null;
+      $('bannerImageFile').value = '';
+    }
+
+    const value = {
+      title: $('bannerTitle').value.trim(),
+      description: $('bannerDescription').value.trim(),
+      image_url: imageUrl,
+      button_text: $('bannerButtonText').value.trim(),
+      button_url: $('bannerButtonUrl').value.trim() || '#menu',
+      active: $('bannerActive').checked
+    };
+
+    const { error } = await supabaseClient
+      .from('site_settings')
+      .upsert({
+        key: 'menu_banner',
+        value,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'key' });
+
+    if (error) throw error;
+
+    message('bannerMsg', 'Banner guardado correctamente.', 'ok');
+  } catch (error) {
+    message('bannerMsg', 'No se pudo guardar: ' + error.message, 'error');
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+<div class="editor-toggles">
   <button type="button" class="btn editor-toggle" data-target="menuEditors">
     Editor de Menú <span>＋</span>
   </button>
 
   <button type="button" class="btn editor-toggle" data-target="seasonEditor">
     Editor de Temporada <span>＋</span>
+  </button>
+
+  <button type="button" class="btn editor-toggle" data-target="bannerEditor">
+    Banner del Menú <span>＋</span>
   </button>
 </div>
     <div id="menuEditors" hidden>
@@ -237,6 +352,61 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
   </form>
 
   <div id="seasonMsg" class="notice hidden"></div>
+</div>
+    
+<div id="bannerEditor" class="panel" hidden>
+  <h2>Editor de Banner del Menú</h2>
+  <p class="muted">Personaliza la portada principal de VRUTO.</p>
+
+  <form id="bannerForm" class="grid">
+    <div class="field wide">
+      <label for="bannerTitle">Título principal</label>
+      <input id="bannerTitle" maxlength="120" required>
+    </div>
+
+    <div class="field wide">
+      <label for="bannerDescription">Descripción</label>
+      <textarea id="bannerDescription" maxlength="500"></textarea>
+    </div>
+
+    <div class="field wide">
+      <label for="bannerImageUrl">URL de la imagen</label>
+      <input id="bannerImageUrl" maxlength="1000"
+        placeholder="Pega la URL de la imagen">
+    </div>
+
+    <div class="field wide">
+      <label for="bannerImageFile">O subir imagen desde tu dispositivo</label>
+      <input id="bannerImageFile" type="file"
+        accept="image/jpeg,image/png,image/webp,image/avif">
+      <small>JPG, PNG, WebP o AVIF. Máximo 5 MB.</small>
+      <img id="bannerImagePreview" class="hidden"
+        alt="Vista previa del banner"
+        style="width:100%;max-width:420px;max-height:240px;object-fit:cover;border-radius:12px;margin-top:10px;">
+    </div>
+
+    <div class="field">
+      <label for="bannerButtonText">Texto del botón</label>
+      <input id="bannerButtonText" maxlength="80">
+    </div>
+
+    <div class="field">
+      <label for="bannerButtonUrl">Enlace del botón</label>
+      <input id="bannerButtonUrl" maxlength="300"
+        placeholder="#menu">
+    </div>
+
+    <label class="check wide">
+      <input id="bannerActive" type="checkbox" checked>
+      Mostrar banner en la página pública
+    </label>
+
+    <div class="row wide">
+      <button class="btn" type="submit">Guardar banner</button>
+    </div>
+  </form>
+
+  <div id="bannerMsg" class="notice hidden"></div>
 </div>
   </section>
   <div id="globalMsg" class="notice hidden"></div>
@@ -411,6 +581,7 @@ async function loadAll() {
   fillCategorySelect();
 
   await loadSeasonSettings();
+  await loadBannerSettings();
 }
   function renderProducts(){
     const list=$('productList');
