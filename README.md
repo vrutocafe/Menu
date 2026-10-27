@@ -1334,17 +1334,19 @@ body > script {
       <div>
         <h3>Confirma por WhatsApp</h3>
         <p>Envía tu pedido y confirma el envío y la transferencia.</p>
-      </div>
 
       </div>
     </article>
   </div>
 </section>
-  <section id="menu">
-    <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
-  <div>
-<div id="menuFilters" class="filters"></div>
 
+  <section id="menu">
+    <div class="section-heading">
+      <h2>MENÚ</h2>
+      <p>Elige tus favoritos y arma tu pedido.</p>
+    </div>
+
+    <div id="menuFilters" class="filters"></div>
     <div class="menu-grid" id="menuGrid"></div>
   </section>
 
@@ -1412,6 +1414,7 @@ body > script {
           <div class="notice"><strong>Pago por transferencia bancaria.</strong><br>Al enviar tu pedido por WhatsApp te compartiremos los datos para realizar el pago. Tu pedido se confirma con el negocio.</div>
           <button type="submit" class="whatsapp-btn" id="sendOrder">Enviar pedido por WhatsApp</button>
         </form>
+      </div> 
     </div>
   </section>
 <!-- INSTAGRAM VRUTO -->
