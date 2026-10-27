@@ -63,7 +63,31 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
         <div class="field"><label for="pColdPrice">Precio frío / precio único ($)</label><input id="pColdPrice" type="number" min="0" step=".01" placeholder="78"></div>
         <div class="field"><label for="pHot12">Precio caliente 12 oz ($)</label><input id="pHot12" type="number" min="0" step=".01" placeholder="65"></div>
         <div class="field"><label for="pHot16">Precio caliente 16 oz ($)</label><input id="pHot16" type="number" min="0" step=".01" placeholder="75"></div>
-        <div class="field wide"><label for="pImage">Ruta o URL de imagen (opcional)</label><input id="pImage" maxlength="500" placeholder="./imagenes/latte.jpg"></div>
+
+<div class="field wide">
+  <label for="pImage">URL de imagen (opcional)</label>
+  <input
+    id="pImage"
+    maxlength="1000"
+    placeholder="Pega aquí la URL de tu imagen"
+  >
+</div>
+
+<div class="field wide">
+  <label for="pImageFile">O sube una imagen desde tu dispositivo</label>
+  <input
+    id="pImageFile"
+    type="file"
+    accept="image/jpeg,image/png,image/webp,image/avif"
+  >
+  <small>Formatos: JPG, PNG, WebP o AVIF. Máximo 5 MB.</small>
+  <img
+    id="pImagePreview"
+    class="hidden"
+    alt="Vista previa del producto"
+    style="width:160px;height:130px;object-fit:cover;border-radius:12px;margin-top:10px;"
+  >
+</div>
         <label class="check wide"><input id="pAvailable" type="checkbox" checked> Disponible en el menú</label>
         <label class="check wide"><input id="pIsSpecial" type="checkbox"> Mostrar también en Especiales</label>
         <div class="row wide"><button class="btn" type="submit">Guardar producto</button><button id="cancelProductBtn" class="btn secondary" type="button">Cancelar</button></div>
@@ -100,6 +124,103 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
   const money = v => v == null || v === '' ? '—' : '$'+Number(v).toFixed(2)+' MXN';
   const numOrNull = v => v === '' ? null : Number(v);
   const safe = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  
+let selectedProductImage = null;
+  
+async function uploadProductImage(file) {
+  if (!file) return null;
+
+  const allowedTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/avif'
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error('Usa una imagen JPG, PNG, WebP o AVIF.');
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error('La imagen no puede superar 5 MB.');
+  }
+
+  const extension = ({
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/avif': 'avif'
+  })[file.type];
+
+  const filePath =
+    `products/${crypto.randomUUID()}.${extension}`;
+
+  const { data, error } = await supabaseClient.storage
+    .from('vruto-media')
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false,
+      contentType: file.type
+    });
+
+  if (error) {
+    throw new Error(`No se pudo subir la imagen: ${error.message}`);
+  }
+
+const { data: publicData } = supabaseClient.storage
+    .from('vruto-media')
+    .getPublicUrl(data.path);
+
+  return publicData.publicUrl;
+}
+
+
+function previewProductImage(src) {
+  const preview = $('pImagePreview');
+
+  if (!src) {
+    preview.removeAttribute('src');
+    show('pImagePreview', false);
+    return;
+  }
+
+  preview.onload = () => show('pImagePreview', true);
+  preview.onerror = () => show('pImagePreview', false);
+  preview.src = src;
+}
+
+$('pImage').addEventListener('input', () => {
+  selectedProductImage = null;
+  $('pImageFile').value = '';
+  previewProductImage($('pImage').value.trim());
+});
+
+$('pImageFile').addEventListener('change', event => {
+  const file = event.target.files[0];
+
+  if (!file) {
+    selectedProductImage = null;
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    message('productMsg', 'La imagen no puede superar 5 MB.', 'error');
+    event.target.value = '';
+    selectedProductImage = null;
+    return;
+  }
+
+  if (!file.type.startsWith('image/')) {
+    message('productMsg', 'Selecciona un archivo de imagen válido.', 'error');
+    event.target.value = '';
+    selectedProductImage = null;
+    return;
+  }
+
+  selectedProductImage = file;
+  previewProductImage(URL.createObjectURL(file));
+});
+
   (async () => {
   try {
     const { data: { session }, error } =
@@ -181,20 +302,72 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
     $('pType').value=p.product_type;$('pOrder').value=p.sort_order??0;$('pColdPrice').value=p.cold_price??'';$('pHot12').value=p.hot_price_12??'';$('pHot16').value=p.hot_price_16??'';
     $('pImage').value=p.image_url||'';$('pAvailable').checked=!!p.available;$('pIsSpecial').checked=!!p.is_special;$('editorTitle').textContent='Editar producto';show('editorPanel',true);show('categoryEditor',false);$('editorPanel').scrollIntoView({behavior:'smooth'});
   }
-  $('productForm').addEventListener('submit',async e=>{
-    e.preventDefault();const id=$('productId').value;const data={
-      name:$('pName').value.trim(),category_id:$('pCategory').value||null,description:$('pDescription').value.trim()||null,
-      product_type:$('pType').value,sort_order:Number($('pOrder').value||0),
-      cold_price:numOrNull($('pColdPrice').value),hot_price_12:numOrNull($('pHot12').value),hot_price_16:numOrNull($('pHot16').value),
-          image_url:$('pImage').value.trim()||null,
-          available:$('pAvailable').checked,
-          is_special:$('pIsSpecial').checked
+  
+
+$('productForm').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const id = $('productId').value;
+
+  try {
+    let imageUrl = $('pImage').value.trim() || null;
+
+    if (selectedProductImage) {
+      imageUrl = await uploadProductImage(selectedProductImage);
+      $('pImage').value = imageUrl;
+      selectedProductImage = null;
+      $('pImageFile').value = '';
+    }
+
+    const data = {
+      name: $('pName').value.trim(),
+      category_id: $('pCategory').value || null,
+      description: $('pDescription').value.trim() || null,
+      product_type: $('pType').value,
+      sort_order: Number($('pOrder').value || 0),
+      cold_price: numOrNull($('pColdPrice').value),
+      hot_price_12: numOrNull($('pHot12').value),
+      hot_price_16: numOrNull($('pHot16').value),
+      image_url: imageUrl,
+      available: $('pAvailable').checked,
+      is_special: $('pIsSpecial').checked
     };
-    if(!data.category_id)return message('productMsg','Crea una categoría antes de guardar un producto.','error');
-    const q=id?supabaseClient.from('products').update(data).eq('id',id):supabaseClient.from('products').insert(data);
-    const {error}=await q;if(error)return message('productMsg','No se pudo guardar: '+error.message,'error');
-    message('productMsg','Producto guardado.','ok');await loadAll();setTimeout(()=>show('editorPanel',false),500);
-  });
+
+    if (!data.category_id) {
+      return message(
+        'productMsg',
+        'Crea una categoría antes de guardar un producto.',
+        'error'
+      );
+    }
+
+    const q = id
+      ? supabaseClient.from('products').update(data).eq('id', id)
+      : supabaseClient.from('products').insert(data);
+
+    const { error } = await q;
+
+    if (error) {
+      return message(
+        'productMsg',
+        'No se pudo guardar: ' + error.message,
+        'error'
+      );
+    }
+
+    message('productMsg', 'Producto guardado.', 'ok');
+    await loadAll();
+    setTimeout(() => show('editorPanel', false), 500);
+
+  } catch (error) {
+    message(
+      'productMsg',
+      'Error al subir la imagen o guardar el producto: ' + error.message,
+      'error'
+    );
+  }
+});
+
   async function toggleProduct(id){const p=products.find(x=>x.id===id);const {error}=await supabaseClient.from('products').update({available:!p.available}).eq('id',id);if(error)return message('globalMsg',error.message,'error');await loadAll();}
   async function deleteProduct(id){const p=products.find(x=>x.id===id);if(!confirm(`¿Eliminar “${p.name}”? Esta acción no se puede deshacer.`))return;const {error}=await supabaseClient.from('products').delete().eq('id',id);if(error)return message('globalMsg','No se pudo eliminar. Puede estar referenciado en otro registro: '+error.message,'error');await loadAll();}
 
