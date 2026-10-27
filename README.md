@@ -1479,36 +1479,29 @@ function renderCart() {
         <span class="quantity-label">bebida(s)</span>
       </div>
 
-      
+      <div class="cart-options">
+        <div class="customer-drink-field">
+          <label for="customer-${item.cartId}">
+            <span class="customer-drink-label">¿Para quién es esta bebida?</span>
+            <span class="customer-drink-optional">Opcional</span>
+          </label>
+          <input
+            type="text"
+            id="customer-${item.cartId}"
+            maxlength="40"
+            placeholder="Ej. Ana, Carlos..."
+            value="${escapeHTML(item.customerName || "")}"
+            oninput="updateCustomerName('${item.cartId}', this.value)"
+          >
+          <p>Identifica cada bebida si tu pedido es para varias personas.</p>
+        </div>
 
-<div class="cart-options">
-  <div class="customer-drink-field">
-    <label for="customer-${item.cartId}">
-      <span class="customer-drink-label">
-        ¿Para quién es esta bebida?
-      </span>
-      <span class="customer-drink-optional">Opcional</span>
-    </label>
-
-    <input
-      type="text"
-      id="customer-${item.cartId}"
-      maxlength="40"
-      placeholder="Ej. Ana, Carlos..."
-      value="${escapeHTML(item.customerName || "")}"
-      oninput="updateCustomerName('${item.cartId}', this.value)"
-    >
-
-    <p>Identifica cada bebida si tu pedido es para varias personas.</p>
-  </div>
-
-  <div>
-    <label for="size-${item.cartId}">Tamaño</label>
-    <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
-      ${sizeOptions.map(size => `<option value="${size}" ${item.size === size ? "selected" : ""}>${size} · ${money(getPrice(product,size))}</option>`).join("")}
-    </select>
-  </div>
-</div>
+        <div>
+          <label for="size-${item.cartId}">Tamaño</label>
+          <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
+            ${sizeOptions.map(size => `<option value="${size}" ${item.size === size ? "selected" : ""}>${size} · ${money(getPrice(product,size))}</option>`).join("")}
+          </select>
+        </div>
 
         ${hasMilk ? `<div>
           <label for="milk-${item.cartId}">Tipo de leche</label>
@@ -1548,6 +1541,7 @@ function renderCart() {
 
   renderDiscountTotals();
 }
+
 function updateCustomerName(id, value) {
   const item = cart.find(i => i.cartId === id);
   if (item) {
