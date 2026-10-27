@@ -2074,7 +2074,12 @@ message +=
   "• Total final con envío: Por confirmar\n\n" +
   "💳 *MÉTODO DE PAGO*\n" +
   "Transferencia bancaria\n" +
-  "_Te compartiremos los datos bancarios por este medio._\n";
+  "_*VRUTO CAFÉ · DATOS DE PAGO*
+Banco: BanCoppel
+Titular: Daniel Camacho
+Tarjeta: 4169 1608 5448 6710
+
+_Envía tu comprobante por este medio para confirmar tu pedido.__\n";
 
 
 if (generalNotes) {
