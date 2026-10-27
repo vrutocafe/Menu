@@ -1359,6 +1359,7 @@ function addToCart(id) {
     sugar:product.sugar ? "Sin azúcar" : "No aplica",
     extras:[],
     note:""
+    customerName: "",
   });
 
   renderCart();
@@ -1416,6 +1417,19 @@ function renderCart() {
       </div>
 
       <div class="cart-options">
+      <div>
+  <label for="customer-${item.cartId}">
+    Nombre de quien recibe (opcional)
+  </label>
+  <input
+    type="text"
+    id="customer-${item.cartId}"
+    maxlength="40"
+    placeholder="Ej. Ana, Carlos..."
+    value="${escapeHTML(item.customerName || "")}"
+    oninput="updateCustomerName('${item.cartId}',this.value)"
+  >
+</div>
         <div>
           <label for="size-${item.cartId}">Tamaño</label>
           <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
@@ -1452,6 +1466,10 @@ function renderCart() {
           <label for="note-${item.cartId}">Notas de esta bebida</label>
           <textarea id="note-${item.cartId}" placeholder="Ej. sin hielo, poco dulce..."
             onchange="updateNote('${item.cartId}',this.value)">${escapeHTML(item.note)}</textarea>
+      function updateCustomerName(id, value) {
+  const item = cart.find(i => i.cartId === id);
+  if (item) item.customerName = value;
+}
         </div>
       </div>
 
@@ -1569,6 +1587,9 @@ document.getElementById("orderForm").addEventListener("submit",function(event) {
       "\n*BEBIDA " + (index + 1) + " · " + item.name + "*\n" +
       "• Tamaño: " + item.size + "\n" +
       "• Cantidad: " + quantity + "\n";
+    if (item.customerName && item.customerName.trim()) {
+  message += "• Para: " + item.customerName.trim() + "\n";
+}
 
     if (product && product.milk) message += "• Leche: " + item.milk + "\n";
     if (product && product.sugar) message += "• Azúcar: " + item.sugar + "\n";
