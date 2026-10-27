@@ -1064,13 +1064,17 @@ $('logoutBtn').addEventListener('click', async () => {
   });
 
   // Restaura la conexión solo durante esta pestaña.
-  const savedUrl = localStorage.getItem('vruto_supabase_url');
-  const savedKey = localStorage.getItem('vruto_supabase_key');
+  const savedUrl = localStorage.getItem('https://eqguxuacvdvdbxtxbogf.supabase.co');
+  const savedKey = localStorage.getItem('sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD');
 
   if (savedUrl && savedKey) {
-    setConfigFields(savedUrl, savedKey);
-    connectSupabase();
-  }
+  setConfigFields(savedUrl, savedKey);
+  connectSupabase();
+} else {
+  show('configPanel', true);
+  show('loginPanel', false);
+  show('appPanel', false);
+}
 })();
 </script>
 </body>
