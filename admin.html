@@ -810,14 +810,22 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     await enterApp();
   });
 
-  $('logoutBtn').addEventListener('click', async () => {
-    if (supabaseClient) await supabaseClient.auth.signOut();
+$('logoutBtn').addEventListener('click', async () => {
+  if (supabaseClient) {
+    const { error } = await supabaseClient.auth.signOut();
 
-    show('appPanel', false);
-    show('logoutBtn', false);
-    show('loginPanel', false);
-    show('configPanel', true);
-  });
+    if (error) {
+      message('globalMsg', 'No se pudo cerrar sesión: ' + error.message, 'error');
+      return;
+    }
+  }
+
+  show('appPanel', false);
+  show('logoutBtn', false);
+  show('configPanel', false);
+  show('loginPanel', true);
+  show('globalMsg', false);
+});
 
   document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('[data-tab]').forEach(x => {
