@@ -1358,7 +1358,6 @@ function getPrice(product,size) {
 }
 
 function renderMenu() {
-function renderMenu() {
   const grid = document.getElementById("menuGrid");
 
   const filtered = menuData.filter(item => {
