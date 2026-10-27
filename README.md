@@ -1279,31 +1279,40 @@ body > script {
     <p>Tu próximo café favorito, hasta tu puerta.</p>
     <a class="primary-btn" href="#menu">Explorar menú ↓</a>
   </section>
-  <section class="seasonal">
+
+<section class="seasonal" id="seasonalSection">
   <div class="seasonal-image">
     <img
+      id="seasonalImage"
       src="1790312149990.png"
-      alt="PumpkinSPiceLatte"
+      alt="Bebida de temporada VRUTO Café"
       loading="lazy"
     >
-  </div>  <div class="seasonal-content">
-    <span class="seasonal-label">EDICIÓN DE TEMPORADA</span><h2>Pumpkin Spice.</h2>
-
-<p>
-  Espresso, leche y especias de calabaza.
-  Tu bebida favorita de otoño, a tu manera.
-</p>
-
-<div class="seasonal-prices">
-  <span>Caliente desde $70</span>
-  <span>Frío $85</span>
-</div>
-
-<a href="#menu" class="seasonal-button">
-  DESCUBRIR EN EL MENÚ →
-</a>
-
   </div>
+
+  <div class="seasonal-content">
+    <span class="seasonal-label" id="seasonalLabel">
+      EDICIÓN DE TEMPORADA
+    </span>
+
+    <h2 id="seasonalTitle">Pumpkin Spice.</h2>
+
+    <p id="seasonalDescription">
+      Espresso, leche y especias de calabaza.
+      Tu bebida favorita de otoño, a tu manera.
+    </p>
+
+    <div class="seasonal-prices" id="seasonalPrices">
+      <span>Caliente desde $70</span>
+      <span>Frío $85</span>
+    </div>
+
+    <a href="#menu" class="seasonal-button" id="seasonalButton">
+      DESCUBRIR EN EL MENÚ →
+    </a>
+  </div>
+
+  <div id="seasonalProducts" class="seasonal-products"></div>
 </section>
 <!-- CÓMO PEDIR -->
 <section class="how-to-order" id="como-pedir">
@@ -2215,6 +2224,66 @@ async function loadMenuFromSupabase() {
 
 
 loadMenuFromSupabase();
+  
+async function loadSeasonalFromSupabase() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_settings?select=value&key=eq.seasonal`,
+      {
+        headers: {
+          apikey: SUPABASE_PUBLIC_KEY,
+          Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
+        },
+        cache: "no-store"
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status} al cargar temporada`);
+    }
+
+    const rows = await response.json();
+    if (!rows.length) return;
+
+    const season = rows[0].value;
+    const section = document.getElementById("seasonalSection");
+
+    if (!section) return;
+
+    section.hidden = season.active === false;
+
+    const image = document.getElementById("seasonalImage");
+    image.src = season.image_url || "1790312149990.png";
+    image.alt = season.title || "Bebida de temporada VRUTO Café";
+
+    document.getElementById("seasonalLabel").textContent =
+      season.label || "";
+
+    document.getElementById("seasonalTitle").textContent =
+      season.title || "";
+
+    document.getElementById("seasonalDescription").textContent =
+      season.description || "";
+
+    document.getElementById("seasonalPrices").replaceChildren(
+      ...(season.prices || []).map(price => {
+        const span = document.createElement("span");
+        span.textContent = price;
+        return span;
+      })
+    );
+
+    const button = document.getElementById("seasonalButton");
+    button.textContent = season.button_text || "DESCUBRIR EN EL MENÚ →";
+    button.href = season.button_url || "#menu";
+
+  } catch (error) {
+    console.error("No se pudo cargar la temporada:", error);
+  }
+}
+
+loadSeasonalFromSupabase();
+
 
 observeRevealElements();
 </script>
