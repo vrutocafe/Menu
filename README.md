@@ -1675,10 +1675,24 @@ message +=
 
     if (item.note.trim()) message += "• Indicaciones: " + item.note.trim() + "\n";
 
-    message +=
-      "• Precio por bebida: " + money(itemPrice(item)) + "\n" +
-      "• *Importe: " + money(itemPrice(item) * quantity) + "*\n";
-  });
+    
+const precioBebida = itemPrice(item) * quantity;
+
+message +=
+  "• Precio por bebida: " + money(itemPrice(item)) + "\n";
+
+if (appliedPromo && discount > 0 && subtotal > 0) {
+  const descuentoBebida = precioBebida * (discount / subtotal);
+  const importeConDescuento = precioBebida - descuentoBebida;
+
+  message +=
+    "• Importe original: " + money(precioBebida) + "\n" +
+    "• *Importe con descuento: " + money(importeConDescuento) + "*\n";
+} else {
+  message +=
+    "• *Importe: " + money(precioBebida) + "*\n";
+}
+}); // Cierra cart.forEach
 
   message +=
     "\n━━━━━━━━━━━━━━━━━━\n" +
@@ -1694,13 +1708,20 @@ message +=
       "• Descuento (" + appliedPromo.percentage + "%): -" + money(discount) + "\n";
   }
 
-  message +=
-    "• Envío: Por confirmar\n" +
-    "• *TOTAL DE BEBIDAS: " + money(total) + "*\n" +
-    "• Total final con envío: Por confirmar\n\n" +
-    "💳 *MÉTODO DE PAGO*\n" +
-    "Transferencia bancaria\n\n" +
-    "_Los datos bancarios se comparten por WhatsApp para confirmar el pedido._\n";
+  
+message +=
+  "• Envío: Por confirmar\n" +
+  "• *TOTAL DE BEBIDAS: " + money(total) + "*\n" +
+  "• Total final con envío: Por confirmar\n\n" +
+  "💳 *MÉTODO DE PAGO*\n" +
+  "Transferencia bancaria\n\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "🏦 *VRUTO CAFÉ · DATOS DE PAGO*\n" +
+  "━━━━━━━━━━━━━━━━━━\n" +
+  "• Banco: BanCoppel\n" +
+  "• Titular: Daniel Camacho\n" +
+  "• Tarjeta: 4169 1608 5448 6710\n\n" +
+  "_Envía tu comprobante por este medio para confirmar tu pedido._\n";
 
   if (generalNotes) message += "\n📝 *NOTAS ADICIONALES*\n" + generalNotes + "\n";
 
