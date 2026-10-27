@@ -12,6 +12,53 @@
 header{background:var(--olive);color:white;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 header strong{letter-spacing:.12em}main{max-width:1050px;margin:26px auto;padding:0 16px 50px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 3px 14px #282a2408}
 h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:13px;font-weight:650}.field input,.field select,.field textarea{font:inherit;border:1px solid #d8d6cb;border-radius:9px;padding:11px;background:white;color:var(--ink);width:100%}.field textarea{min-height:70px;resize:vertical}.wide{grid-column:1/-1}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:9px;padding:10px 14px;font:inherit;font-weight:650;cursor:pointer;background:var(--olive);color:white}.btn.secondary{background:#efeee6;color:var(--ink)}.btn.danger{background:#f7e8e5;color:var(--red)}.btn:disabled{opacity:.5;cursor:wait}.hidden{display:none!important}.notice{padding:11px 13px;border-radius:9px;background:#f0efe8;margin:12px 0;font-size:14px}.notice.error{background:#fae9e6;color:#8f3027}.notice.ok{background:#eaf2e6;color:#315b2d}.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}.tabs button.active{background:var(--butter);color:var(--ink)}.list{display:flex;flex-direction:column;gap:8px;margin-top:14px}.item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:11px;padding:12px}.item-main{min-width:0}.item-main strong{display:block;overflow-wrap:anywhere}.item-actions{display:flex;gap:7px;flex-wrap:wrap}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:#efeee6;font-size:12px}.pill.off{background:#f7e8e5;color:var(--red)}.check{display:flex;align-items:center;gap:8px;margin-top:8px}.check input{width:auto}.empty{padding:20px;text-align:center;color:var(--muted)}small{color:var(--muted)}@media(max-width:600px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.item{align-items:flex-start;flex-direction:column}.item-actions{width:100%}.item-actions button{flex:1}header{padding:15px}.panel{padding:16px}}
+  .editor-toggles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.editor-toggle {
+  width: 100%;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 650;
+  text-align: left;
+  box-shadow: 0 3px 12px #282a2408;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+
+.editor-toggle:hover {
+  border-color: var(--olive);
+  background: #f5f3e9;
+  transform: translateY(-1px);
+}
+
+.editor-toggle span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #efeee6;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .editor-toggles {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -607,6 +654,42 @@ $('seasonForm').addEventListener('submit', async event => {
     const {error}=await supabaseClient.from('categories').delete().eq('id',id);if(error)return message('globalMsg',error.message,'error');await loadAll();
   }
 })();
+  document.querySelectorAll('.editor-toggle').forEach(button => {
+  button.addEventListener('click', () => {
+    const targetId = button.dataset.target;
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      console.error('No se encontró el panel:', targetId);
+      return;
+    }
+
+    const willOpen = target.hidden;
+
+    // Cierra los paneles de los otros botones
+    document.querySelectorAll('.editor-toggle').forEach(otherButton => {
+      const otherTarget = document.getElementById(otherButton.dataset.target);
+
+      if (otherTarget && otherTarget !== target) {
+        otherTarget.hidden = true;
+        otherButton.setAttribute('aria-expanded', 'false');
+
+        const otherIcon = otherButton.querySelector('span');
+        if (otherIcon) otherIcon.textContent = '+';
+      }
+    });
+
+    target.hidden = !willOpen;
+    button.setAttribute('aria-expanded', String(willOpen));
+
+    const icon = button.querySelector('span');
+    if (icon) icon.textContent = willOpen ? '−' : '+';
+
+    if (willOpen) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 </body>
 </html>
