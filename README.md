@@ -2129,95 +2129,75 @@ function observeRevealElements() {
   elements.forEach(element => observer.observe(element));
 }
 
+
 async function loadMenuFromSupabase() {
   try {
-    const response = await fetch(
-`${SUPABASE_URL}/rest/v1/products?select=id,name,category_id,description,product_type,cold_price,hot_price_12,hot_price_16,available,sort_order,is_special&available=eq.true&order=sort_order.asc`,      {
-        method: "GET",
-        headers: {
-          apikey: SUPABASE_PUBLIC_KEY,
-          Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
-        },
-        cache: "no-store"
-      }
-    );
-        const categoriesResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/categories?select=id,name,sort_order,active&active=eq.true&order=sort_order.asc`,
-      {
-        method: "GET",
-        headers: {
-          apikey: SUPABASE_PUBLIC_KEY,
-          Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
-        },
-        cache: "no-store"
-      }
-    );
+    const headers = {
+      apikey: SUPABASE_PUBLIC_KEY,
+      Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`
+    };
+
+    const [productsResponse, categoriesResponse] = await Promise.all([
+      fetch(
+        `${SUPABASE_URL}/rest/v1/products?select=id,name,category_id,description,product_type,cold_price,hot_price_12,hot_price_16,available,sort_order,is_special&available=eq.true&order=sort_order.asc`,
+        { headers, cache: "no-store" }
+      ),
+      fetch(
+        `${SUPABASE_URL}/rest/v1/categories?select=id,name,sort_order,active&active=eq.true&order=sort_order.asc`,
+        { headers, cache: "no-store" }
+      )
+    ]);
+
+    if (!productsResponse.ok) {
+      throw new Error(`Error al cargar productos: ${productsResponse.status}`);
+    }
 
     if (!categoriesResponse.ok) {
-      throw new Error("No se pudieron cargar las categorías");
+      throw new Error(`Error al cargar categorías: ${categoriesResponse.status}`);
     }
 
+    const products = await productsResponse.json();
     menuCategories = await categoriesResponse.json();
 
-    if (!response.ok) {
-      throw new Error(
-        `Supabase respondió con el error ${response.status}`
-      );
-    }
-
-    const products = await response.json();
-
     if (!Array.isArray(products) || products.length === 0) {
-      console.warn(
-        "Supabase no devolvió productos. Se conserva el menú de respaldo."
-      );
+      console.warn("No hay productos disponibles en Supabase.");
       return;
     }
 
     menuData = products.map(product => {
       const isHot =
-        String(product.product_type).toLowerCase() === "hot";
+        String(product.product_type || "").toLowerCase() === "hot";
 
-      const isPumpkin =
-        product.name.toLowerCase().includes("pumpkin spice");
+      const categoryInfo = menuCategories.find(
+        category => String(category.id) === String(product.category_id)
+      );
 
-      const isAmericano =
-        product.name.toLowerCase().includes("americano");
-
-      const isLatteRegular =
-        product.name.toLowerCase().includes("latte regular");
-
-      let displayName = product.name;
-
-      if (!isHot && isLatteRegular) {
-        displayName = "Latte Reg.";
-      }
+      const isAmericano = product.name.toLowerCase().includes("americano");
+      const isLatteRegular = product.name.toLowerCase().includes("latte regular");
 
       return {
         id: product.id,
         name: product.name,
-        displayName,
-        category: isPumpkin
-          ? "Especiales"
-          : isHot
-            ? "Calientes"
-            : "Fríos",
+        displayName: !isHot && isLatteRegular
+          ? "Latte Reg."
+          : product.name,
+        category: categoryInfo ? categoryInfo.name : (isHot ? "Calientes" : "Fríos"),
         description: product.description || "",
         hot: isHot,
         milk: !isAmericano,
         sugar: isAmericano || isLatteRegular,
         prices: isHot
           ? {
-              "12 oz": Number(product.hot_price_12),
-              "16 oz": Number(product.hot_price_16)
+              "12 oz": Number(product.hot_price_12 || 0),
+              "16 oz": Number(product.hot_price_16 || 0)
             }
           : {},
-        coldPrice: isHot
-          ? null
-          : Number(product.cold_price)
+        coldPrice: isHot ? null : Number(product.cold_price || 0),
+        isSpecial: product.is_special === true
       };
     });
 
+    renderFilters();
     renderMenu();
     renderCart();
 
@@ -2226,13 +2206,10 @@ async function loadMenuFromSupabase() {
     );
 
   } catch (error) {
-    console.error(
-      "No se pudo cargar el menú desde Supabase:",
-      error
-    );
-    // Se conserva el menú original como respaldo.
+    console.error("No se pudo cargar el menú desde Supabase:", error);
   }
 }
+
 
 loadMenuFromSupabase();
 
