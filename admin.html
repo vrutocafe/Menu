@@ -85,9 +85,6 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
   </section>
   <section id="appPanel" class="hidden">
 
-let selectedBannerImage = null;
-
-function previewBannerImage(src) {
   const preview = $('bannerImagePreview');
 
   if (!src) {
@@ -824,6 +821,10 @@ $('seasonForm').addEventListener('submit', async event => {
     if(!confirm(`¿Eliminar la categoría “${c.name}”?`))return;
     const {error}=await supabaseClient.from('categories').delete().eq('id',id);if(error)return message('globalMsg',error.message,'error');await loadAll();
   }
+  let selectedBannerImage = null;
+
+function previewBannerImage(src) {
+  
     document.querySelectorAll('.editor-toggle').forEach(button => {
     button.addEventListener('click', () => {
       const target = document.getElementById(button.dataset.target);
