@@ -1359,7 +1359,7 @@ function addToCart(id) {
     sugar:product.sugar ? "Sin azúcar" : "No aplica",
     extras:[],
     note:""
-    customerName: "",
+    customerName: ""
   });
 
   renderCart();
@@ -1866,7 +1866,7 @@ async function loadMenuBannerFromSupabase() {
     console.error("No se pudo cargar el banner de VRUTO:", error);
   }
 }
-
+  
 loadMenuBannerFromSupabase();
 renderFilters();
 renderMenu();
