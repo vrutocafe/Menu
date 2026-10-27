@@ -913,14 +913,15 @@
     gap: 17px;
     max-width: 1100px;
     margin: auto;
-    justify-content: center; /* Centra los elementos si sobra espacio */
+    justify-content: center;
   }
-    /* Cuando una tarjeta tiene la clase single-item, se expande a todo el ancho de la cuadrícula */
+
+  /* Estilo exclusivo cuando la categoría solo tiene 1 bebida */
   .product.single-item {
-    grid-column: 1 / -1;
-    max-width: 500px; /* Opcional: un límite máximo para que no se vea exageradamente gigante en pantallas grandes */
-    margin: 0 auto;    /* Lo centra automáticamente */
+    grid-column: 1 / -1; /* Ocupa el ancho disponible */
+    max-width: 360px;    /* Ancho máximo para que no se vea gigante */
     width: 100%;
+    margin: 0 auto;      /* Lo centra automáticamente */
   }
 
 </style>
@@ -1357,6 +1358,7 @@ function getPrice(product,size) {
 }
 
 function renderMenu() {
+function renderMenu() {
   const grid = document.getElementById("menuGrid");
 
   const filtered = menuData.filter(item => {
@@ -1366,7 +1368,7 @@ function renderMenu() {
     return item.category === currentFilter;
   });
 
-  // Verificamos si solo hay un artículo en esta categoría
+  // Detecta si solo hay 1 artículo en la categoría actual
   const isSingle = filtered.length === 1;
 
   grid.innerHTML = filtered.map((item, index) => {
@@ -1378,7 +1380,6 @@ function renderMenu() {
       ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
       : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
 
-    // Si es el único artículo, le agregamos la clase "single-item"
     return `<article class="product reveal ${isSingle ? 'single-item' : ''}" style="--delay:${Math.min(index % 4, 3)*100}ms">
       <div class="category-label">${category}</div>
       <div class="product-top"><h3>${label}</h3></div>
@@ -1390,6 +1391,7 @@ function renderMenu() {
 
   observeRevealElements();
 }
+
 
 function renderFilters() {
   const filters = document.getElementById("menuFilters");
