@@ -1335,6 +1335,8 @@ body > script {
         <h3>Confirma por WhatsApp</h3>
         <p>Envía tu pedido y confirma el envío y la transferencia.</p>
       </div>
+
+      </div>
     </article>
   </div>
 </section>
