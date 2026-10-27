@@ -118,29 +118,17 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
 </header>
 
 <main>
-  <section id="configPanel" class="panel">
-    <h1>Conectar administrador</h1>
-    <p class="muted">Introduce la URL y la clave pública (anon/publishable) de tu proyecto Supabase. No uses una clave service_role o secreta.</p>
-
+  <!-- Panel de configuración oculto pero presente para que la app no falle -->
+  <section id="configPanel" class="panel hidden">
     <div class="grid">
-      <div class="field wide">
-        <label for="projectUrl">Supabase Project URL</label>
-        <input id="projectUrl" placeholder="https://xxxxxxxx.supabase.co" autocomplete="url">
-      </div>
-      <div class="field wide">
-        <label for="anonKey">Publishable / anon key</label>
-        <input id="anonKey" placeholder="sb_publishable_... o eyJ..." autocomplete="off">
-      </div>
+      <input id="projectUrl" type="hidden">
+      <input id="anonKey" type="hidden">
     </div>
-
-    <div class="row" style="margin-top:12px">
-      <button id="connectBtn" class="btn" type="button">Conectar</button>
-      <span class="muted">La configuración se mantiene solo en esta pestaña.</span>
-    </div>
+    <button id="connectBtn" class="btn hidden" type="button">Conectar</button>
     <div id="configMsg" class="notice hidden"></div>
   </section>
 
-  <section id="loginPanel" class="panel hidden">
+  <section id="loginPanel" class="panel">
     <h1>Iniciar sesión</h1>
     <p class="muted">Usa el correo y contraseña del usuario administrador creado en Supabase.</p>
 
@@ -277,7 +265,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
         <div id="categoryMsg" class="notice hidden"></div>
       </div>
     </div>
-        <div id="seasonEditor" class="panel" hidden>
+
+    <div id="seasonEditor" class="panel" hidden>
       <h2>Editor de temporada</h2>
       <p class="muted">Personaliza la sección de temporada que aparece en el menú público de VRUTO.</p>
 
@@ -370,47 +359,29 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   }
 
   async function connectSupabase() {
-    const {url, key} = getClientConfig();
-
-    if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url)) {
-      message('configMsg', 'Introduce una URL válida de proyecto Supabase, por ejemplo https://xxxx.supabase.co.', 'error');
-      return;
-    }
-
-    if (!key) {
-      message('configMsg', 'Pega la clave pública anon/publishable de Supabase.', 'error');
-      return;
-    }
+    const url = "https://eqguxuacvdvdbxtxbogf.supabase.co";
+    const key = "sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD";
 
     if (!window.supabase?.createClient) {
-      message('configMsg', 'No se pudo cargar la librería de Supabase. Revisa tu conexión a internet.', 'error');
+      message('configMsg', 'No se pudo cargar la librería de Supabase.', 'error');
       return;
     }
-
-    $('connectBtn').disabled = true;
 
     try {
       supabaseClient = window.supabase.createClient(url, key);
       const {data, error} = await supabaseClient.auth.getSession();
       if (error) throw error;
 
-      localStorage.setItem('https://eqguxuacvdvdbxtxbogf.supabase.co', url);
-      localStorage.setItem('sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD', key);
-      show('configPanel', false);
-
       if (data.session) {
         await enterApp();
       } else {
+        show('configPanel', false);
         show('loginPanel', true);
         show('appPanel', false);
       }
-
-      message('globalMsg', 'Conexión con Supabase lista.', 'ok');
     } catch (e) {
       supabaseClient = null;
       message('configMsg', 'No se pudo conectar: ' + e.message, 'error');
-    } finally {
-      $('connectBtn').disabled = false;
     }
   }
 
@@ -510,7 +481,7 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     try {
       await loadAll();
     } catch (e) {
-      message('globalMsg', 'No se pudieron cargar los datos. Revisa las tablas, el SQL y los permisos de Supabase: ' + e.message, 'error');
+      message('globalMsg', 'No se pudieron cargar los datos: ' + e.message, 'error');
     }
   }
 
@@ -536,7 +507,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
 
     await Promise.all([loadSeasonSettings(), loadBannerSettings()]);
   }
-    function renderProducts() {
+
+  function renderProducts() {
     const list = $('productList');
 
     if (!products.length) {
@@ -674,7 +646,7 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
       .eq('id', id);
 
     if (error) {
-      message('globalMsg', 'No se pudo eliminar. Puede estar referenciado en otro registro: ' + error.message, 'error');
+      message('globalMsg', 'No se pudo eliminar: ' + error.message, 'error');
       return;
     }
 
@@ -710,7 +682,7 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     const count = products.filter(p => String(p.category_id) === String(id)).length;
 
     if (count) {
-      message('globalMsg', `No puedes eliminar “${c?.name || 'esta categoría'}” porque tiene ${count} producto(s). Mueve esos productos a otra categoría primero.`, 'error');
+      message('globalMsg', `No puedes eliminar “${c?.name || 'esta categoría'}” porque tiene ${count} producto(s).`, 'error');
       return;
     }
 
@@ -736,15 +708,9 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
       .eq('key', 'seasonal')
       .maybeSingle();
 
-    if (error) {
-      message('seasonMsg', 'No se pudo cargar la temporada: ' + error.message, 'error');
-      return;
-    }
-
-    if (!data?.value) return;
+    if (error || !data?.value) return;
 
     const s = data.value;
-
     $('seasonActive').checked = s.active !== false;
     $('seasonLabel').value = s.label || '';
     $('seasonTitle').value = s.title || '';
@@ -759,16 +725,11 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   }
 
   async function loadBannerSettings() {
-    const {data, error} = await supabaseClient
+    const {data} = await supabaseClient
       .from('site_settings')
       .select('value')
       .eq('key', 'menu_banner')
       .maybeSingle();
-
-    if (error) {
-      message('bannerMsg', 'No se pudo cargar el banner: ' + error.message, 'error');
-      return;
-    }
 
     const b = data?.value;
     if (!b) return;
@@ -787,13 +748,11 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   bindImageInput('seasonImageUrl', 'seasonImageFile', 'seasonImagePreview', v => selectedSeasonImage = v, 'seasonMsg');
   bindImageInput('bannerImageUrl', 'bannerImageFile', 'bannerImagePreview', v => selectedBannerImage = v, 'bannerMsg');
 
-  $('connectBtn').addEventListener('click', connectSupabase);
-
   $('loginForm').addEventListener('submit', async e => {
     e.preventDefault();
 
     if (!supabaseClient) {
-      message('loginMsg', 'Primero conecta tu proyecto Supabase.', 'error');
+      message('loginMsg', 'No hay conexión con Supabase.', 'error');
       return;
     }
 
@@ -810,22 +769,16 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     await enterApp();
   });
 
-$('logoutBtn').addEventListener('click', async () => {
-  if (supabaseClient) {
-    const { error } = await supabaseClient.auth.signOut();
-
-    if (error) {
-      message('globalMsg', 'No se pudo cerrar sesión: ' + error.message, 'error');
-      return;
+  $('logoutBtn').addEventListener('click', async () => {
+    if (supabaseClient) {
+      await supabaseClient.auth.signOut();
     }
-  }
 
-  show('appPanel', false);
-  show('logoutBtn', false);
-  show('configPanel', false);
-  show('loginPanel', true);
-  show('globalMsg', false);
-});
+    show('appPanel', false);
+    show('logoutBtn', false);
+    show('loginPanel', true);
+    show('globalMsg', false);
+  });
 
   document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('[data-tab]').forEach(x => {
@@ -910,11 +863,6 @@ $('logoutBtn').addEventListener('click', async () => {
         is_special: $('pIsSpecial').checked
       };
 
-      if (!data.category_id) {
-        message('productMsg', 'Crea una categoría antes de guardar un producto.', 'error');
-        return;
-      }
-
       const query = id
         ? supabaseClient.from('products').update(data).eq('id', id)
         : supabaseClient.from('products').insert(data);
@@ -927,7 +875,7 @@ $('logoutBtn').addEventListener('click', async () => {
       setTimeout(() => show('editorPanel', false), 500);
 
     } catch (error) {
-      message('productMsg', 'No se pudo guardar el producto: ' + error.message, 'error');
+      message('productMsg', 'No se pudo guardar: ' + error.message, 'error');
     } finally {
       submit.disabled = false;
     }
@@ -1063,18 +1011,8 @@ $('logoutBtn').addEventListener('click', async () => {
     }
   });
 
-  // Restaura la conexión solo durante esta pestaña.
-  const savedUrl = localStorage.getItem('https://eqguxuacvdvdbxtxbogf.supabase.co');
-  const savedKey = localStorage.getItem('sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD');
-
-  if (savedUrl && savedKey) {
-  setConfigFields(savedUrl, savedKey);
+  // Conexión automática directa al abrir la página
   connectSupabase();
-} else {
-  show('configPanel', true);
-  show('loginPanel', false);
-  show('appPanel', false);
-}
 })();
 </script>
 </body>
