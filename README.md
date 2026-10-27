@@ -1343,7 +1343,6 @@ body > script {
       
 <div id="menuFilters" class="filters"></div>
 
-    </div>
     <div class="menu-grid" id="menuGrid"></div>
   </section>
 
