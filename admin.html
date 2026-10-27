@@ -83,6 +83,7 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
       <div class="wide"><button class="btn" type="submit">Entrar</button></div>
     </form><div id="loginMsg" class="notice hidden"></div>
   </section>
+  <section id="appPanel" class="hidden">
     <div class="editor-toggles">
   <button type="button" class="btn editor-toggle" data-target="menuEditors">
     Editor de Menú <span>＋</span>
@@ -106,8 +107,7 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
         <div id="categoryList" class="list"><div class="empty">Cargando categorías…</div></div>
       </div>
     </div>
-        <section id="appPanel" class="hidden">
-
+      
     <div id="editorPanel" class="panel hidden">
       <h2 id="editorTitle">Nuevo producto</h2>
       <form id="productForm" class="grid">
@@ -654,42 +654,36 @@ $('seasonForm').addEventListener('submit', async event => {
     const {error}=await supabaseClient.from('categories').delete().eq('id',id);if(error)return message('globalMsg',error.message,'error');await loadAll();
   }
 })();
-  document.querySelectorAll('.editor-toggle').forEach(button => {
-  button.addEventListener('click', () => {
-    const targetId = button.dataset.target;
-    const target = document.getElementById(targetId);
+    document.querySelectorAll('.editor-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = document.getElementById(button.dataset.target);
+      if (!target) return;
 
-    if (!target) {
-      console.error('No se encontró el panel:', targetId);
-      return;
-    }
+      const willOpen = target.hidden;
 
-    const willOpen = target.hidden;
+      document.querySelectorAll('.editor-toggle').forEach(otherButton => {
+        const otherTarget = document.getElementById(otherButton.dataset.target);
 
-    // Cierra los paneles de los otros botones
-    document.querySelectorAll('.editor-toggle').forEach(otherButton => {
-      const otherTarget = document.getElementById(otherButton.dataset.target);
+        if (otherTarget && otherTarget !== target) {
+          otherTarget.hidden = true;
+          otherButton.setAttribute('aria-expanded', 'false');
+          const otherIcon = otherButton.querySelector('span');
+          if (otherIcon) otherIcon.textContent = '+';
+        }
+      });
 
-      if (otherTarget && otherTarget !== target) {
-        otherTarget.hidden = true;
-        otherButton.setAttribute('aria-expanded', 'false');
+      target.hidden = !willOpen;
+      button.setAttribute('aria-expanded', String(willOpen));
 
-        const otherIcon = otherButton.querySelector('span');
-        if (otherIcon) otherIcon.textContent = '+';
+      const icon = button.querySelector('span');
+      if (icon) icon.textContent = willOpen ? '−' : '+';
+
+      if (willOpen) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
-
-    target.hidden = !willOpen;
-    button.setAttribute('aria-expanded', String(willOpen));
-
-    const icon = button.querySelector('span');
-    if (icon) icon.textContent = willOpen ? '−' : '+';
-
-    if (willOpen) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   });
-});
+})();
 </script>
 </body>
 </html>
