@@ -907,7 +907,20 @@
   font-size: 11px;
   line-height: 1.5;
 }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 17px;
+    max-width: 1100px;
+    margin: auto;
+    justify-content: center; /* Centra los elementos si sobra espacio */
+  }
 
+  /* Si solo hay un artículo en la categoría, limitamos su ancho máximo para que no se estire de más */
+  .menu-grid:has(.product:only-child) {
+    grid-template-columns: minmax(220px, 340px);
+    justify-content: center;
+  }
 </style>
 </head>
 <body>
@@ -1728,7 +1741,7 @@ message +=
   message +=
     "\n━━━━━━━━━━━━━━━━━━\n" +
     "¡Gracias por elegir *VRUTO CAFÉ*! ☕\n\n" +
-    "Hola, quiero confirmar este pedido. ¿Me comparten los datos para realizar la transferencia y confirmar el costo del envío?";
+    "Hola, quiero confirmar este pedido.";
 
   const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
   const whatsappWindow = window.open(url,"_blank");
