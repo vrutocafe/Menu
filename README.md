@@ -931,6 +931,18 @@
       width: 100%;
     }
   }
+  /* Si hay un solo producto en la categoría, aseguramos que mantenga su tamaño normal y se centre */
+  .menu-grid:has(.product:only-child) {
+    grid-template-columns: minmax(0, 240px);
+    justify-content: center;
+  }
+
+  @media (max-width: 700px) {
+    .menu-grid:has(.product:only-child) {
+      grid-template-columns: minmax(0, 210px);
+      justify-content: center;
+    }
+  }
 
 </style>
 </head>
@@ -1387,7 +1399,7 @@ function renderMenu() {
       ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
       : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
 
-    return `<article class="product reveal ${isSingle ? 'single-item' : ''}" style="--delay:${Math.min(index % 4, 3)*100}ms">
+    return `<article class="product reveal" style="--delay:${Math.min(index % 4, 3)*100}ms">
       <div class="category-label">${category}</div>
       <div class="product-top"><h3>${label}</h3></div>
       <div class="price">${priceText}</div>
