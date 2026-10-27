@@ -915,12 +915,6 @@
     margin: auto;
     justify-content: center; /* Centra los elementos si sobra espacio */
   }
-
-  /* Si solo hay un artículo en la categoría, limitamos su ancho máximo para que no se estire de más */
-  .menu-grid:has(.product:only-child) {
-    grid-template-columns: minmax(220px, 340px);
-    justify-content: center;
-  }
     /* Cuando una tarjeta tiene la clase single-item, se expande a todo el ancho de la cuadrícula */
   .product.single-item {
     grid-column: 1 / -1;
