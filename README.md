@@ -1707,30 +1707,41 @@ function getPrice(product, size) {
 }
 
 function renderMenu() {
- const grid = document.getElementById("menuGrid");
- const filtered = currentFilter === "Todos"
-  ? menuData
-  : currentFilter === "Calientes"
-    ? menuData.filter(item => item.hot === true)
-    : currentFilter === "Fríos"
-      ? menuData.filter(item => item.hot === false)
-      : menuData.filter(item => item.category === "Especiales");
+  const grid = document.getElementById("menuGrid");
 
- grid.innerHTML = filtered.map(item => {
-   const label = item.displayName || item.name;
-   const priceText = item.hot
-     ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
-     : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
+  const filtered = menuData.filter(item => {
+    if (currentFilter === "Especiales") {
+      return item.isSpecial === true;
+    }
 
-   return `<article class="product reveal"
-  style="--delay: ${Math.min(filtered.indexOf(item) % 4, 3) * 100}ms">
-     <div class="category-label">${item.category}</div>
-     <div class="product-top"><h3>${label}</h3></div>
-     <div class="price">${priceText}</div>
-     <p>${item.description}</p>
-     <button class="add-btn" onclick="addToCart('${item.id}')">+ Agregar al carrito</button>
-   </article>`;
- }).join("");
+    if (currentFilter === "Calientes") {
+      return item.hot === true;
+    }
+
+    if (currentFilter === "Fríos") {
+      return item.hot === false;
+    }
+
+    return item.category === currentFilter;
+  });
+
+  grid.innerHTML = filtered.map(item => {
+    const label = item.displayName || item.name;
+
+    const priceText = item.hot
+      ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
+      : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
+
+    return `<article class="product reveal"
+      style="--delay: ${Math.min(filtered.indexOf(item) % 4, 3) * 100}ms">
+      <div class="category-label">${item.category}</div>
+      <div class="product-top"><h3>${label}</h3></div>
+      <div class="price">${priceText}</div>
+      <p>${item.description}</p>
+      <button class="add-btn" onclick="addToCart('${item.id}')">+ Agregar al carrito</button>
+    </article>`;
+  }).join("");
+
   observeRevealElements();
 }
 
