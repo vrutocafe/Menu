@@ -1466,10 +1466,6 @@ function renderCart() {
           <label for="note-${item.cartId}">Notas de esta bebida</label>
           <textarea id="note-${item.cartId}" placeholder="Ej. sin hielo, poco dulce..."
             onchange="updateNote('${item.cartId}',this.value)">${escapeHTML(item.note)}</textarea>
-      function updateCustomerName(id, value) {
-  const item = cart.find(i => i.cartId === id);
-  if (item) item.customerName = value;
-}
         </div>
       </div>
 
@@ -1479,7 +1475,12 @@ function renderCart() {
 
   renderDiscountTotals();
 }
-
+function updateCustomerName(id, value) {
+  const item = cart.find(i => i.cartId === id);
+  if (item) {
+    item.customerName = value;
+  }
+}
 function updateSize(id,size) {
   const item = cart.find(i => i.cartId === id);
   const product = item && menuData.find(p => String(p.id) === String(item.id));
