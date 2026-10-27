@@ -328,15 +328,26 @@ $('pImageFile').addEventListener('change', event => {
     try { await loadAll(); }
     catch(e){ message('globalMsg','No se pudieron cargar los datos. Revisa el SQL y los permisos de Supabase: '+e.message,'error'); }
   }
-  async function loadAll(){
-    const [c,p]=await Promise.all([
-      supabaseClient.from('categories').select('*').order('sort_order'),
-      supabaseClient.from('products').select('*').order('sort_order').order('name')
-    ]);
-    if(c.error) throw c.error;if(p.error) throw p.error;
-    categories=c.data||[];products=p.data||[];
-    renderCategories();renderProducts();fillCategorySelect();
-  }
+
+async function loadAll() {
+  const [c, p] = await Promise.all([
+    supabaseClient.from('categories').select('*').order('sort_order'),
+    supabaseClient.from('products').select('*').order('sort_order').order('name')
+  ]);
+
+  if (c.error) throw c.error;
+  if (p.error) throw p.error;
+
+  categories = c.data || [];
+  products = p.data || [];
+
+  renderCategories();
+  renderProducts();
+  fillCategorySelect();
+
+  populateSeasonProducts();
+  await loadSeasonSettings();
+}
   function renderProducts(){
     const list=$('productList');
     if(!products.length){list.innerHTML='<div class="empty">Todavía no hay productos. Pulsa “Nuevo producto”.</div>';return;}
