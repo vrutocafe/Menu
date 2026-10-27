@@ -923,6 +923,14 @@
     width: 100%;
     margin: 0 auto;      /* Lo centra automáticamente */
   }
+  /* Corrección de tamaño para móviles cuando hay un solo producto */
+  @media (max-width: 700px) {
+    .product.single-item {
+      max-width: 280px; /* Tamaño compacto y elegante para celular */
+      margin: 0 auto;   /* Centrado automático */
+      width: 100%;
+    }
+  }
 
 </style>
 </head>
