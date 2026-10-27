@@ -1652,13 +1652,16 @@ document.getElementById("orderForm").addEventListener("submit",function(event) {
     const product = menuData.find(p => String(p.id) === String(item.id));
     const quantity = item.quantity || 1;
 
-    message +=
-      "\n*BEBIDA " + (index + 1) + " · " + item.name + "*\n" +
-      "• Tamaño: " + item.size + "\n" +
-      "• Cantidad: " + quantity + "\n";
-    if (item.customerName && item.customerName.trim()) {
-  message += "• Para: " + item.customerName.trim() + "\n";
+    
+if (item.customerName && item.customerName.trim()) {
+  message += "\n👤 *" + item.customerName.trim() + "*\n";
 }
+
+message +=
+  "*BEBIDA " + (index + 1) + " · " + item.name + "*\n" +
+  "• Tamaño: " + item.size + "\n" +
+  "• Cantidad: " + quantity + "\n";
+
 
     if (product && product.milk) message += "• Leche: " + item.milk + "\n";
     if (product && product.sugar) message += "• Azúcar: " + item.sugar + "\n";
