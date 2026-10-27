@@ -93,6 +93,16 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
         <div class="row wide"><button class="btn" type="submit">Guardar producto</button><button id="cancelProductBtn" class="btn secondary" type="button">Cancelar</button></div>
       </form><div id="productMsg" class="notice hidden"></div>
     </div>
+    <div class="editor-toggles">
+  <button type="button" class="btn editor-toggle" data-target="menuEditors">
+    Editor de Menú <span>＋</span>
+  </button>
+
+  <button type="button" class="btn editor-toggle" data-target="seasonEditor">
+    Editor de Temporada <span>＋</span>
+  </button>
+</div>
+    <div id="menuEditors" hidden>
     <div id="categoryEditor" class="panel hidden">
       <h2 id="categoryEditorTitle">Nueva categoría</h2>
       <form id="categoryForm" class="grid">
@@ -102,8 +112,8 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
         <label class="check wide"><input id="cActive" type="checkbox" checked> Categoría visible</label>
         <div class="row wide"><button class="btn" type="submit">Guardar categoría</button><button id="cancelCategoryBtn" class="btn secondary" type="button">Cancelar</button></div>
       </form><div id="categoryMsg" class="notice hidden"></div>
-    </div>
-    
+      
+  </div>
 <div id="seasonEditor" class="panel">
   <h2>Editor de temporada</h2>
   <p>Personaliza el banner que aparece en el menú público de VRUTO.</p>
