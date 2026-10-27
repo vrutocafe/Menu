@@ -921,6 +921,14 @@
     grid-template-columns: minmax(220px, 340px);
     justify-content: center;
   }
+    /* Cuando una tarjeta tiene la clase single-item, se expande a todo el ancho de la cuadrícula */
+  .product.single-item {
+    grid-column: 1 / -1;
+    max-width: 500px; /* Opcional: un límite máximo para que no se vea exageradamente gigante en pantallas grandes */
+    margin: 0 auto;    /* Lo centra automáticamente */
+    width: 100%;
+  }
+
 </style>
 </head>
 <body>
@@ -1364,7 +1372,10 @@ function renderMenu() {
     return item.category === currentFilter;
   });
 
-  grid.innerHTML = filtered.map((item,index) => {
+  // Verificamos si solo hay un artículo en esta categoría
+  const isSingle = filtered.length === 1;
+
+  grid.innerHTML = filtered.map((item, index) => {
     const label = escapeHTML(item.displayName || item.name);
     const category = escapeHTML(item.category || "");
     const description = escapeHTML(item.description || "");
@@ -1373,7 +1384,8 @@ function renderMenu() {
       ? `<span class="price-line">12 oz · ${money(item.prices["12 oz"])}</span><span class="price-line">16 oz · ${money(item.prices["16 oz"])}</span>`
       : `<span class="price-line">16 oz · ${money(item.coldPrice)}</span>`;
 
-    return `<article class="product reveal" style="--delay:${Math.min(index % 4,3)*100}ms">
+    // Si es el único artículo, le agregamos la clase "single-item"
+    return `<article class="product reveal ${isSingle ? 'single-item' : ''}" style="--delay:${Math.min(index % 4, 3)*100}ms">
       <div class="category-label">${category}</div>
       <div class="product-top"><h3>${label}</h3></div>
       <div class="price">${priceText}</div>
