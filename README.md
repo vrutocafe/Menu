@@ -935,26 +935,7 @@
       margin: 0 auto;             /* Centrado automático */
     }
   }
-  /* Estilo para el botón flotante discreto de ajustes */
-  .settings-fab {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
-    background: var(--dark);
-    color: var(--white);
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: background .2s ease, transform .2s ease;
-  }
-
+  
   .settings-fab:hover {
     background: var(--olive);
     transform: scale(1.05);
@@ -964,7 +945,32 @@
     width: 20px;
     height: 20px;
   }
+  /* Estilo para el botón de ajustes junto al footer */
+  .footer-settings-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background .2s ease;
+  }
 
+  .footer-settings-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .footer-settings-btn svg {
+    width: 14px;
+    height: 14px;
+  }
 
 </style>
 </head>
@@ -1193,6 +1199,16 @@
   <div class="social-links">
     <a href="https://www.instagram.com/vrutocafe/" target="_blank" rel="noopener noreferrer">Instagram</a>
     <a href="https://wa.me/526693683462" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+   <!-- Botón de ajustes integrado en el footer -->
+  <div>
+    <button class="footer-settings-btn" onclick="console.log('Abrir ajustes')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      Ajustes
+    </button>
   </div>
   <small>© <span id="year"></span> VRUTO Café</small>
 </footer>
@@ -2031,12 +2047,6 @@ loadSeasonalFromSupabase();
 </script>
 
 <script async src="https://www.instagram.com/embed.js"></script>
-<button class="settings-fab" onclick="console.log('Abrir ajustes')" aria-label="Ajustes">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="3"></circle>
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-  </svg>
-</button>
 
 </body>
 </html>
