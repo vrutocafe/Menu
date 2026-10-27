@@ -1480,6 +1480,7 @@ function renderCart() {
       </div>
 
       
+
 <div class="cart-options">
   <div class="customer-drink-field">
     <label for="customer-${item.cartId}">
@@ -1500,14 +1501,14 @@ function renderCart() {
 
     <p>Identifica cada bebida si tu pedido es para varias personas.</p>
   </div>
-</div>
 
-        <div>
-          <label for="size-${item.cartId}">Tamaño</label>
-          <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
-            ${sizeOptions.map(size => `<option value="${size}" ${item.size === size ? "selected" : ""}>${size} · ${money(getPrice(product,size))}</option>`).join("")}
-          </select>
-        </div>
+  <div>
+    <label for="size-${item.cartId}">Tamaño</label>
+    <select id="size-${item.cartId}" onchange="updateSize('${item.cartId}',this.value)">
+      ${sizeOptions.map(size => `<option value="${size}" ${item.size === size ? "selected" : ""}>${size} · ${money(getPrice(product,size))}</option>`).join("")}
+    </select>
+  </div>
+</div>
 
         ${hasMilk ? `<div>
           <label for="milk-${item.cartId}">Tipo de leche</label>
