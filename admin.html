@@ -103,6 +103,76 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
         <div class="row wide"><button class="btn" type="submit">Guardar categoría</button><button id="cancelCategoryBtn" class="btn secondary" type="button">Cancelar</button></div>
       </form><div id="categoryMsg" class="notice hidden"></div>
     </div>
+    
+<div id="seasonEditor" class="panel">
+  <h2>Editor de temporada</h2>
+  <p>Personaliza el banner que aparece en el menú público de VRUTO.</p>
+
+  <form id="seasonForm" class="grid">
+    <label class="check wide">
+      <input id="seasonActive" type="checkbox" checked>
+      Mostrar sección de temporada
+    </label>
+
+    <div class="field wide">
+      <label for="seasonLabel">Etiqueta</label>
+      <input id="seasonLabel" maxlength="80" value="EDICIÓN DE TEMPORADA">
+    </div>
+
+    <div class="field wide">
+      <label for="seasonTitle">Título</label>
+      <input id="seasonTitle" maxlength="120" value="Pumpkin Spice.">
+    </div>
+
+    <div class="field wide">
+      <label for="seasonDescription">Descripción</label>
+      <textarea id="seasonDescription" maxlength="500" rows="3">Espresso, leche y especias de calabaza. Tu bebida favorita de otoño, a tu manera.</textarea>
+    </div>
+
+    <div class="field wide">
+      <label for="seasonImageUrl">URL de la imagen</label>
+      <input id="seasonImageUrl" maxlength="1000" placeholder="Pega la URL de tu imagen">
+    </div>
+
+    <div class="field wide">
+      <label for="seasonImageFile">O subir imagen desde tu dispositivo</label>
+      <input id="seasonImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
+      <img id="seasonImagePreview" class="hidden" alt="Vista previa del banner" style="width:100%;max-width:360px;max-height:200px;object-fit:cover;border-radius:12px;margin-top:10px;">
+    </div>
+
+    <div class="field">
+      <label for="seasonHotPrice">Texto de precio caliente</label>
+      <input id="seasonHotPrice" maxlength="80" value="Caliente desde $70">
+    </div>
+
+    <div class="field">
+      <label for="seasonColdPrice">Texto de precio frío</label>
+      <input id="seasonColdPrice" maxlength="80" value="Frío $85">
+    </div>
+
+    <div class="field">
+      <label for="seasonButtonText">Texto del botón</label>
+      <input id="seasonButtonText" maxlength="80" value="DESCUBRIR EN EL MENÚ →">
+    </div>
+
+    <div class="field">
+      <label for="seasonButtonUrl">Destino del botón</label>
+      <input id="seasonButtonUrl" maxlength="200" value="#menu">
+    </div>
+
+    <div class="field wide">
+      <label for="seasonProducts">Productos de temporada</label>
+      <select id="seasonProducts" multiple size="6"></select>
+      <small>Mantén presionado o usa Ctrl para elegir varios productos.</small>
+    </div>
+
+    <div class="row wide">
+      <button class="btn" type="submit">Guardar temporada</button>
+    </div>
+  </form>
+
+  <div id="seasonMsg" class="notice hidden"></div>
+</div>
   </section>
   <div id="globalMsg" class="notice hidden"></div>
 </main>
