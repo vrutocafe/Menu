@@ -907,42 +907,35 @@
   font-size: 11px;
   line-height: 1.5;
 }
+  /* Cuadrícula estándar del menú */
   .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 17px;
     max-width: 1100px;
     margin: auto;
-    justify-content: center;
   }
 
-  /* Estilo exclusivo cuando la categoría solo tiene 1 bebida */
-  .product.single-item {
-    grid-column: 1 / -1; /* Ocupa el ancho disponible */
-    max-width: 360px;    /* Ancho máximo para que no se vea gigante */
-    width: 100%;
-    margin: 0 auto;      /* Lo centra automáticamente */
-  }
-  /* Corrección de tamaño para móviles cuando hay un solo producto */
-  @media (max-width: 700px) {
-    .product.single-item {
-      max-width: 280px; /* Tamaño compacto y elegante para celular */
-      margin: 0 auto;   /* Centrado automático */
-      width: 100%;
-    }
-  }
-  /* Si hay un solo producto en la categoría, aseguramos que mantenga su tamaño normal y se centre */
+  /* Si solo hay un artículo en la categoría, limitamos el ancho de la cuadrícula para que no se expanda y quede centrado */
   .menu-grid:has(.product:only-child) {
-    grid-template-columns: minmax(0, 240px);
+    grid-template-columns: minmax(220px, 320px);
     justify-content: center;
   }
 
+  /* Ajuste específico para celulares cuando hay un solo artículo */
   @media (max-width: 700px) {
+    .menu-grid {
+      grid-template-columns: 1fr 1fr; /* Mantiene 2 columnas cuando hay varios productos */
+      gap: 10px;
+    }
+
     .menu-grid:has(.product:only-child) {
-      grid-template-columns: minmax(0, 210px);
-      justify-content: center;
+      grid-template-columns: 1fr; /* Una sola columna */
+      max-width: 260px;           /* Ancho idéntico al de las demás tarjetas en móvil */
+      margin: 0 auto;             /* Centrado automático */
     }
   }
+
 
 </style>
 </head>
