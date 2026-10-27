@@ -1340,7 +1340,7 @@ body > script {
 </section>
   <section id="menu">
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
-      
+  <div>
 <div id="menuFilters" class="filters"></div>
 
     <div class="menu-grid" id="menuGrid"></div>
@@ -1410,7 +1410,6 @@ body > script {
           <div class="notice"><strong>Pago por transferencia bancaria.</strong><br>Al enviar tu pedido por WhatsApp te compartiremos los datos para realizar el pago. Tu pedido se confirma con el negocio.</div>
           <button type="submit" class="whatsapp-btn" id="sendOrder">Enviar pedido por WhatsApp</button>
         </form>
-      </div>
     </div>
   </section>
 <!-- INSTAGRAM VRUTO -->
