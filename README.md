@@ -1340,7 +1340,6 @@ body > script {
 </section>
   <section id="menu">
     <div class="section-heading"><h2>MENÚ</h2><p>Elige tus favoritos y arma tu pedido.</p></div>
-    <div class="filters">
       
 <div id="menuFilters" class="filters"></div>
 
