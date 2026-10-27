@@ -394,8 +394,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
       const {data, error} = await supabaseClient.auth.getSession();
       if (error) throw error;
 
-      sessionStorage.setItem('vruto_supabase_url', url);
-      sessionStorage.setItem('vruto_supabase_key', key);
+      localStorage.setItem('https://eqguxuacvdvdbxtxbogf.supabase.co', url);
+      localStorage.setItem('sb_publishable_Y0Qdy8M6MBssMeHy52WhMQ_5mcCnMfD', key);
       show('configPanel', false);
 
       if (data.session) {
@@ -1056,8 +1056,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   });
 
   // Restaura la conexión solo durante esta pestaña.
-  const savedUrl = sessionStorage.getItem('vruto_supabase_url');
-  const savedKey = sessionStorage.getItem('vruto_supabase_key');
+  const savedUrl = localStorage.getItem('vruto_supabase_url');
+  const savedKey = localStorage.getItem('vruto_supabase_key');
 
   if (savedUrl && savedKey) {
     setConfigFields(savedUrl, savedKey);
