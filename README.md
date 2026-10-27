@@ -1491,8 +1491,8 @@ function renderCart() {
             maxlength="40"
             placeholder="Ej. Ana, Carlos..."
             value="${escapeHTML(item.customerName || "")}"
-            oninput="updateCustomerName('${item.cartId}', this.value)"
-          >
+                oninput="updateCustomerName('${item.cartId}', this.value)" 
+                >
           <p>Identifica cada bebida si tu pedido es para varias personas.</p>
         </div>
 
@@ -1543,10 +1543,11 @@ function renderCart() {
 }
 
 function updateCustomerName(id, value) {
-  const item = cart.find(i => i.cartId === id);
-  if (item) {
-    item.customerName = value;
-  }
+const item = cart.find(i => String(i.cartId) === String(id));
+
+if (item) {
+item.customerName = value;
+}
 }
 function updateSize(id,size) {
   const item = cart.find(i => i.cartId === id);
