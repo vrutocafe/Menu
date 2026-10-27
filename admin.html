@@ -160,12 +160,6 @@ h1,h2{margin:0 0 12px}h1{font-size:24px}h2{font-size:18px}.muted{color:var(--mut
       <input id="seasonButtonUrl" maxlength="200" value="#menu">
     </div>
 
-    <div class="field wide">
-      <label for="seasonProducts">Productos de temporada</label>
-      <select id="seasonProducts" multiple size="6"></select>
-      <small>Mantén presionado o usa Ctrl para elegir varios productos.</small>
-    </div>
-
     <div class="row wide">
       <button class="btn" type="submit">Guardar temporada</button>
     </div>
@@ -345,7 +339,6 @@ async function loadAll() {
   renderProducts();
   fillCategorySelect();
 
-  populateSeasonProducts();
   await loadSeasonSettings();
 }
   function renderProducts(){
@@ -522,24 +515,6 @@ async function loadSeasonSettings() {
   $('seasonButtonUrl').value = s.button_url || '#menu';
 
   previewSeasonImage(s.image_url || '');
-
-  const selectedIds = (s.product_ids || []).map(String);
-  Array.from($('seasonProducts').options).forEach(option => {
-    option.selected = selectedIds.includes(option.value);
-  });
-}
-
-function populateSeasonProducts() {
-  const select = $('seasonProducts');
-  const selected = new Set(
-    Array.from(select.selectedOptions).map(option => option.value)
-  );
-
-  select.innerHTML = products.map(product => `
-    <option value="${safe(product.id)}" ${selected.has(String(product.id)) ? 'selected' : ''}>
-      ${safe(product.name)}
-    </option>
-  `).join('');
 }
 
 $('seasonForm').addEventListener('submit', async event => {
@@ -567,8 +542,6 @@ $('seasonForm').addEventListener('submit', async event => {
         $('seasonHotPrice').value.trim(),
         $('seasonColdPrice').value.trim()
       ],
-      product_ids: Array.from($('seasonProducts').selectedOptions)
-        .map(option => option.value)
     };
 
     const { error } = await supabaseClient
