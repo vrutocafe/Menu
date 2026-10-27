@@ -438,6 +438,146 @@ $('productForm').addEventListener('submit', async e => {
   }
 });
 
+let selectedSeasonImage = null;
+
+function previewSeasonImage(src) {
+  const preview = $('seasonImagePreview');
+
+  if (!src) {
+    preview.removeAttribute('src');
+    show('seasonImagePreview', false);
+    return;
+  }
+
+  preview.onload = () => show('seasonImagePreview', true);
+  preview.onerror = () => show('seasonImagePreview', false);
+  preview.src = src;
+}
+
+$('seasonImageUrl').addEventListener('input', () => {
+  selectedSeasonImage = null;
+  $('seasonImageFile').value = '';
+  previewSeasonImage($('seasonImageUrl').value.trim());
+});
+
+$('seasonImageFile').addEventListener('change', event => {
+  const file = event.target.files[0];
+
+  if (!file) {
+    selectedSeasonImage = null;
+    return;
+  }
+
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type)) {
+    message('seasonMsg', 'Usa JPG, PNG, WebP o AVIF.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    message('seasonMsg', 'La imagen no puede superar 5 MB.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  selectedSeasonImage = file;
+  previewSeasonImage(URL.createObjectURL(file));
+});
+
+async function loadSeasonSettings() {
+  const { data, error } = await supabaseClient
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'seasonal')
+    .maybeSingle();
+
+  if (error) {
+    message('seasonMsg', 'No se pudo cargar la temporada: ' + error.message, 'error');
+    return;
+  }
+
+  if (!data?.value) return;
+
+  const s = data.value;
+
+  $('seasonActive').checked = s.active !== false;
+  $('seasonLabel').value = s.label || '';
+  $('seasonTitle').value = s.title || '';
+  $('seasonDescription').value = s.description || '';
+  $('seasonImageUrl').value = s.image_url || '';
+  $('seasonHotPrice').value = s.prices?.[0] || '';
+  $('seasonColdPrice').value = s.prices?.[1] || '';
+  $('seasonButtonText').value = s.button_text || '';
+  $('seasonButtonUrl').value = s.button_url || '#menu';
+
+  previewSeasonImage(s.image_url || '');
+
+  const selectedIds = (s.product_ids || []).map(String);
+  Array.from($('seasonProducts').options).forEach(option => {
+    option.selected = selectedIds.includes(option.value);
+  });
+}
+
+function populateSeasonProducts() {
+  const select = $('seasonProducts');
+  const selected = new Set(
+    Array.from(select.selectedOptions).map(option => option.value)
+  );
+
+  select.innerHTML = products.map(product => `
+    <option value="${safe(product.id)}" ${selected.has(String(product.id)) ? 'selected' : ''}>
+      ${safe(product.name)}
+    </option>
+  `).join('');
+}
+
+$('seasonForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  try {
+    let imageUrl = $('seasonImageUrl').value.trim() || null;
+
+    if (selectedSeasonImage) {
+      imageUrl = await uploadProductImage(selectedSeasonImage);
+      $('seasonImageUrl').value = imageUrl;
+      selectedSeasonImage = null;
+      $('seasonImageFile').value = '';
+    }
+
+    const value = {
+      active: $('seasonActive').checked,
+      label: $('seasonLabel').value.trim(),
+      title: $('seasonTitle').value.trim(),
+      description: $('seasonDescription').value.trim(),
+      image_url: imageUrl,
+      button_text: $('seasonButtonText').value.trim(),
+      button_url: $('seasonButtonUrl').value.trim() || '#menu',
+      prices: [
+        $('seasonHotPrice').value.trim(),
+        $('seasonColdPrice').value.trim()
+      ],
+      product_ids: Array.from($('seasonProducts').selectedOptions)
+        .map(option => option.value)
+    };
+
+    const { error } = await supabaseClient
+      .from('site_settings')
+      .upsert({
+        key: 'seasonal',
+        value,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'key' });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    message('seasonMsg', 'Temporada guardada correctamente.', 'ok');
+
+  } catch (error) {
+    message('seasonMsg', 'No se pudo guardar: ' + error.message, 'error');
+  }
+});
   async function toggleProduct(id){const p=products.find(x=>x.id===id);const {error}=await supabaseClient.from('products').update({available:!p.available}).eq('id',id);if(error)return message('globalMsg',error.message,'error');await loadAll();}
   async function deleteProduct(id){const p=products.find(x=>x.id===id);if(!confirm(`¿Eliminar “${p.name}”? Esta acción no se puede deshacer.`))return;const {error}=await supabaseClient.from('products').delete().eq('id',id);if(error)return message('globalMsg','No se pudo eliminar. Puede estar referenciado en otro registro: '+error.message,'error');await loadAll();}
 
