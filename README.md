@@ -1358,7 +1358,7 @@ function addToCart(id) {
     milk:product.milk ? "Entera" : "Sin leche",
     sugar:product.sugar ? "Sin azúcar" : "No aplica",
     extras:[],
-    note:""
+    note:"",
     customerName: ""
   });
 
