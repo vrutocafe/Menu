@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -9,98 +10,439 @@
 
 <style>
 :root{
-  --olive:#51583d;
-  --cream:#faf8f0;
-  --butter:#eee7b5;
-  --ink:#292a24;
-  --muted:#77796e;
-  --line:#e4e1d6;
+  --olive:#69734b;
+  --olive-dark:#51583d;
+  --olive-light:#edf0e5;
+  --cream:#f7f5ec;
+  --butter:#f2e6a5;
+  --ink:#303329;
+  --muted:#858779;
+  --line:#e9e7dc;
   --red:#a83e35;
   --green:#486b45;
+  --white:#fff;
+  --shadow:0 8px 30px rgba(44,48,35,.045);
 }
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:var(--olive);color:white;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-header strong{letter-spacing:.12em}
-main{max-width:1050px;margin:26px auto;padding:0 16px 50px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 3px 14px #282a2408}
-h1,h2{margin:0 0 12px}
-h1{font-size:24px}
-h2{font-size:18px}
-.muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:13px;font-weight:650}
-.field input,.field select,.field textarea{font:inherit;border:1px solid #d8d6cb;border-radius:9px;padding:11px;background:white;color:var(--ink);width:100%}
-.field textarea{min-height:70px;resize:vertical}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:25px;
+}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+[hidden]{display:none!important}
+
+header{
+  background:var(--olive-dark);
+  color:white;
+  padding:14px max(22px,calc((100% - 1050px)/2));
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  min-height:78px;
+  box-shadow:0 3px 18px #25291c18;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand img{
+  width:43px;
+  height:43px;
+  object-fit:contain;
+  border-radius:11px;
+  background:#f7f5ec;
+  padding:4px;
+}
+
+.brand strong{
+  display:block;
+  font-size:14px;
+  letter-spacing:.15em;
+  font-weight:750;
+}
+
+.brand small{
+  display:block;
+  color:#ffffffb8;
+  font-size:11px;
+  letter-spacing:.025em;
+  margin-top:2px;
+}
+
+main{
+  max-width:1050px;
+  margin:30px auto;
+  padding:0 20px 60px;
+  animation:pageEnter .45s ease both;
+}
+
+h1,h2,h3,p{margin-top:0}
+
+h1{
+  font-size:25px;
+  line-height:1.25;
+  letter-spacing:-.045em;
+  margin-bottom:9px;
+}
+
+h2{
+  font-size:19px;
+  line-height:1.3;
+  letter-spacing:-.025em;
+  margin-bottom:10px;
+}
+
+h3{
+  font-size:17px;
+  letter-spacing:-.02em;
+}
+
+p{margin-bottom:12px}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
+}
+
+small{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.panel{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:23px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+  animation:cardEnter .35s ease both;
+}
+
+#loginPanel{
+  max-width:480px;
+  margin:65px auto;
+  padding:30px;
+}
+
+#loginPanel h1{margin-bottom:8px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:0;
+}
+
+.field label{
+  font-size:12px;
+  font-weight:700;
+  color:#555849;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  min-width:0;
+  font:inherit;
+  font-size:14px;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid #e2e0d5;
+  border-radius:10px;
+  padding:11px 13px;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.product-search:focus{
+  border-color:var(--olive);
+  box-shadow:0 0 0 3px #69734b18;
+}
+
+.field textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+.field input[type="file"]{
+  padding:9px;
+  background:#faf9f4;
+  font-size:12px;
+}
+
 .wide{grid-column:1/-1}
-.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.btn{border:0;border-radius:9px;padding:10px 14px;font:inherit;font-weight:650;cursor:pointer;background:var(--olive);color:white}
-.btn.secondary{background:#efeee6;color:var(--ink)}
-.btn.danger{background:#f7e8e5;color:var(--red)}
-.btn:disabled{opacity:.5;cursor:wait}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:1px solid transparent;
+  border-radius:10px;
+  padding:10px 15px;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  background:var(--olive);
+  color:white;
+  transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;
+}
+
+.btn:hover{
+  background:var(--olive-dark);
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px #30332915;
+}
+
+.btn:active{transform:scale(.98)}
+
+.btn.secondary{
+  background:#f2f1e9;
+  border-color:#eeece2;
+  color:var(--ink);
+}
+
+.btn.secondary:hover{
+  background:#e9e8dc;
+  border-color:#dedccd;
+}
+
+.btn.danger{
+  background:#f9eeeb;
+  color:var(--red);
+  border-color:#f1dfdb;
+}
+
+.btn.danger:hover{background:#f4e2de}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:wait;
+  transform:none;
+}
+
 .hidden{display:none!important}
-.notice{padding:11px 13px;border-radius:9px;background:#f0efe8;margin:12px 0;font-size:14px}
-.notice.error{background:#fae9e6;color:#8f3027}
-.notice.ok{background:#eaf2e6;color:#315b2d}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tabs button.active{background:var(--butter);color:var(--ink)}
-.list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.item{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:11px;padding:12px}
+
+.notice{
+  padding:12px 14px;
+  border-radius:11px;
+  background:#f2f1e9;
+  margin:14px 0;
+  font-size:13px;
+  animation:cardEnter .25s ease both;
+}
+
+.notice.error{
+  background:#fae9e6;
+  color:#8f3027;
+}
+
+.notice.ok{
+  background:#eaf2e6;
+  color:#315b2d;
+}
+
+.tabs{
+  display:flex;
+  gap:7px;
+  margin:20px 0;
+  padding-bottom:13px;
+  border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+}
+
+.tabs button{
+  padding:9px 14px;
+}
+
+.tabs button.active{
+  background:var(--butter);
+  color:var(--ink);
+  border-color:#e9dfa5;
+  box-shadow:none;
+}
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-top:14px;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+  animation:itemEnter .3s ease both;
+}
+
+.item:hover{
+  border-color:#d8dbc9;
+  box-shadow:0 4px 14px #30332908;
+}
+
 .item-main{min-width:0}
-.item-main strong{display:block;overflow-wrap:anywhere}
-.item-actions{display:flex;gap:7px;flex-wrap:wrap}
-.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:#efeee6;font-size:12px}
-.pill.off{background:#f7e8e5;color:var(--red)}
-.check{display:flex;align-items:center;gap:8px;margin-top:8px}
-.check input{width:auto}
-.empty{padding:20px;text-align:center;color:var(--muted)}
-small{color:var(--muted)}
+
+.item-main strong{
+  display:block;
+  overflow-wrap:anywhere;
+  font-size:14px;
+  margin-bottom:3px;
+}
+
+.item-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  flex-shrink:0;
+}
+
+.item-actions .btn{padding:8px 11px;font-size:12px}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 9px;
+  border-radius:99px;
+  background:#f0f0e7;
+  color:#596044;
+  font-size:11px;
+  font-weight:650;
+  margin-top:7px;
+}
+
+.pill.off{
+  background:#f7e8e5;
+  color:var(--red);
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:5px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.check input{
+  width:16px;
+  height:16px;
+  accent-color:var(--olive);
+}
+
+.empty{
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  background:#faf9f5;
+  border:1px dashed #e5e2d7;
+  border-radius:12px;
+}
 
 .editor-toggles{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin:24px 0;
+  gap:13px;
+  margin:8px 0 22px;
 }
+
 .editor-toggle{
   width:100%;
   min-height:76px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:20px 22px;
-  background:#fff;
+  padding:17px 19px;
+  background:white;
   color:var(--ink);
   border:1px solid var(--line);
-  border-radius:16px;
-  font-size:15px;
-  font-weight:650;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:700;
   text-align:left;
-  box-shadow:0 3px 12px #282a2408;
-  transition:border-color .2s,background .2s,transform .2s;
+  box-shadow:var(--shadow);
+  transition:border-color .2s,background .2s,transform .2s,box-shadow .2s;
 }
-.editor-toggle:hover{border-color:var(--olive);background:#f5f3e9;transform:translateY(-1px)}
+
+.editor-toggle:hover{
+  border-color:#b9c09f;
+  background:#fbfbf7;
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px #3033290c;
+}
+
+.editor-toggle[aria-expanded="true"]{
+  background:var(--olive-light);
+  border-color:#cbd2b9;
+}
+
 .editor-toggle span{
   display:grid;
   place-items:center;
-  width:30px;
-  height:30px;
+  width:31px;
+  height:31px;
   border-radius:50%;
-  background:#efeee6;
-  font-size:20px;
+  background:#f0f0e7;
+  color:var(--olive-dark);
+  font-size:19px;
   font-weight:400;
   flex-shrink:0;
   margin-left:8px;
 }
-img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-radius:12px;margin-top:10px}
-  
-/* Organización de productos por tipo */
+
+img.preview{
+  width:100%;
+  max-width:420px;
+  max-height:240px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-top:10px;
+  border:1px solid var(--line);
+}
+
 .product-groups{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:9px;
-  margin:20px 0 14px;
+  gap:10px;
+  margin:20px 0 17px;
 }
 
 .product-group-tab{
@@ -108,8 +450,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   flex-direction:column;
   align-items:flex-start;
   justify-content:space-between;
-  gap:12px;
-  min-height:100px;
+  gap:13px;
+  min-height:98px;
   padding:14px;
   border:1px solid var(--line);
   border-radius:13px;
@@ -118,30 +460,31 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   cursor:pointer;
   text-align:left;
   font:inherit;
-  transition:background .2s,border-color .2s;
+  transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;
 }
 
 .product-group-tab:hover{
-  border-color:var(--olive);
+  border-color:#b9c09f;
+  transform:translateY(-2px);
 }
 
 .product-group-tab.active{
-  background:#f0f0e7;
-  border-color:var(--olive);
-  box-shadow:inset 0 0 0 1px var(--olive);
+  background:var(--olive-light);
+  border-color:#bfc8a9;
+  box-shadow:inset 0 0 0 1px #bfc8a9;
 }
 
 .product-group-top{
   display:flex;
   align-items:center;
   gap:7px;
-  font-size:13px;
-  font-weight:650;
+  font-size:12px;
+  font-weight:700;
 }
 
 .product-group-count{
-  font-size:24px;
-  font-weight:700;
+  font-size:25px;
+  font-weight:750;
   line-height:1;
   color:var(--olive);
 }
@@ -152,15 +495,12 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   border-radius:10px;
   padding:12px 14px;
   font:inherit;
+  font-size:13px;
   background:white;
   color:var(--ink);
   outline:none;
   margin-bottom:12px;
-}
-
-.product-search:focus{
-  border-color:var(--olive);
-  box-shadow:0 0 0 3px #51583d15;
+  transition:border-color .2s,box-shadow .2s;
 }
 
 .product-list-heading{
@@ -168,46 +508,161 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-top:12px;
+  margin-top:13px;
 }
 
-@media(max-width:600px){
+.product-list-heading h2{margin:0}
+
+#discountEditor{
+  margin-top:18px;
+  background:#faf9f5;
+  box-shadow:none;
+}
+
+#discountEditor h3{margin-bottom:18px}
+
+#editorPanel,
+#categoryEditor{
+  margin-top:18px;
+  border-color:#dfe2d5;
+  animation:cardEnter .3s ease both;
+}
+
+#seasonEditor,
+#bannerEditor{
+  scroll-margin-top:20px;
+}
+
+#globalMsg{
+  position:relative;
+}
+
+@keyframes pageEnter{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes cardEnter{
+  from{opacity:0;transform:translateY(9px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes itemEnter{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:700px){
+  header{
+    padding:13px 16px;
+    min-height:68px;
+  }
+
+  .brand img{
+    width:39px;
+    height:39px;
+  }
+
+  main{
+    margin:20px auto;
+    padding:0 13px 40px;
+  }
+
+  .editor-toggles{
+    grid-template-columns:1fr;
+    gap:9px;
+  }
+
+  .editor-toggle{
+    min-height:62px;
+    padding:14px 16px;
+  }
+
+  .grid{grid-template-columns:1fr}
+  .wide{grid-column:auto}
+
+  .panel{
+    padding:17px;
+    border-radius:14px;
+  }
+
+  #loginPanel{
+    margin:35px auto;
+    padding:22px;
+  }
+
+  .item{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:11px;
+  }
+
+  .item-actions{
+    width:100%;
+  }
+
+  .item-actions button{
+    flex:1;
+  }
+
   .product-groups{
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:8px;
   }
 
   .product-group-tab{
-    min-height:85px;
+    min-height:84px;
     padding:12px;
   }
+
+  .tabs{
+    gap:6px;
+  }
+
+  .tabs button{
+    flex:1 1 auto;
+    padding:9px 10px;
+    font-size:12px;
+  }
+
+  .product-list-heading{
+    align-items:flex-start;
+  }
+
+  h1{font-size:22px}
 }
 
+@media(max-width:380px){
+  .brand strong{font-size:12px}
+  .brand small{font-size:10px}
+  header .btn{padding:8px 10px;font-size:11px}
+  .product-group-top{font-size:11px}
+}
 
-@media(max-width:700px){
-  .editor-toggles{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr}
-  .wide{grid-column:auto}
-  .item{align-items:flex-start;flex-direction:column}
-  .item-actions{width:100%}
-  .item-actions button{flex:1}
-  header{padding:15px}
-  .panel{padding:16px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
 }
 </style>
 </head>
 
 <body>
 <header>
-  <div>
-    <strong>VRUTO CAFÉ</strong>
-    <div style="font-size:12px;opacity:.8">Panel de administración</div>
+  <div class="brand">
+    <img src="imagenes/logo.png" alt="VRUTO Café">
+    <div>
+      <strong>VRUTO CAFÉ</strong>
+      <small>Panel de administración</small>
+    </div>
   </div>
   <button id="logoutBtn" class="btn secondary hidden" type="button">Cerrar sesión</button>
 </header>
 
 <main>
-  <!-- Panel de configuración oculto pero presente para que la app no falle -->
   <section id="configPanel" class="panel hidden">
     <div class="grid">
       <input id="projectUrl" type="hidden">
@@ -249,225 +704,223 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
         <h1>Tu menú</h1>
         <p class="muted">Los cambios se guardan en Supabase. La página pública debe estar conectada a la misma base de datos para mostrar las actualizaciones.</p>
 
-<div class="tabs">
-  <button class="btn active" data-tab="products" type="button">Productos</button>
-  <button class="btn secondary" data-tab="categories" type="button">Categorías</button>
-  <button class="btn secondary" data-tab="discounts" type="button">Códigos de descuento</button>
-</div>
+        <div class="tabs">
+          <button class="btn active" data-tab="products" type="button">Productos</button>
+          <button class="btn secondary" data-tab="categories" type="button">Categorías</button>
+          <button class="btn secondary" data-tab="discounts" type="button">Códigos de descuento</button>
+        </div>
+
         <div id="productsTab">
           <div class="row" style="justify-content:space-between">
             <h2>Productos</h2>
             <button id="newProductBtn" class="btn" type="button">+ Nuevo producto</button>
           </div>
 
-<div class="product-groups">
-  <button type="button" class="product-group-tab active" data-product-group="cold">
-    <span class="product-group-top">❄️ Fríos</span>
-    <span class="product-group-count" id="countCold">0</span>
-  </button>
+          <div class="product-groups">
+            <button type="button" class="product-group-tab active" data-product-group="cold">
+              <span class="product-group-top">❄️ Fríos</span>
+              <span class="product-group-count" id="countCold">0</span>
+            </button>
 
-  <button type="button" class="product-group-tab" data-product-group="hot">
-    <span class="product-group-top">☕ Calientes</span>
-    <span class="product-group-count" id="countHot">0</span>
-  </button>
+            <button type="button" class="product-group-tab" data-product-group="hot">
+              <span class="product-group-top">☕ Calientes</span>
+              <span class="product-group-count" id="countHot">0</span>
+            </button>
 
-  <button type="button" class="product-group-tab" data-product-group="combo">
-    <span class="product-group-top">🥪 Combos</span>
-    <span class="product-group-count" id="countCombo">0</span>
-  </button>
+            <button type="button" class="product-group-tab" data-product-group="combo">
+              <span class="product-group-top">🥪 Combos</span>
+              <span class="product-group-count" id="countCombo">0</span>
+            </button>
 
-  <button type="button" class="product-group-tab" data-product-group="other">
-    <span class="product-group-top">📦 Otros</span>
-    <span class="product-group-count" id="countOther">0</span>
-  </button>
-</div>
+            <button type="button" class="product-group-tab" data-product-group="other">
+              <span class="product-group-top">📦 Otros</span>
+              <span class="product-group-count" id="countOther">0</span>
+            </button>
+          </div>
 
-<input
-  id="productSearch"
-  class="product-search"
-  type="search"
-  placeholder="Buscar producto por nombre..."
->
+          <input
+            id="productSearch"
+            class="product-search"
+            type="search"
+            placeholder="Buscar producto por nombre..."
+          >
 
-<div class="product-list-heading">
-  <h2 id="productGroupTitle">Bebidas frías</h2>
-  <span class="muted" id="productGroupTotal">0 productos</span>
-</div>
+          <div class="product-list-heading">
+            <h2 id="productGroupTitle">Bebidas frías</h2>
+            <span class="muted" id="productGroupTotal">0 productos</span>
+          </div>
 
-<div id="productList" class="list">
-  <div class="empty">Conectando…</div>
-</div>
+          <div id="productList" class="list">
+            <div class="empty">Conectando…</div>
+          </div>
+        </div>
 
-        </div><!-- Cierre de productsTab -->
-
-        <div id="categoriesTab" class="hidden">          <div class="row" style="justify-content:space-between">
+        <div id="categoriesTab" class="hidden">
+          <div class="row" style="justify-content:space-between">
             <h2>Categorías</h2>
             <button id="newCategoryBtn" class="btn" type="button">+ Nueva categoría</button>
           </div>
           <div id="categoryList" class="list"></div>
         </div>
+
         <div id="discountsTab" class="hidden">
-  <div class="row" style="justify-content:space-between">
-    <div>
-      <h2>Códigos promocionales</h2>
-      <p class="muted">Crea y administra descuentos para tus clientes.</p>
-    </div>
-    <button id="newDiscountBtn" class="btn" type="button">
-      + Nuevo código
-    </button>
-  </div>
-
-  <div id="discountList" class="list">
-    <div class="empty">Cargando códigos...</div>
-  </div>
-
-  <div id="discountEditor" class="panel hidden">
-    <h3 id="discountEditorTitle">Nuevo código promocional</h3>
-
-    <form id="discountForm" class="grid">
-      <input id="discountOriginalCode" type="hidden">
-
-      <div class="field">
-        <label for="discountCodeInput">Código *</label>
-        <input id="discountCodeInput" required maxlength="30"
-          placeholder="Ej. OFFICE15">
-      </div>
-
-      <div class="field">
-        <label for="discountType">Tipo de descuento *</label>
-        <select id="discountType" required>
-          <option value="percentage">Porcentaje (%)</option>
-          <option value="fixed">Cantidad fija ($)</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="discountValue">Valor *</label>
-        <input id="discountValue" type="number" min="0.01"
-          step="0.01" required placeholder="Ej. 15">
-      </div>
-
-      <div class="field">
-        <label for="discountMinDrinks">Mínimo de bebidas</label>
-        <input id="discountMinDrinks" type="number" min="1"
-          step="1" value="1" required>
-      </div>
-
-      <div class="field">
-        <label for="discountZone">Zona válida *</label>
-        <select id="discountZone" required>
-          <option value="*">Todas las zonas</option>
-          <option value="Centro">Centro de Mazatlán</option>
-          <option value="Otra zona">Otra zona de Mazatlán</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="discountStartDate">Fecha de inicio</label>
-        <input id="discountStartDate" type="date">
-      </div>
-
-      <div class="field">
-        <label for="discountEndDate">Fecha de vencimiento</label>
-        <input id="discountEndDate" type="date">
-      </div>
-
-      <div class="field">
-        <label class="check">
-          <input id="discountActive" type="checkbox" checked>
-          Código activo
-        </label>
-      </div>
-
-      <div class="row wide">
-        <button class="btn" type="submit">Guardar código</button>
-        <button id="cancelDiscountBtn" class="btn secondary"
-          type="button">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-      <div id="editorPanel" class="panel hidden">
-        <h2 id="editorTitle">Nuevo producto</h2>
-        <form id="productForm" class="grid">
-          <input id="productId" type="hidden">
-
-          <div class="field">
-            <label for="pName">Nombre *</label>
-            <input id="pName" required maxlength="120">
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <h2>Códigos promocionales</h2>
+              <p class="muted">Crea y administra descuentos para tus clientes.</p>
+            </div>
+            <button id="newDiscountBtn" class="btn" type="button">+ Nuevo código</button>
           </div>
-          <div class="field">
-            <label for="pCategory">Categoría *</label>
-            <select id="pCategory" required></select>
-          </div>
-          <div class="field wide">
-            <label for="pDescription">Descripción</label>
-            <textarea id="pDescription" maxlength="500"></textarea>
-          </div>
-          <div class="field">
-            <label for="pType">Tipo de producto</label>
-            <select id="pType">
-              <option value="cold">Frío (precio único)</option>
-              <option value="hot">Caliente (12 y 16 oz)</option>
-              <option value="both">Caliente y frío</option>
-              <option value="food">Alimento / precio único</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="pOrder">Orden en el menú</label>
-            <input id="pOrder" type="number" value="0" step="1">
-          </div>
-          <div class="field">
-            <label for="pColdPrice">Precio frío / precio único ($)</label>
-            <input id="pColdPrice" type="number" min="0" step=".01" placeholder="78">
-          </div>
-          <div class="field">
-            <label for="pHot12">Precio caliente 12 oz ($)</label>
-            <input id="pHot12" type="number" min="0" step=".01" placeholder="65">
-          </div>
-          <div class="field">
-            <label for="pHot16">Precio caliente 16 oz ($)</label>
-            <input id="pHot16" type="number" min="0" step=".01" placeholder="75">
-          </div>
-          <div class="field wide">
-            <label for="pImage">URL de imagen (opcional)</label>
-            <input id="pImage" maxlength="1000" placeholder="Pega aquí la URL de tu imagen">
-          </div>
-          <div class="field wide">
-            <label for="pImageFile">O sube una imagen desde tu dispositivo</label>
-            <input id="pImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
-            <small>Formatos: JPG, PNG, WebP o AVIF. Máximo 5 MB.</small>
-            <img id="pImagePreview" class="preview hidden" alt="Vista previa del producto">
-          </div>
-          <label class="check wide"><input id="pAvailable" type="checkbox" checked> Disponible en el menú</label>
-          <label class="check wide"><input id="pIsSpecial" type="checkbox"> Mostrar también en Especiales</label>
-          <div class="row wide">
-            <button class="btn" type="submit">Guardar producto</button>
-            <button id="cancelProductBtn" class="btn secondary" type="button">Cancelar</button>
-          </div>
-        </form>
-        <div id="productMsg" class="notice hidden"></div>
-      </div>
 
-      <div id="categoryEditor" class="panel hidden">
-        <h2 id="categoryEditorTitle">Nueva categoría</h2>
-        <form id="categoryForm" class="grid">
-          <input id="categoryId" type="hidden">
-          <div class="field">
-            <label for="cName">Nombre *</label>
-            <input id="cName" required maxlength="80">
+          <div id="discountList" class="list">
+            <div class="empty">Cargando códigos...</div>
           </div>
-          <div class="field">
-            <label for="cOrder">Orden</label>
-            <input id="cOrder" type="number" value="0" step="1">
+
+          <div id="discountEditor" class="panel hidden">
+            <h3 id="discountEditorTitle">Nuevo código promocional</h3>
+
+            <form id="discountForm" class="grid">
+              <input id="discountOriginalCode" type="hidden">
+
+              <div class="field">
+                <label for="discountCodeInput">Código *</label>
+                <input id="discountCodeInput" required maxlength="30" placeholder="Ej. OFFICE15">
+              </div>
+
+              <div class="field">
+                <label for="discountType">Tipo de descuento *</label>
+                <select id="discountType" required>
+                  <option value="percentage">Porcentaje (%)</option>
+                  <option value="fixed">Cantidad fija ($)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="discountValue">Valor *</label>
+                <input id="discountValue" type="number" min="0.01" step="0.01" required placeholder="Ej. 15">
+              </div>
+
+              <div class="field">
+                <label for="discountMinDrinks">Mínimo de bebidas</label>
+                <input id="discountMinDrinks" type="number" min="1" step="1" value="1" required>
+              </div>
+
+              <div class="field">
+                <label for="discountZone">Zona válida *</label>
+                <select id="discountZone" required>
+                  <option value="*">Todas las zonas</option>
+                  <option value="Centro">Centro de Mazatlán</option>
+                  <option value="Otra zona">Otra zona de Mazatlán</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="discountStartDate">Fecha de inicio</label>
+                <input id="discountStartDate" type="date">
+              </div>
+
+              <div class="field">
+                <label for="discountEndDate">Fecha de vencimiento</label>
+                <input id="discountEndDate" type="date">
+              </div>
+
+              <div class="field">
+                <label class="check">
+                  <input id="discountActive" type="checkbox" checked>
+                  Código activo
+                </label>
+              </div>
+
+              <div class="row wide">
+                <button class="btn" type="submit">Guardar código</button>
+                <button id="cancelDiscountBtn" class="btn secondary" type="button">Cancelar</button>
+              </div>
+            </form>
           </div>
-          <label class="check wide"><input id="cActive" type="checkbox" checked> Categoría visible</label>
-          <div class="row wide">
-            <button class="btn" type="submit">Guardar categoría</button>
-            <button id="cancelCategoryBtn" class="btn secondary" type="button">Cancelar</button>
-          </div>
-        </form>
-        <div id="categoryMsg" class="notice hidden"></div>
+        </div>
+
+        <div id="editorPanel" class="panel hidden">
+          <h2 id="editorTitle">Nuevo producto</h2>
+          <form id="productForm" class="grid">
+            <input id="productId" type="hidden">
+
+            <div class="field">
+              <label for="pName">Nombre *</label>
+              <input id="pName" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="pCategory">Categoría *</label>
+              <select id="pCategory" required></select>
+            </div>
+            <div class="field wide">
+              <label for="pDescription">Descripción</label>
+              <textarea id="pDescription" maxlength="500"></textarea>
+            </div>
+            <div class="field">
+              <label for="pType">Tipo de producto</label>
+              <select id="pType">
+                <option value="cold">Frío (precio único)</option>
+                <option value="hot">Caliente (12 y 16 oz)</option>
+                <option value="both">Caliente y frío</option>
+                <option value="food">Alimento / precio único</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pOrder">Orden en el menú</label>
+              <input id="pOrder" type="number" value="0" step="1">
+            </div>
+            <div class="field">
+              <label for="pColdPrice">Precio frío / precio único ($)</label>
+              <input id="pColdPrice" type="number" min="0" step=".01" placeholder="78">
+            </div>
+            <div class="field">
+              <label for="pHot12">Precio caliente 12 oz ($)</label>
+              <input id="pHot12" type="number" min="0" step=".01" placeholder="65">
+            </div>
+            <div class="field">
+              <label for="pHot16">Precio caliente 16 oz ($)</label>
+              <input id="pHot16" type="number" min="0" step=".01" placeholder="75">
+            </div>
+            <div class="field wide">
+              <label for="pImage">URL de imagen (opcional)</label>
+              <input id="pImage" maxlength="1000" placeholder="Pega aquí la URL de tu imagen">
+            </div>
+            <div class="field wide">
+              <label for="pImageFile">O sube una imagen desde tu dispositivo</label>
+              <input id="pImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif">
+              <small>Formatos: JPG, PNG, WebP o AVIF. Máximo 5 MB.</small>
+              <img id="pImagePreview" class="preview hidden" alt="Vista previa del producto">
+            </div>
+            <label class="check wide"><input id="pAvailable" type="checkbox" checked> Disponible en el menú</label>
+            <label class="check wide"><input id="pIsSpecial" type="checkbox"> Mostrar también en Especiales</label>
+            <div class="row wide">
+              <button class="btn" type="submit">Guardar producto</button>
+              <button id="cancelProductBtn" class="btn secondary" type="button">Cancelar</button>
+            </div>
+          </form>
+          <div id="productMsg" class="notice hidden"></div>
+        </div>
+
+        <div id="categoryEditor" class="panel hidden">
+          <h2 id="categoryEditorTitle">Nueva categoría</h2>
+          <form id="categoryForm" class="grid">
+            <input id="categoryId" type="hidden">
+            <div class="field">
+              <label for="cName">Nombre *</label>
+              <input id="cName" required maxlength="80">
+            </div>
+            <div class="field">
+              <label for="cOrder">Orden</label>
+              <input id="cOrder" type="number" value="0" step="1">
+            </div>
+            <label class="check wide"><input id="cActive" type="checkbox" checked> Categoría visible</label>
+            <div class="row wide">
+              <button class="btn" type="submit">Guardar categoría</button>
+              <button id="cancelCategoryBtn" class="btn secondary" type="button">Cancelar</button>
+            </div>
+          </form>
+          <div id="categoryMsg" class="notice hidden"></div>
+        </div>
       </div>
     </div>
 
@@ -548,7 +1001,7 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   let products = [];
   let categories = [];
   let activeProductGroup = 'cold';
-let productSearch = '';
+  let productSearch = '';
   let selectedProductImage = null;
   let selectedSeasonImage = null;
   let selectedBannerImage = null;
@@ -692,278 +1145,278 @@ let productSearch = '';
     }
   }
 
-let discountCodes = [];
+  let discountCodes = [];
 
-const defaultDiscountCodes = [
-  {
-    code: "OFFICE15",
-    type: "percentage",
-    value: 15,
-    minDrinks: 3,
-    zone: "Centro",
-    active: true,
-    startDate: "",
-    endDate: ""
+  const defaultDiscountCodes = [
+    {
+      code: "OFFICE15",
+      type: "percentage",
+      value: 15,
+      minDrinks: 3,
+      zone: "Centro",
+      active: true,
+      startDate: "",
+      endDate: ""
+    }
+  ];
+
+  function escapeDiscountText(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
   }
-];
 
-function escapeDiscountText(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
-}
+  async function loadDiscountCodes() {
+    const list = $("discountList");
 
-async function loadDiscountCodes() {
-  const list = $("discountList");
+    try {
+      const { data, error } = await supabaseClient
+        .from("site_settings")
+        .select("value")
+        .eq("key", "discount_codes")
+        .maybeSingle();
 
-  try {
-    const { data, error } = await supabaseClient
+      if (error) throw error;
+
+      if (data && Array.isArray(data.value?.codes)) {
+        discountCodes = data.value.codes;
+      } else {
+        discountCodes = [...defaultDiscountCodes];
+      }
+
+      renderDiscountCodes();
+
+    } catch (error) {
+      console.error("Error cargando códigos:", error);
+      discountCodes = [...defaultDiscountCodes];
+
+      list.innerHTML = `
+        <div class="notice">
+          No se pudieron cargar los códigos desde Supabase.
+          Revisa la conexión y los permisos de site_settings.
+        </div>
+      `;
+    }
+  }
+
+  function renderDiscountCodes() {
+    const list = $("discountList");
+
+    if (!discountCodes.length) {
+      list.innerHTML = '<div class="empty">No hay códigos promocionales.</div>';
+      return;
+    }
+
+    list.innerHTML = discountCodes.map((promo, index) => {
+      const value = promo.type === "percentage"
+        ? `${promo.value}%`
+        : `$${Number(promo.value).toFixed(2)}`;
+
+      const zone = promo.zone === "*"
+        ? "Todas las zonas"
+        : promo.zone;
+
+      const dates = [
+        promo.startDate ? `Desde ${promo.startDate}` : "",
+        promo.endDate ? `Hasta ${promo.endDate}` : ""
+      ].filter(Boolean).join(" · ") || "Sin límite de fechas";
+
+      return `
+        <div class="item">
+          <div>
+            <strong>${escapeDiscountText(promo.code)}</strong>
+            <div class="muted">
+              ${escapeDiscountText(value)} ·
+              Mínimo ${Number(promo.minDrinks) || 1} bebidas
+            </div>
+            <div class="muted">
+              ${escapeDiscountText(zone)} · ${escapeDiscountText(dates)}
+            </div>
+            <span class="pill">
+              ${promo.active ? "Activo" : "Inactivo"}
+            </span>
+          </div>
+
+          <div class="row">
+            <button class="btn secondary" type="button"
+              data-discount-action="edit" data-index="${index}">
+              Editar
+            </button>
+            <button class="btn secondary" type="button"
+              data-discount-action="toggle" data-index="${index}">
+              ${promo.active ? "Desactivar" : "Activar"}
+            </button>
+            <button class="btn secondary" type="button"
+              data-discount-action="delete" data-index="${index}">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function openDiscountEditor(promo = null) {
+    $("discountForm").reset();
+
+    $("discountOriginalCode").value = promo ? promo.code : "";
+    $("discountCodeInput").value = promo ? promo.code : "";
+    $("discountType").value = promo ? promo.type : "percentage";
+    $("discountValue").value = promo ? promo.value : "";
+    $("discountMinDrinks").value = promo ? promo.minDrinks : 1;
+    $("discountZone").value = promo ? promo.zone : "*";
+    $("discountStartDate").value = promo?.startDate || "";
+    $("discountEndDate").value = promo?.endDate || "";
+    $("discountActive").checked = promo ? promo.active : true;
+
+    $("discountEditorTitle").textContent = promo
+      ? "Editar código promocional"
+      : "Nuevo código promocional";
+
+    show("discountEditor", true);
+  }
+
+  async function saveDiscountCodes(nextCodes) {
+    const { error } = await supabaseClient
       .from("site_settings")
-      .select("value")
-      .eq("key", "discount_codes")
-      .maybeSingle();
+      .upsert({
+        key: "discount_codes",
+        value: { codes: nextCodes },
+        updated_at: new Date().toISOString()
+      }, { onConflict: "key" });
 
     if (error) throw error;
 
-    if (data && Array.isArray(data.value?.codes)) {
-      discountCodes = data.value.codes;
-    } else {
-      discountCodes = [...defaultDiscountCodes];
-    }
-
+    discountCodes = nextCodes;
     renderDiscountCodes();
-
-  } catch (error) {
-    console.error("Error cargando códigos:", error);
-    discountCodes = [...defaultDiscountCodes];
-
-    list.innerHTML = `
-      <div class="notice">
-        No se pudieron cargar los códigos desde Supabase.
-        Revisa la conexión y los permisos de site_settings.
-      </div>
-    `;
-  }
-}
-
-function renderDiscountCodes() {
-  const list = $("discountList");
-
-  if (!discountCodes.length) {
-    list.innerHTML = '<div class="empty">No hay códigos promocionales.</div>';
-    return;
   }
 
-  list.innerHTML = discountCodes.map((promo, index) => {
-    const value = promo.type === "percentage"
-      ? `${promo.value}%`
-      : `$${Number(promo.value).toFixed(2)}`;
+  $("newDiscountBtn").addEventListener("click", () => {
+    openDiscountEditor();
+  });
 
-    const zone = promo.zone === "*"
-      ? "Todas las zonas"
-      : promo.zone;
-
-    const dates = [
-      promo.startDate ? `Desde ${promo.startDate}` : "",
-      promo.endDate ? `Hasta ${promo.endDate}` : ""
-    ].filter(Boolean).join(" · ") || "Sin límite de fechas";
-
-    return `
-      <div class="item">
-        <div>
-          <strong>${escapeDiscountText(promo.code)}</strong>
-          <div class="muted">
-            ${escapeDiscountText(value)} ·
-            Mínimo ${Number(promo.minDrinks) || 1} bebidas
-          </div>
-          <div class="muted">
-            ${escapeDiscountText(zone)} · ${escapeDiscountText(dates)}
-          </div>
-          <span class="pill">
-            ${promo.active ? "Activo" : "Inactivo"}
-          </span>
-        </div>
-
-        <div class="row">
-          <button class="btn secondary" type="button"
-            data-discount-action="edit" data-index="${index}">
-            Editar
-          </button>
-          <button class="btn secondary" type="button"
-            data-discount-action="toggle" data-index="${index}">
-            ${promo.active ? "Desactivar" : "Activar"}
-          </button>
-          <button class="btn secondary" type="button"
-            data-discount-action="delete" data-index="${index}">
-            Eliminar
-          </button>
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-function openDiscountEditor(promo = null) {
-  $("discountForm").reset();
-
-  $("discountOriginalCode").value = promo ? promo.code : "";
-  $("discountCodeInput").value = promo ? promo.code : "";
-  $("discountType").value = promo ? promo.type : "percentage";
-  $("discountValue").value = promo ? promo.value : "";
-  $("discountMinDrinks").value = promo ? promo.minDrinks : 1;
-  $("discountZone").value = promo ? promo.zone : "*";
-  $("discountStartDate").value = promo?.startDate || "";
-  $("discountEndDate").value = promo?.endDate || "";
-  $("discountActive").checked = promo ? promo.active : true;
-
-  $("discountEditorTitle").textContent = promo
-    ? "Editar código promocional"
-    : "Nuevo código promocional";
-
-  show("discountEditor", true);
-}
-
-async function saveDiscountCodes(nextCodes) {
-  const { error } = await supabaseClient
-    .from("site_settings")
-    .upsert({
-      key: "discount_codes",
-      value: { codes: nextCodes },
-      updated_at: new Date().toISOString()
-    }, { onConflict: "key" });
-
-  if (error) throw error;
-
-  discountCodes = nextCodes;
-  renderDiscountCodes();
-}
-
-$("newDiscountBtn").addEventListener("click", () => {
-  openDiscountEditor();
-});
-
-$("cancelDiscountBtn").addEventListener("click", () => {
-  show("discountEditor", false);
-});
-
-$("discountForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const originalCode = $("discountOriginalCode").value;
-  const code = $("discountCodeInput").value.trim().toUpperCase();
-  const type = $("discountType").value;
-  const value = Number($("discountValue").value);
-  const minDrinks = Number($("discountMinDrinks").value);
-  const zone = $("discountZone").value;
-  const startDate = $("discountStartDate").value;
-  const endDate = $("discountEndDate").value;
-  const active = $("discountActive").checked;
-
-  if (!code || !Number.isFinite(value) || value <= 0) {
-    alert("Revisa el código y el valor del descuento.");
-    return;
-  }
-
-  if (type === "percentage" && value > 100) {
-    alert("El descuento porcentual no puede superar el 100%.");
-    return;
-  }
-
-  if (!Number.isInteger(minDrinks) || minDrinks < 1) {
-    alert("El mínimo de bebidas debe ser al menos 1.");
-    return;
-  }
-
-  if (startDate && endDate && endDate < startDate) {
-    alert("La fecha de vencimiento no puede ser anterior al inicio.");
-    return;
-  }
-
-  const duplicate = discountCodes.some(promo =>
-    promo.code.toUpperCase() === code &&
-    promo.code !== originalCode
-  );
-
-  if (duplicate) {
-    alert("Ya existe un código con ese nombre.");
-    return;
-  }
-
-  const newPromo = {
-    code,
-    type,
-    value,
-    minDrinks,
-    zone,
-    active,
-    startDate,
-    endDate
-  };
-
-  const nextCodes = originalCode
-    ? discountCodes.map(promo =>
-        promo.code === originalCode ? newPromo : promo
-      )
-    : [...discountCodes, newPromo];
-
-  try {
-    await saveDiscountCodes(nextCodes);
+  $("cancelDiscountBtn").addEventListener("click", () => {
     show("discountEditor", false);
-    alert("Código guardado correctamente.");
-  } catch (error) {
-    console.error(error);
-    alert("No se pudo guardar. Revisa los permisos de Supabase.");
-  }
-});
+  });
 
-$("discountList").addEventListener("click", async event => {
-  const button = event.target.closest("[data-discount-action]");
-  if (!button) return;
+  $("discountForm").addEventListener("submit", async event => {
+    event.preventDefault();
 
-  const index = Number(button.dataset.index);
-  const promo = discountCodes[index];
+    const originalCode = $("discountOriginalCode").value;
+    const code = $("discountCodeInput").value.trim().toUpperCase();
+    const type = $("discountType").value;
+    const value = Number($("discountValue").value);
+    const minDrinks = Number($("discountMinDrinks").value);
+    const zone = $("discountZone").value;
+    const startDate = $("discountStartDate").value;
+    const endDate = $("discountEndDate").value;
+    const active = $("discountActive").checked;
 
-  if (!promo) return;
-
-  const action = button.dataset.discountAction;
-
-  if (action === "edit") {
-    openDiscountEditor(promo);
-    return;
-  }
-
-  if (action === "delete") {
-    if (!confirm(`¿Eliminar el código ${promo.code}?`)) return;
-
-    const nextCodes = discountCodes.filter((_, i) => i !== index);
-
-    try {
-      await saveDiscountCodes(nextCodes);
-    } catch (error) {
-      console.error(error);
-      alert("No se pudo eliminar el código.");
+    if (!code || !Number.isFinite(value) || value <= 0) {
+      alert("Revisa el código y el valor del descuento.");
+      return;
     }
 
-    return;
-  }
+    if (type === "percentage" && value > 100) {
+      alert("El descuento porcentual no puede superar el 100%.");
+      return;
+    }
 
-  if (action === "toggle") {
-    const nextCodes = discountCodes.map((item, i) =>
-      i === index ? { ...item, active: !item.active } : item
+    if (!Number.isInteger(minDrinks) || minDrinks < 1) {
+      alert("El mínimo de bebidas debe ser al menos 1.");
+      return;
+    }
+
+    if (startDate && endDate && endDate < startDate) {
+      alert("La fecha de vencimiento no puede ser anterior al inicio.");
+      return;
+    }
+
+    const duplicate = discountCodes.some(promo =>
+      promo.code.toUpperCase() === code &&
+      promo.code !== originalCode
     );
 
+    if (duplicate) {
+      alert("Ya existe un código con ese nombre.");
+      return;
+    }
+
+    const newPromo = {
+      code,
+      type,
+      value,
+      minDrinks,
+      zone,
+      active,
+      startDate,
+      endDate
+    };
+
+    const nextCodes = originalCode
+      ? discountCodes.map(promo =>
+          promo.code === originalCode ? newPromo : promo
+        )
+      : [...discountCodes, newPromo];
+
     try {
       await saveDiscountCodes(nextCodes);
+      show("discountEditor", false);
+      alert("Código guardado correctamente.");
     } catch (error) {
       console.error(error);
-      alert("No se pudo cambiar el estado del código.");
+      alert("No se pudo guardar. Revisa los permisos de Supabase.");
     }
-  }
-});
+  });
+
+  $("discountList").addEventListener("click", async event => {
+    const button = event.target.closest("[data-discount-action]");
+    if (!button) return;
+
+    const index = Number(button.dataset.index);
+    const promo = discountCodes[index];
+
+    if (!promo) return;
+
+    const action = button.dataset.discountAction;
+
+    if (action === "edit") {
+      openDiscountEditor(promo);
+      return;
+    }
+
+    if (action === "delete") {
+      if (!confirm(`¿Eliminar el código ${promo.code}?`)) return;
+
+      const nextCodes = discountCodes.filter((_, i) => i !== index);
+
+      try {
+        await saveDiscountCodes(nextCodes);
+      } catch (error) {
+        console.error(error);
+        alert("No se pudo eliminar el código.");
+      }
+
+      return;
+    }
+
+    if (action === "toggle") {
+      const nextCodes = discountCodes.map((item, i) =>
+        i === index ? { ...item, active: !item.active } : item
+      );
+
+      try {
+        await saveDiscountCodes(nextCodes);
+      } catch (error) {
+        console.error(error);
+        alert("No se pudo cambiar el estado del código.");
+      }
+    }
+  });
 
   async function loadAll() {
     if (!supabaseClient) {
@@ -985,161 +1438,159 @@ $("discountList").addEventListener("click", async event => {
     renderProducts();
     fillCategorySelect();
 
-await Promise.all([
-  loadSeasonSettings(),
-  loadBannerSettings(),
-  loadDiscountCodes()
-]);  }
-
-
-function normalizeText(value) {
-  return String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim();
-}
-
-// Determina dónde debe aparecer cada producto
-function productBelongsToGroup(product, group) {
-  const category = categories.find(
-    c => String(c.id) === String(product.category_id)
-  );
-
-  const categoryName = normalizeText(category?.name);
-  const type = product.product_type;
-
-  // Los combos siempre tienen prioridad
-  if (categoryName.includes('combo')) {
-    return group === 'combo';
+    await Promise.all([
+      loadSeasonSettings(),
+      loadBannerSettings(),
+      loadDiscountCodes()
+    ]);
   }
 
-  if (group === 'cold') {
-    return type === 'cold' || type === 'both';
+  function normalizeText(value) {
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
   }
 
-  if (group === 'hot') {
-    return type === 'hot' || type === 'both';
+  function productBelongsToGroup(product, group) {
+    const category = categories.find(
+      c => String(c.id) === String(product.category_id)
+    );
+
+    const categoryName = normalizeText(category?.name);
+    const type = product.product_type;
+
+    if (categoryName.includes('combo')) {
+      return group === 'combo';
+    }
+
+    if (group === 'cold') {
+      return type === 'cold' || type === 'both';
+    }
+
+    if (group === 'hot') {
+      return type === 'hot' || type === 'both';
+    }
+
+    if (group === 'other') {
+      return type === 'food' ||
+        !['cold', 'hot', 'both'].includes(type);
+    }
+
+    return false;
   }
 
-  if (group === 'other') {
-    return type === 'food' ||
-      !['cold', 'hot', 'both'].includes(type);
+  function renderProductGroupTabs() {
+    const groups = [
+      {id:'cold', count:'countCold'},
+      {id:'hot', count:'countHot'},
+      {id:'combo', count:'countCombo'},
+      {id:'other', count:'countOther'}
+    ];
+
+    groups.forEach(group => {
+      const total = products.filter(p =>
+        productBelongsToGroup(p, group.id)
+      ).length;
+
+      $(group.count).textContent = total;
+    });
+
+    document.querySelectorAll('[data-product-group]').forEach(button => {
+      const active = button.dataset.productGroup === activeProductGroup;
+
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+
+    const titles = {
+      cold: 'Bebidas frías',
+      hot: 'Bebidas calientes',
+      combo: 'Combos',
+      other: 'Otros productos'
+    };
+
+    $('productGroupTitle').textContent = titles[activeProductGroup];
   }
 
-  return false;
-}
+  function renderProducts() {
+    const list = $('productList');
 
-function renderProductGroupTabs() {
-  const groups = [
-    {id:'cold', count:'countCold'},
-    {id:'hot', count:'countHot'},
-    {id:'combo', count:'countCombo'},
-    {id:'other', count:'countOther'}
-  ];
+    renderProductGroupTabs();
 
-  groups.forEach(group => {
-    const total = products.filter(p =>
-      productBelongsToGroup(p, group.id)
-    ).length;
+    const filteredProducts = products.filter(p => {
+      const belongs = productBelongsToGroup(p, activeProductGroup);
 
-    $(group.count).textContent = total;
-  });
+      const search = normalizeText(productSearch);
+      const matchesSearch =
+        !search ||
+        normalizeText(p.name).includes(search) ||
+        normalizeText(p.description).includes(search);
 
-  document.querySelectorAll('[data-product-group]').forEach(button => {
-    const active = button.dataset.productGroup === activeProductGroup;
+      return belongs && matchesSearch;
+    });
 
-    button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', String(active));
-  });
+    $('productGroupTotal').textContent =
+      filteredProducts.length +
+      (filteredProducts.length === 1 ? ' producto' : ' productos');
 
-  const titles = {
-    cold: 'Bebidas frías',
-    hot: 'Bebidas calientes',
-    combo: 'Combos',
-    other: 'Otros productos'
-  };
+    if (!products.length) {
+      list.innerHTML = '<div class="empty">Todavía no hay productos. Pulsa “Nuevo producto”.</div>';
+      return;
+    }
 
-  $('productGroupTitle').textContent = titles[activeProductGroup];
-}
+    if (!filteredProducts.length) {
+      list.innerHTML = '<div class="empty">No hay productos en esta sección.</div>';
+      return;
+    }
 
-function renderProducts() {
-  const list = $('productList');
+    list.innerHTML = filteredProducts.map(p => {
+      const cat = categories.find(
+        c => String(c.id) === String(p.category_id)
+      )?.name || 'Sin categoría';
 
-  renderProductGroupTabs();
+      const type = p.product_type;
 
-  const filteredProducts = products.filter(p => {
-    const belongs = productBelongsToGroup(p, activeProductGroup);
+      let prices = type === 'hot'
+        ? `12 oz ${money(p.hot_price_12)} · 16 oz ${money(p.hot_price_16)}`
+        : type === 'both'
+          ? `Frío ${money(p.cold_price)} · caliente 12 oz ${money(p.hot_price_12)} / 16 oz ${money(p.hot_price_16)}`
+          : money(p.cold_price);
 
-    const search = normalizeText(productSearch);
-    const matchesSearch =
-      !search ||
-      normalizeText(p.name).includes(search) ||
-      normalizeText(p.description).includes(search);
-
-    return belongs && matchesSearch;
-  });
-
-  $('productGroupTotal').textContent =
-    filteredProducts.length +
-    (filteredProducts.length === 1 ? ' producto' : ' productos');
-
-  if (!products.length) {
-    list.innerHTML = '<div class="empty">Todavía no hay productos. Pulsa “Nuevo producto”.</div>';
-    return;
-  }
-
-  if (!filteredProducts.length) {
-    list.innerHTML = '<div class="empty">No hay productos en esta sección.</div>';
-    return;
-  }
-
-  list.innerHTML = filteredProducts.map(p => {
-    const cat = categories.find(
-      c => String(c.id) === String(p.category_id)
-    )?.name || 'Sin categoría';
-
-    const type = p.product_type;
-
-    let prices = type === 'hot'
-      ? `12 oz ${money(p.hot_price_12)} · 16 oz ${money(p.hot_price_16)}`
-      : type === 'both'
-        ? `Frío ${money(p.cold_price)} · caliente 12 oz ${money(p.hot_price_12)} / 16 oz ${money(p.hot_price_16)}`
-        : money(p.cold_price);
-
-    return `<div class="item">
-      <div class="item-main">
-        <strong>${safe(p.name)}</strong>
-        <small>${safe(cat)} · ${prices}</small>
-        <div style="margin-top:5px">
-          <span class="pill ${p.available ? '' : 'off'}">
-            ${p.available ? 'Disponible' : 'Agotado / oculto'}
-          </span>
+      return `<div class="item">
+        <div class="item-main">
+          <strong>${safe(p.name)}</strong>
+          <small>${safe(cat)} · ${prices}</small>
+          <div style="margin-top:5px">
+            <span class="pill ${p.available ? '' : 'off'}">
+              ${p.available ? 'Disponible' : 'Agotado / oculto'}
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div class="item-actions">
-        <button class="btn secondary" data-edit-product="${p.id}" type="button">Editar</button>
-        <button class="btn secondary" data-toggle-product="${p.id}" type="button">
-          ${p.available ? 'Ocultar' : 'Activar'}
-        </button>
-        <button class="btn danger" data-delete-product="${p.id}" type="button">Eliminar</button>
-      </div>
-    </div>`;
-  }).join('');
+        <div class="item-actions">
+          <button class="btn secondary" data-edit-product="${p.id}" type="button">Editar</button>
+          <button class="btn secondary" data-toggle-product="${p.id}" type="button">
+            ${p.available ? 'Ocultar' : 'Activar'}
+          </button>
+          <button class="btn danger" data-delete-product="${p.id}" type="button">Eliminar</button>
+        </div>
+      </div>`;
+    }).join('');
 
-  list.querySelectorAll('[data-edit-product]').forEach(b =>
-    b.onclick = () => editProduct(b.dataset.editProduct)
-  );
+    list.querySelectorAll('[data-edit-product]').forEach(b =>
+      b.onclick = () => editProduct(b.dataset.editProduct)
+    );
 
-  list.querySelectorAll('[data-toggle-product]').forEach(b =>
-    b.onclick = () => toggleProduct(b.dataset.toggleProduct)
-  );
+    list.querySelectorAll('[data-toggle-product]').forEach(b =>
+      b.onclick = () => toggleProduct(b.dataset.toggleProduct)
+    );
 
-  list.querySelectorAll('[data-delete-product]').forEach(b =>
-    b.onclick = () => deleteProduct(b.dataset.deleteProduct)
-  );
-}
+    list.querySelectorAll('[data-delete-product]').forEach(b =>
+      b.onclick = () => deleteProduct(b.dataset.deleteProduct)
+    );
+  }
 
   function renderCategories() {
     const list = $('categoryList');
@@ -1374,32 +1825,31 @@ function renderProducts() {
     show('globalMsg', false);
   });
 
-document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('[data-tab]').forEach(x => {
-    x.classList.toggle('active', x === b);
-    x.classList.toggle('secondary', x !== b);
+  document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('[data-tab]').forEach(x => {
+      x.classList.toggle('active', x === b);
+      x.classList.toggle('secondary', x !== b);
+    });
+
+    show('productsTab', b.dataset.tab === 'products');
+    show('categoriesTab', b.dataset.tab === 'categories');
+    show('discountsTab', b.dataset.tab === 'discounts');
+
+    show('editorPanel', false);
+    show('categoryEditor', false);
+  }));
+
+  document.querySelectorAll('[data-product-group]').forEach(button => {
+    button.addEventListener('click', () => {
+      activeProductGroup = button.dataset.productGroup;
+      renderProducts();
+    });
   });
 
-  show('productsTab', b.dataset.tab === 'products');
-  show('categoriesTab', b.dataset.tab === 'categories');
-  show('discountsTab', b.dataset.tab === 'discounts');
-
-  show('editorPanel', false);
-  show('categoryEditor', false);
-}));
-// Cambiar entre grupos de productos
-document.querySelectorAll('[data-product-group]').forEach(button => {
-  button.addEventListener('click', () => {
-    activeProductGroup = button.dataset.productGroup;
+  $('productSearch').addEventListener('input', event => {
+    productSearch = event.target.value;
     renderProducts();
   });
-});
-
-// Buscar productos dentro de la sección seleccionada
-$('productSearch').addEventListener('input', event => {
-  productSearch = event.target.value;
-  renderProducts();
-});
 
   document.querySelectorAll('.editor-toggle').forEach(button => {
     button.addEventListener('click', () => {
@@ -1620,7 +2070,6 @@ $('productSearch').addEventListener('input', event => {
     }
   });
 
-  // Conexión automática directa al abrir la página
   connectSupabase();
 })();
 </script>
