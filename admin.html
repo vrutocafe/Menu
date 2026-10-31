@@ -320,9 +320,73 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   <div id="discountList" class="list">
     <div class="empty">Cargando códigos...</div>
   </div>
-</div>
+
+  <div id="discountEditor" class="panel hidden">
+    <h3 id="discountEditorTitle">Nuevo código promocional</h3>
+
+    <form id="discountForm" class="grid">
+      <input id="discountOriginalCode" type="hidden">
+
+      <div class="field">
+        <label for="discountCodeInput">Código *</label>
+        <input id="discountCodeInput" required maxlength="30"
+          placeholder="Ej. OFFICE15">
       </div>
 
+      <div class="field">
+        <label for="discountType">Tipo de descuento *</label>
+        <select id="discountType" required>
+          <option value="percentage">Porcentaje (%)</option>
+          <option value="fixed">Cantidad fija ($)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="discountValue">Valor *</label>
+        <input id="discountValue" type="number" min="0.01"
+          step="0.01" required placeholder="Ej. 15">
+      </div>
+
+      <div class="field">
+        <label for="discountMinDrinks">Mínimo de bebidas</label>
+        <input id="discountMinDrinks" type="number" min="1"
+          step="1" value="1" required>
+      </div>
+
+      <div class="field">
+        <label for="discountZone">Zona válida *</label>
+        <select id="discountZone" required>
+          <option value="*">Todas las zonas</option>
+          <option value="Centro">Centro de Mazatlán</option>
+          <option value="Otra zona">Otra zona de Mazatlán</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="discountStartDate">Fecha de inicio</label>
+        <input id="discountStartDate" type="date">
+      </div>
+
+      <div class="field">
+        <label for="discountEndDate">Fecha de vencimiento</label>
+        <input id="discountEndDate" type="date">
+      </div>
+
+      <div class="field">
+        <label class="check">
+          <input id="discountActive" type="checkbox" checked>
+          Código activo
+        </label>
+      </div>
+
+      <div class="row wide">
+        <button class="btn" type="submit">Guardar código</button>
+        <button id="cancelDiscountBtn" class="btn secondary"
+          type="button">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
       <div id="editorPanel" class="panel hidden">
         <h2 id="editorTitle">Nuevo producto</h2>
         <form id="productForm" class="grid">
