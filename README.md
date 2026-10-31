@@ -1419,13 +1419,17 @@ function getPrice(product,size) {
 function renderMenu() {
   const grid = document.getElementById("menuGrid");
 
-  const filtered = menuData.filter(item => {
-    if (currentFilter === "Especiales") return item.isSpecial === true;
-    if (currentFilter === "Calientes") return item.hot === true;
-    if (currentFilter === "Fríos") return item.hot === false;
-    return item.category === currentFilter;
-  });
+const filtered = menuData.filter(item => {
+  if (currentFilter === "Especiales") return item.isSpecial === true;
 
+  if (currentFilter === "Calientes") {
+    return item.hot === true && item.category === "Calientes";
+  }
+
+  if (currentFilter === "Fríos") return item.hot === false;
+
+  return item.category === currentFilter;
+});
   // Detecta si solo hay 1 artículo en la categoría actual
   const isSingle = filtered.length === 1;
 
