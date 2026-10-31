@@ -692,6 +692,279 @@ let productSearch = '';
     }
   }
 
+let discountCodes = [];
+
+const defaultDiscountCodes = [
+  {
+    code: "OFFICE15",
+    type: "percentage",
+    value: 15,
+    minDrinks: 3,
+    zone: "Centro",
+    active: true,
+    startDate: "",
+    endDate: ""
+  }
+];
+
+function escapeDiscountText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+async function loadDiscountCodes() {
+  const list = $("discountList");
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("site_settings")
+      .select("value")
+      .eq("key", "discount_codes")
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (data && Array.isArray(data.value?.codes)) {
+      discountCodes = data.value.codes;
+    } else {
+      discountCodes = [...defaultDiscountCodes];
+    }
+
+    renderDiscountCodes();
+
+  } catch (error) {
+    console.error("Error cargando códigos:", error);
+    discountCodes = [...defaultDiscountCodes];
+
+    list.innerHTML = `
+      <div class="notice">
+        No se pudieron cargar los códigos desde Supabase.
+        Revisa la conexión y los permisos de site_settings.
+      </div>
+    `;
+  }
+}
+
+function renderDiscountCodes() {
+  const list = $("discountList");
+
+  if (!discountCodes.length) {
+    list.innerHTML = '<div class="empty">No hay códigos promocionales.</div>';
+    return;
+  }
+
+  list.innerHTML = discountCodes.map((promo, index) => {
+    const value = promo.type === "percentage"
+      ? `${promo.value}%`
+      : `$${Number(promo.value).toFixed(2)}`;
+
+    const zone = promo.zone === "*"
+      ? "Todas las zonas"
+      : promo.zone;
+
+    const dates = [
+      promo.startDate ? `Desde ${promo.startDate}` : "",
+      promo.endDate ? `Hasta ${promo.endDate}` : ""
+    ].filter(Boolean).join(" · ") || "Sin límite de fechas";
+
+    return `
+      <div class="item">
+        <div>
+          <strong>${escapeDiscountText(promo.code)}</strong>
+          <div class="muted">
+            ${escapeDiscountText(value)} ·
+            Mínimo ${Number(promo.minDrinks) || 1} bebidas
+          </div>
+          <div class="muted">
+            ${escapeDiscountText(zone)} · ${escapeDiscountText(dates)}
+          </div>
+          <span class="pill">
+            ${promo.active ? "Activo" : "Inactivo"}
+          </span>
+        </div>
+
+        <div class="row">
+          <button class="btn secondary" type="button"
+            data-discount-action="edit" data-index="${index}">
+            Editar
+          </button>
+          <button class="btn secondary" type="button"
+            data-discount-action="toggle" data-index="${index}">
+            ${promo.active ? "Desactivar" : "Activar"}
+          </button>
+          <button class="btn secondary" type="button"
+            data-discount-action="delete" data-index="${index}">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openDiscountEditor(promo = null) {
+  $("discountForm").reset();
+
+  $("discountOriginalCode").value = promo ? promo.code : "";
+  $("discountCodeInput").value = promo ? promo.code : "";
+  $("discountType").value = promo ? promo.type : "percentage";
+  $("discountValue").value = promo ? promo.value : "";
+  $("discountMinDrinks").value = promo ? promo.minDrinks : 1;
+  $("discountZone").value = promo ? promo.zone : "*";
+  $("discountStartDate").value = promo?.startDate || "";
+  $("discountEndDate").value = promo?.endDate || "";
+  $("discountActive").checked = promo ? promo.active : true;
+
+  $("discountEditorTitle").textContent = promo
+    ? "Editar código promocional"
+    : "Nuevo código promocional";
+
+  show("discountEditor", true);
+}
+
+async function saveDiscountCodes(nextCodes) {
+  const { error } = await supabaseClient
+    .from("site_settings")
+    .upsert({
+      key: "discount_codes",
+      value: { codes: nextCodes },
+      updated_at: new Date().toISOString()
+    }, { onConflict: "key" });
+
+  if (error) throw error;
+
+  discountCodes = nextCodes;
+  renderDiscountCodes();
+}
+
+$("newDiscountBtn").addEventListener("click", () => {
+  openDiscountEditor();
+});
+
+$("cancelDiscountBtn").addEventListener("click", () => {
+  show("discountEditor", false);
+});
+
+$("discountForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const originalCode = $("discountOriginalCode").value;
+  const code = $("discountCodeInput").value.trim().toUpperCase();
+  const type = $("discountType").value;
+  const value = Number($("discountValue").value);
+  const minDrinks = Number($("discountMinDrinks").value);
+  const zone = $("discountZone").value;
+  const startDate = $("discountStartDate").value;
+  const endDate = $("discountEndDate").value;
+  const active = $("discountActive").checked;
+
+  if (!code || !Number.isFinite(value) || value <= 0) {
+    alert("Revisa el código y el valor del descuento.");
+    return;
+  }
+
+  if (type === "percentage" && value > 100) {
+    alert("El descuento porcentual no puede superar el 100%.");
+    return;
+  }
+
+  if (!Number.isInteger(minDrinks) || minDrinks < 1) {
+    alert("El mínimo de bebidas debe ser al menos 1.");
+    return;
+  }
+
+  if (startDate && endDate && endDate < startDate) {
+    alert("La fecha de vencimiento no puede ser anterior al inicio.");
+    return;
+  }
+
+  const duplicate = discountCodes.some(promo =>
+    promo.code.toUpperCase() === code &&
+    promo.code !== originalCode
+  );
+
+  if (duplicate) {
+    alert("Ya existe un código con ese nombre.");
+    return;
+  }
+
+  const newPromo = {
+    code,
+    type,
+    value,
+    minDrinks,
+    zone,
+    active,
+    startDate,
+    endDate
+  };
+
+  const nextCodes = originalCode
+    ? discountCodes.map(promo =>
+        promo.code === originalCode ? newPromo : promo
+      )
+    : [...discountCodes, newPromo];
+
+  try {
+    await saveDiscountCodes(nextCodes);
+    show("discountEditor", false);
+    alert("Código guardado correctamente.");
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo guardar. Revisa los permisos de Supabase.");
+  }
+});
+
+$("discountList").addEventListener("click", async event => {
+  const button = event.target.closest("[data-discount-action]");
+  if (!button) return;
+
+  const index = Number(button.dataset.index);
+  const promo = discountCodes[index];
+
+  if (!promo) return;
+
+  const action = button.dataset.discountAction;
+
+  if (action === "edit") {
+    openDiscountEditor(promo);
+    return;
+  }
+
+  if (action === "delete") {
+    if (!confirm(`¿Eliminar el código ${promo.code}?`)) return;
+
+    const nextCodes = discountCodes.filter((_, i) => i !== index);
+
+    try {
+      await saveDiscountCodes(nextCodes);
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo eliminar el código.");
+    }
+
+    return;
+  }
+
+  if (action === "toggle") {
+    const nextCodes = discountCodes.map((item, i) =>
+      i === index ? { ...item, active: !item.active } : item
+    );
+
+    try {
+      await saveDiscountCodes(nextCodes);
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo cambiar el estado del código.");
+    }
+  }
+});
+
   async function loadAll() {
     if (!supabaseClient) {
       throw new Error('Primero conecta tu proyecto Supabase.');
@@ -712,8 +985,11 @@ let productSearch = '';
     renderProducts();
     fillCategorySelect();
 
-    await Promise.all([loadSeasonSettings(), loadBannerSettings()]);
-  }
+await Promise.all([
+  loadSeasonSettings(),
+  loadBannerSettings(),
+  loadDiscountCodes()
+]);  }
 
 
 function normalizeText(value) {
