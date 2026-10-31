@@ -1136,8 +1136,24 @@
       </div>
 
       <div class="panel">
-        <h3>📍 Datos de entrega</h3>
-        <form id="orderForm">
+<h3 class="cart-title">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="12" cy="10" r="2.5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+    />
+  </svg>
+  Datos de entrega
+</h3>        <form id="orderForm">
           <div class="field">
             <label for="customerName">Nombre *</label>
             <input id="customerName" name="customerName" required placeholder="¿A nombre de quién?">
