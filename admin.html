@@ -94,6 +94,95 @@ small{color:var(--muted)}
   margin-left:8px;
 }
 img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-radius:12px;margin-top:10px}
+  
+/* Organización de productos por tipo */
+.product-groups{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+  margin:20px 0 14px;
+}
+
+.product-group-tab{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  min-height:100px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#fff;
+  color:var(--ink);
+  cursor:pointer;
+  text-align:left;
+  font:inherit;
+  transition:background .2s,border-color .2s;
+}
+
+.product-group-tab:hover{
+  border-color:var(--olive);
+}
+
+.product-group-tab.active{
+  background:#f0f0e7;
+  border-color:var(--olive);
+  box-shadow:inset 0 0 0 1px var(--olive);
+}
+
+.product-group-top{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:650;
+}
+
+.product-group-count{
+  font-size:24px;
+  font-weight:700;
+  line-height:1;
+  color:var(--olive);
+}
+
+.product-search{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 14px;
+  font:inherit;
+  background:white;
+  color:var(--ink);
+  outline:none;
+  margin-bottom:12px;
+}
+
+.product-search:focus{
+  border-color:var(--olive);
+  box-shadow:0 0 0 3px #51583d15;
+}
+
+.product-list-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:12px;
+}
+
+@media(max-width:600px){
+  .product-groups{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+
+  .product-group-tab{
+    min-height:85px;
+    padding:12px;
+  }
+}
+
 
 @media(max-width:700px){
   .editor-toggles{grid-template-columns:1fr}
@@ -170,8 +259,44 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
             <h2>Productos</h2>
             <button id="newProductBtn" class="btn" type="button">+ Nuevo producto</button>
           </div>
-          <div id="productList" class="list"><div class="empty">Conectando…</div></div>
-        </div>
+
+<div class="product-groups">
+  <button type="button" class="product-group-tab active" data-product-group="cold">
+    <span class="product-group-top">❄️ Fríos</span>
+    <span class="product-group-count" id="countCold">0</span>
+  </button>
+
+  <button type="button" class="product-group-tab" data-product-group="hot">
+    <span class="product-group-top">☕ Calientes</span>
+    <span class="product-group-count" id="countHot">0</span>
+  </button>
+
+  <button type="button" class="product-group-tab" data-product-group="combo">
+    <span class="product-group-top">🥪 Combos</span>
+    <span class="product-group-count" id="countCombo">0</span>
+  </button>
+
+  <button type="button" class="product-group-tab" data-product-group="other">
+    <span class="product-group-top">📦 Otros</span>
+    <span class="product-group-count" id="countOther">0</span>
+  </button>
+</div>
+
+<input
+  id="productSearch"
+  class="product-search"
+  type="search"
+  placeholder="Buscar producto por nombre..."
+>
+
+<div class="product-list-heading">
+  <h2 id="productGroupTitle">Bebidas frías</h2>
+  <span class="muted" id="productGroupTotal">0 productos</span>
+</div>
+
+<div id="productList" class="list">
+  <div class="empty">Conectando…</div>
+</div>
 
         <div id="categoriesTab" class="hidden">
           <div class="row" style="justify-content:space-between">
@@ -342,6 +467,8 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
   let supabaseClient = null;
   let products = [];
   let categories = [];
+  let activeProductGroup = 'cold';
+let productSearch = '';
   let selectedProductImage = null;
   let selectedSeasonImage = null;
   let selectedBannerImage = null;
@@ -508,44 +635,155 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     await Promise.all([loadSeasonSettings(), loadBannerSettings()]);
   }
 
-  function renderProducts() {
-    const list = $('productList');
 
-    if (!products.length) {
-      list.innerHTML = '<div class="empty">Todavía no hay productos. Pulsa “Nuevo producto”.</div>';
-      return;
-    }
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
 
-    list.innerHTML = products.map(p => {
-      const cat = categories.find(c => c.id === p.category_id)?.name || 'Sin categoría';
-      const type = p.product_type;
+// Determina dónde debe aparecer cada producto
+function productBelongsToGroup(product, group) {
+  const category = categories.find(
+    c => String(c.id) === String(product.category_id)
+  );
 
-      let prices = type === 'hot'
-        ? `12 oz ${money(p.hot_price_12)} · 16 oz ${money(p.hot_price_16)}`
-        : type === 'both'
-          ? `Frío ${money(p.cold_price)} · caliente 12 oz ${money(p.hot_price_12)} / 16 oz ${money(p.hot_price_16)}`
-          : money(p.cold_price);
+  const categoryName = normalizeText(category?.name);
+  const type = product.product_type;
 
-      return `<div class="item">
-        <div class="item-main">
-          <strong>${safe(p.name)}</strong>
-          <small>${safe(cat)} · ${prices}</small>
-          <div style="margin-top:5px">
-            <span class="pill ${p.available ? '' : 'off'}">${p.available ? 'Disponible' : 'Agotado / oculto'}</span>
-          </div>
-        </div>
-        <div class="item-actions">
-          <button class="btn secondary" data-edit-product="${p.id}" type="button">Editar</button>
-          <button class="btn secondary" data-toggle-product="${p.id}" type="button">${p.available ? 'Ocultar' : 'Activar'}</button>
-          <button class="btn danger" data-delete-product="${p.id}" type="button">Eliminar</button>
-        </div>
-      </div>`;
-    }).join('');
-
-    list.querySelectorAll('[data-edit-product]').forEach(b => b.onclick = () => editProduct(b.dataset.editProduct));
-    list.querySelectorAll('[data-toggle-product]').forEach(b => b.onclick = () => toggleProduct(b.dataset.toggleProduct));
-    list.querySelectorAll('[data-delete-product]').forEach(b => b.onclick = () => deleteProduct(b.dataset.deleteProduct));
+  // Los combos siempre tienen prioridad
+  if (categoryName.includes('combo')) {
+    return group === 'combo';
   }
+
+  if (group === 'cold') {
+    return type === 'cold' || type === 'both';
+  }
+
+  if (group === 'hot') {
+    return type === 'hot' || type === 'both';
+  }
+
+  if (group === 'other') {
+    return type === 'food' ||
+      !['cold', 'hot', 'both'].includes(type);
+  }
+
+  return false;
+}
+
+function renderProductGroupTabs() {
+  const groups = [
+    {id:'cold', count:'countCold'},
+    {id:'hot', count:'countHot'},
+    {id:'combo', count:'countCombo'},
+    {id:'other', count:'countOther'}
+  ];
+
+  groups.forEach(group => {
+    const total = products.filter(p =>
+      productBelongsToGroup(p, group.id)
+    ).length;
+
+    $(group.count).textContent = total;
+  });
+
+  document.querySelectorAll('[data-product-group]').forEach(button => {
+    const active = button.dataset.productGroup === activeProductGroup;
+
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+
+  const titles = {
+    cold: 'Bebidas frías',
+    hot: 'Bebidas calientes',
+    combo: 'Combos',
+    other: 'Otros productos'
+  };
+
+  $('productGroupTitle').textContent = titles[activeProductGroup];
+}
+
+function renderProducts() {
+  const list = $('productList');
+
+  renderProductGroupTabs();
+
+  const filteredProducts = products.filter(p => {
+    const belongs = productBelongsToGroup(p, activeProductGroup);
+
+    const search = normalizeText(productSearch);
+    const matchesSearch =
+      !search ||
+      normalizeText(p.name).includes(search) ||
+      normalizeText(p.description).includes(search);
+
+    return belongs && matchesSearch;
+  });
+
+  $('productGroupTotal').textContent =
+    filteredProducts.length +
+    (filteredProducts.length === 1 ? ' producto' : ' productos');
+
+  if (!products.length) {
+    list.innerHTML = '<div class="empty">Todavía no hay productos. Pulsa “Nuevo producto”.</div>';
+    return;
+  }
+
+  if (!filteredProducts.length) {
+    list.innerHTML = '<div class="empty">No hay productos en esta sección.</div>';
+    return;
+  }
+
+  list.innerHTML = filteredProducts.map(p => {
+    const cat = categories.find(
+      c => String(c.id) === String(p.category_id)
+    )?.name || 'Sin categoría';
+
+    const type = p.product_type;
+
+    let prices = type === 'hot'
+      ? `12 oz ${money(p.hot_price_12)} · 16 oz ${money(p.hot_price_16)}`
+      : type === 'both'
+        ? `Frío ${money(p.cold_price)} · caliente 12 oz ${money(p.hot_price_12)} / 16 oz ${money(p.hot_price_16)}`
+        : money(p.cold_price);
+
+    return `<div class="item">
+      <div class="item-main">
+        <strong>${safe(p.name)}</strong>
+        <small>${safe(cat)} · ${prices}</small>
+        <div style="margin-top:5px">
+          <span class="pill ${p.available ? '' : 'off'}">
+            ${p.available ? 'Disponible' : 'Agotado / oculto'}
+          </span>
+        </div>
+      </div>
+
+      <div class="item-actions">
+        <button class="btn secondary" data-edit-product="${p.id}" type="button">Editar</button>
+        <button class="btn secondary" data-toggle-product="${p.id}" type="button">
+          ${p.available ? 'Ocultar' : 'Activar'}
+        </button>
+        <button class="btn danger" data-delete-product="${p.id}" type="button">Eliminar</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  list.querySelectorAll('[data-edit-product]').forEach(b =>
+    b.onclick = () => editProduct(b.dataset.editProduct)
+  );
+
+  list.querySelectorAll('[data-toggle-product]').forEach(b =>
+    b.onclick = () => toggleProduct(b.dataset.toggleProduct)
+  );
+
+  list.querySelectorAll('[data-delete-product]').forEach(b =>
+    b.onclick = () => deleteProduct(b.dataset.deleteProduct)
+  );
+}
 
   function renderCategories() {
     const list = $('categoryList');
@@ -791,6 +1029,20 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
     show('editorPanel', false);
     show('categoryEditor', false);
   }));
+
+// Cambiar entre grupos de productos
+document.querySelectorAll('[data-product-group]').forEach(button => {
+  button.addEventListener('click', () => {
+    activeProductGroup = button.dataset.productGroup;
+    renderProducts();
+  });
+});
+
+// Buscar productos dentro de la sección seleccionada
+$('productSearch').addEventListener('input', event => {
+  productSearch = event.target.value;
+  renderProducts();
+});
 
   document.querySelectorAll('.editor-toggle').forEach(button => {
     button.addEventListener('click', () => {
