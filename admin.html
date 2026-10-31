@@ -249,11 +249,11 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
         <h1>Tu menú</h1>
         <p class="muted">Los cambios se guardan en Supabase. La página pública debe estar conectada a la misma base de datos para mostrar las actualizaciones.</p>
 
-        <div class="tabs">
-          <button class="btn active" data-tab="products" type="button">Productos</button>
-          <button class="btn secondary" data-tab="categories" type="button">Categorías</button>
-        </div>
-
+<div class="tabs">
+  <button class="btn active" data-tab="products" type="button">Productos</button>
+  <button class="btn secondary" data-tab="categories" type="button">Categorías</button>
+  <button class="btn secondary" data-tab="discounts" type="button">Códigos de descuento</button>
+</div>
         <div id="productsTab">
           <div class="row" style="justify-content:space-between">
             <h2>Productos</h2>
@@ -306,6 +306,21 @@ img.preview{width:100%;max-width:420px;max-height:240px;object-fit:cover;border-
           </div>
           <div id="categoryList" class="list"></div>
         </div>
+        <div id="discountsTab" class="hidden">
+  <div class="row" style="justify-content:space-between">
+    <div>
+      <h2>Códigos promocionales</h2>
+      <p class="muted">Crea y administra descuentos para tus clientes.</p>
+    </div>
+    <button id="newDiscountBtn" class="btn" type="button">
+      + Nuevo código
+    </button>
+  </div>
+
+  <div id="discountList" class="list">
+    <div class="empty">Cargando códigos...</div>
+  </div>
+</div>
       </div>
 
       <div id="editorPanel" class="panel hidden">
@@ -1019,18 +1034,19 @@ function renderProducts() {
     show('globalMsg', false);
   });
 
-  document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
-    document.querySelectorAll('[data-tab]').forEach(x => {
-      x.classList.toggle('active', x === b);
-      x.classList.toggle('secondary', x !== b);
-    });
+document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-tab]').forEach(x => {
+    x.classList.toggle('active', x === b);
+    x.classList.toggle('secondary', x !== b);
+  });
 
-    show('productsTab', b.dataset.tab === 'products');
-    show('categoriesTab', b.dataset.tab === 'categories');
-    show('editorPanel', false);
-    show('categoryEditor', false);
-  }));
+  show('productsTab', b.dataset.tab === 'products');
+  show('categoriesTab', b.dataset.tab === 'categories');
+  show('discountsTab', b.dataset.tab === 'discounts');
 
+  show('editorPanel', false);
+  show('categoryEditor', false);
+}));
 // Cambiar entre grupos de productos
 document.querySelectorAll('[data-product-group]').forEach(button => {
   button.addEventListener('click', () => {
