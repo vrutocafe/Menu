@@ -971,7 +971,17 @@
     width: 14px;
     height: 14px;
   }
+.cart-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
 
+.cart-title svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1079,8 +1089,19 @@
 
     <div class="order-layout">
       <div class="panel" id="cartPanel">
-        <h3>🛒 Mi carrito</h3>
-        <div id="cartItems">
+<h3 class="cart-title">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+    <circle cx="10" cy="20" r="1" fill="currentColor"/>
+    <circle cx="18" cy="20" r="1" fill="currentColor"/>
+  </svg>
+  Mi carrito
+</h3>        <div id="cartItems">
           <p class="empty">Tu carrito está vacío. Agrega algo rico del menú.</p>
         </div>
 
